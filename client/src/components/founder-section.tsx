@@ -14,48 +14,59 @@ export default function FounderSection() {
   return (
     <section id="founder" className="py-20 bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="text-center lg:text-left">
-            <img 
-              src={samirKumarPhoto} 
-              alt="Samir Kumar - Founder & Career Strategist" 
-              className="w-64 h-64 rounded-full mx-auto lg:mx-0 object-cover shadow-xl border-4 border-white"
-              data-testid="founder-image"
-            />
-          </div>
-          
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Meet Our Founder</h2>
-            <h3 className="text-xl font-semibold text-blue-600 mb-4">
-              Samir Kumar – Founder & Career Strategist
-            </h3>
-            
-            <p className="text-lg text-muted-foreground mb-6">
-              With 30+ years of experience in education, training, business development, marketing, 
-              admissions, and alliances, Samir brings unparalleled expertise to career guidance.
-            </p>
-            
-            <div className="mb-6">
-              <h4 className="text-lg font-semibold mb-3">Areas of Expertise:</h4>
-              <div className="grid grid-cols-1 gap-2">
-                {expertiseAreas.map((area, index) => (
-                  <div key={index} className="flex items-center">
-                    <Check className="h-4 w-4 text-green-500 mr-2" />
-                    <span className="text-sm">{area}</span>
-                  </div>
-                ))}
-              </div>
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">Meet Our Founder</h2>
+        
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden max-w-5xl mx-auto">
+          <div className="md:flex">
+            {/* Image Section */}
+            <div className="md:w-2/5">
+              <img 
+                src={samirKumarPhoto} 
+                alt="Samir Kumar - Founder & Career Strategist" 
+                className="w-full h-64 md:h-full object-cover"
+                data-testid="founder-image"
+              />
             </div>
             
-            <p className="text-muted-foreground mb-6">
-              <strong>Objective:</strong> Providing structured career guidance for students, graduates, 
-              and professionals to help them achieve their career aspirations.
-            </p>
-            
-            <button className="bg-gradient-to-r from-blue-600 to-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-red-700 transition-all duration-300 flex items-center" data-testid="button-connect-linkedin">
-              <Linkedin className="mr-2 h-5 w-5" />
-              Connect on LinkedIn
-            </button>
+            {/* Content Section */}
+            <div className="md:w-3/5 p-8 md:p-12">
+              <div className="flex items-center mb-4">
+                <div className="w-1 h-12 bg-blue-600 mr-4"></div>
+                <div>
+                  <h3 className="text-2xl font-bold text-foreground">Samir Kumar</h3>
+                  <p className="text-blue-600 font-semibold">Founder & Career Strategist</p>
+                </div>
+              </div>
+              
+              <p className="text-muted-foreground mb-6 leading-relaxed">
+                With 30+ years of experience in education, training, business development, marketing, 
+                admissions, and alliances, Samir brings unparalleled expertise to career guidance.
+              </p>
+              
+              <div className="mb-6">
+                <h4 className="text-lg font-semibold mb-4 text-foreground">Areas of Expertise</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {expertiseAreas.map((area, index) => (
+                    <div key={index} className="flex items-center">
+                      <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                      <span className="text-sm text-muted-foreground">{area}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg mb-6">
+                <p className="text-sm text-muted-foreground">
+                  <strong className="text-blue-600">Mission:</strong> Providing structured career guidance for students, graduates, 
+                  and professionals to help them achieve their career aspirations.
+                </p>
+              </div>
+              
+              <button className="bg-gradient-to-r from-blue-600 to-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-red-700 transition-all duration-300 flex items-center" data-testid="button-connect-linkedin">
+                <Linkedin className="mr-2 h-5 w-5" />
+                Connect on LinkedIn
+              </button>
+            </div>
           </div>
         </div>
       </div>
