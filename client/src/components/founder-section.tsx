@@ -12,7 +12,7 @@ export default function FounderSection() {
   ];
 
   return (
-    <section id="founder" className="py-20 bg-muted">
+    <section id="founder" className="scroll-mt-20 py-20 bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">Meet Our Founder</h2>
         

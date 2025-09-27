@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Menu, X, User, LogOut } from "lucide-react";
 import careerSkopeLogoPath from "@assets/Screenshot 2025-09-27 114759_1758954653506.png";
 import { useAuth } from "@/hooks/use-auth";
+import { useScrollspy } from "@/hooks/use-scrollspy";
 import { AuthDialog } from "./auth-dialog";
+import ScrollProgressBar from "./scroll-progress-bar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -28,17 +30,25 @@ export default function Navigation() {
     { href: "#contact", label: "Contact" },
   ];
 
+  // Track active section with scrollspy
+  const sectionIds = navLinks.map(link => link.href);
+  const activeSection = useScrollspy(sectionIds, 100);
+
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     setIsMobileMenuOpen(false);
+    // Update URL hash for better accessibility and navigation
+    window.history.replaceState(null, '', href);
   };
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-card/80 backdrop-blur-md border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+      <ScrollProgressBar />
+      <nav className="fixed top-0 w-full z-50 bg-card/80 backdrop-blur-md border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-2">
@@ -53,18 +63,27 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <button
+              <a
                 key={link.href}
-                onClick={() => scrollToSection(link.href)}
-                className="nav-link text-muted-foreground hover:text-foreground"
+                href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(link.href);
+                }}
+                className={`nav-link transition-all duration-300 ${
+                  activeSection === link.href
+                    ? 'text-blue-600 font-semibold'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+                aria-current={activeSection === link.href ? 'page' : undefined}
                 data-testid={`nav-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
               >
                 {link.label}
-              </button>
+              </a>
             ))}
             <button 
               onClick={() => scrollToSection("#contact")}
-              className="bg-gradient-to-r from-blue-600 to-red-600 text-white px-6 py-2 rounded-lg hover:from-blue-700 hover:to-red-700 transition-all duration-300 font-medium"
+              className="btn-interactive bg-gradient-to-r from-blue-600 to-red-600 text-white px-6 py-2 rounded-lg hover:from-blue-700 hover:to-red-700 transition-all duration-300 font-medium hover-lift"
               data-testid="button-book-free-call"
             >
               Book a Free Call
@@ -86,21 +105,32 @@ export default function Navigation() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-card border-b border-border">
+        <div className="md:hidden bg-card border-b border-border animate-slide-up">
           <div className="px-4 pt-2 pb-3 space-y-1">
-            {navLinks.map((link) => (
-              <button
+            {navLinks.map((link, index) => (
+              <a
                 key={link.href}
-                onClick={() => scrollToSection(link.href)}
-                className="block w-full text-left px-3 py-2 text-muted-foreground hover:text-foreground"
+                href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(link.href);
+                }}
+                className={`block w-full text-left px-3 py-2 rounded-lg transition-all duration-300 animate-fade-in ${
+                  activeSection === link.href
+                    ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20 font-semibold'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                }`}
+                style={{ animationDelay: `${index * 50}ms` }}
+                aria-current={activeSection === link.href ? 'page' : undefined}
                 data-testid={`mobile-nav-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
               >
                 {link.label}
-              </button>
+              </a>
             ))}
             <button 
               onClick={() => scrollToSection("#contact")}
-              className="w-full mt-2 bg-gradient-to-r from-blue-600 to-red-600 text-white px-6 py-2 rounded-lg"
+              className="w-full mt-4 bg-gradient-to-r from-blue-600 to-red-600 text-white px-6 py-3 rounded-lg btn-interactive hover-lift animate-scale-in"
+              style={{ animationDelay: `${navLinks.length * 50}ms` }}
               data-testid="mobile-button-book-free-call"
             >
               Book a Free Call
@@ -108,6 +138,7 @@ export default function Navigation() {
           </div>
         </div>
       )}
-    </nav>
+      </nav>
+    </>
   );
 }
