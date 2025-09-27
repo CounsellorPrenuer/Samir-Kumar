@@ -139,14 +139,18 @@ export default function TestimonialsSection() {
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 transform hover:scale-125 ${
+                    className={`w-6 h-6 p-2 rounded-full transition-all duration-300 transform hover:scale-125 min-h-[44px] min-w-[44px] flex items-center justify-center ${
                       index === currentIndex
                         ? 'bg-blue-600 shadow-lg'
                         : 'bg-gray-300 hover:bg-gray-400'
                     }`}
                     data-testid={`indicator-${index}`}
                     aria-label={`Go to testimonial ${index + 1}`}
-                  />
+                  >
+                    <div className={`w-3 h-3 rounded-full ${
+                      index === currentIndex ? 'bg-white' : 'bg-gray-600'
+                    }`} />
+                  </button>
                 ))}
               </div>
             </div>
@@ -192,7 +196,7 @@ export default function TestimonialsSection() {
             
             <button 
               onClick={prevTestimonial}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full w-12 h-12 flex items-center justify-center hover:bg-gray-50 transition-all duration-200 transform hover:scale-110 hover:shadow-xl opacity-80 hover:opacity-100"
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center hover:bg-gray-50 transition-all duration-200 transform hover:scale-110 hover:shadow-xl opacity-80 hover:opacity-100 min-h-[44px] min-w-[44px]"
               data-testid="button-prev-testimonial"
               aria-label="Previous testimonial"
             >
@@ -200,7 +204,7 @@ export default function TestimonialsSection() {
             </button>
             <button 
               onClick={nextTestimonial}
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full w-12 h-12 flex items-center justify-center hover:bg-gray-50 transition-all duration-200 transform hover:scale-110 hover:shadow-xl opacity-80 hover:opacity-100"
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center hover:bg-gray-50 transition-all duration-200 transform hover:scale-110 hover:shadow-xl opacity-80 hover:opacity-100 min-h-[44px] min-w-[44px]"
               data-testid="button-next-testimonial"
               aria-label="Next testimonial"
             >

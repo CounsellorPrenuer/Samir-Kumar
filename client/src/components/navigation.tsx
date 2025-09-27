@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X, User, LogOut } from "lucide-react";
 import careerSkopeLogoPath from "@assets/Screenshot 2025-09-27 114759_1758954653506.png";
+import { ResponsiveImage } from "./responsive-image";
 import { useAuth } from "@/hooks/use-auth";
 import { useScrollspy } from "@/hooks/use-scrollspy";
 import { AuthDialog } from "./auth-dialog";
@@ -52,10 +53,16 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <img 
+            <ResponsiveImage 
               src={careerSkopeLogoPath} 
               alt="Careerskope Logo" 
               className="h-10 w-auto"
+              loading="eager"
+              priority={true}
+              sizes="200px"
+              width={200}
+              height={40}
+              fixed={true}
               data-testid="logo-image"
             />
           </div>
@@ -83,7 +90,7 @@ export default function Navigation() {
             ))}
             <button 
               onClick={() => scrollToSection("#contact")}
-              className="btn-interactive bg-gradient-to-r from-blue-600 to-red-600 text-white px-6 py-2 rounded-lg hover:from-blue-700 hover:to-red-700 transition-all duration-300 font-medium hover-lift"
+              className="btn-interactive bg-gradient-to-r from-blue-600 to-red-600 text-white px-6 py-3 rounded-lg hover:from-blue-700 hover:to-red-700 transition-all duration-300 font-medium hover-lift min-h-[44px]"
               data-testid="button-book-free-call"
             >
               Book a Free Call
@@ -94,7 +101,7 @@ export default function Navigation() {
           <div className="md:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-foreground hover:text-muted-foreground"
+              className="text-foreground hover:text-muted-foreground p-3 rounded-md min-h-[44px] min-w-[44px] flex items-center justify-center"
               data-testid="button-mobile-menu"
             >
               {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -115,7 +122,7 @@ export default function Navigation() {
                   e.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className={`block w-full text-left px-3 py-2 rounded-lg transition-all duration-300 animate-fade-in ${
+                className={`block w-full text-left px-3 py-3 rounded-lg transition-all duration-300 animate-fade-in min-h-[44px] flex items-center ${
                   activeSection === link.href
                     ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20 font-semibold'
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted'
@@ -129,7 +136,7 @@ export default function Navigation() {
             ))}
             <button 
               onClick={() => scrollToSection("#contact")}
-              className="w-full mt-4 bg-gradient-to-r from-blue-600 to-red-600 text-white px-6 py-3 rounded-lg btn-interactive hover-lift animate-scale-in"
+              className="w-full mt-4 bg-gradient-to-r from-blue-600 to-red-600 text-white px-6 py-3 rounded-lg btn-interactive hover-lift animate-scale-in min-h-[44px]"
               style={{ animationDelay: `${navLinks.length * 50}ms` }}
               data-testid="mobile-button-book-free-call"
             >
