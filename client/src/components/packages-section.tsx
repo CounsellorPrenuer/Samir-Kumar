@@ -62,7 +62,7 @@ export default function PackagesSection() {
             {/* Ascend Plus Package */}
             <div className="pricing-card bg-gradient-to-br from-blue-50 to-green-50 border-2 border-blue-200 rounded-xl p-8 hover-lift relative" data-testid="package-ascend-plus">
               <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                <span className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-4 py-1 rounded-full text-sm font-medium">
+                <span className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-4 py-1 rounded-full text-sm font-medium mt-8">
                   Most Popular
                 </span>
               </div>
