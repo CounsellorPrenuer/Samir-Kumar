@@ -18,8 +18,10 @@ export default function Navigation() {
   const { user, logout, isLoading } = useAuth();
 
   const navLinks = [
+    { href: "#about", label: "About" },
     { href: "#why-careerskope", label: "Why Careerskope" },
     { href: "#services", label: "Career Guidance" },
+    { href: "#founder", label: "Our Founder" },
     { href: "#workshops", label: "Workshops" },
     { href: "#how-it-works", label: "How it Works" },
     { href: "#blog", label: "Resources" },

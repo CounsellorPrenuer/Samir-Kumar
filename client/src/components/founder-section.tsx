@@ -2,17 +2,17 @@ import { Check, Linkedin } from "lucide-react";
 import samirKumarPhoto from "@assets/Samir Kumar_CS website - Samir Kumar_1758954653508.jpg";
 
 export default function FounderSection() {
-  const competencies = [
-    "Strategy Planning",
-    "Marketing & Sales", 
-    "Career Services",
-    "Corporate Alliances",
-    "Leadership",
-    "Business Development"
+  const expertiseAreas = [
+    "Sales & Business Development",
+    "People Management & Development", 
+    "Channel Management",
+    "Marketing & Product Management",
+    "Customer Engagements",
+    "Career Counselling & Coaching"
   ];
 
   return (
-    <section className="py-20 bg-muted">
+    <section id="founder" className="py-20 bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="text-center lg:text-left">
@@ -36,12 +36,12 @@ export default function FounderSection() {
             </p>
             
             <div className="mb-6">
-              <h4 className="text-lg font-semibold mb-3">Key Competencies:</h4>
-              <div className="grid grid-cols-2 gap-2">
-                {competencies.map((competency, index) => (
+              <h4 className="text-lg font-semibold mb-3">Areas of Expertise:</h4>
+              <div className="grid grid-cols-1 gap-2">
+                {expertiseAreas.map((area, index) => (
                   <div key={index} className="flex items-center">
                     <Check className="h-4 w-4 text-green-500 mr-2" />
-                    <span className="text-sm">{competency}</span>
+                    <span className="text-sm">{area}</span>
                   </div>
                 ))}
               </div>

@@ -1,6 +1,7 @@
 import Navigation from "@/components/navigation";
 import HeroSection from "@/components/hero-section";
 import StatsSection from "@/components/stats-section";
+import AboutSection from "@/components/about-section";
 import WhyCareerskope from "@/components/why-careerskope";
 import CareerTransformation from "@/components/career-transformation";
 import HowItWorks from "@/components/how-it-works";
@@ -18,7 +19,8 @@ export default function Home() {
     <div className="min-h-screen scroll-smooth">
       <Navigation />
       <HeroSection />
-      {/* <StatsSection /> */}
+      <StatsSection />
+      <AboutSection />
       <WhyCareerskope />
       <CareerTransformation />
       <HowItWorks />
