@@ -4,6 +4,12 @@ export function useParallax(speed: number = 0.5) {
   const [transform, setTransform] = useState('translateY(0px)');
 
   useEffect(() => {
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      return; // Skip scroll listener entirely for reduced motion
+    }
+
     let ticking = false;
 
     const updateTransform = () => {
