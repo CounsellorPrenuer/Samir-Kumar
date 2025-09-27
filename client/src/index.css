@@ -201,6 +201,14 @@
     animation: pulseGlow 2s ease-in-out infinite;
   }
 
+  /* Ripple effect for buttons */
+  @keyframes ripple {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+
   .animate-bounce-in {
     animation: bounceIn 0.8s ease-out;
   }
