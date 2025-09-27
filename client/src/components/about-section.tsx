@@ -111,84 +111,67 @@ export default function AboutSection() {
           </div>
         </div>
 
-        {/* Framework Diagrams */}
+        {/* Framework Information */}
         <div className="mb-16">
           <h3 className="text-3xl font-bold text-center mb-12">
-            Our <span className="bg-gradient-to-r from-blue-600 via-green-600 to-red-600 bg-clip-text text-transparent">Counselling Framework</span>
+            Our <span className="text-blue-600">Counselling Framework</span>
           </h3>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Comprehensive Service Areas */}
-            <div>
-              <h4 className="text-xl font-semibold mb-6 text-center">Comprehensive Service Areas</h4>
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg" data-testid="framework-diagram-services">
-                <div className="text-center mb-6">
-                  <div className="inline-block bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-xl font-bold">
-                    Career Counselling at CareerSkope
-                  </div>
-                </div>
-                
-                <div className="space-y-4">
-                  {[
-                    { text: "Evaluate Career Options", icon: Target, color: "text-green-600" },
-                    { text: "Career Opportunities", icon: TrendingUp, color: "text-red-600" },
-                    { text: "Unbiased Counselling Process", icon: CheckCircle, color: "text-blue-600" },
-                    { text: "Informed Career Decisions", icon: Lightbulb, color: "text-purple-600" },
-                    { text: "Education and Career Road Map Discussions", icon: MapPin, color: "text-orange-600" }
-                  ].map((service, index) => {
-                    const IconComponent = service.icon;
-                    return (
-                      <div key={index} className="flex items-center space-x-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:shadow-md transition-all duration-300">
-                        <div className={`w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-600 flex items-center justify-center`}>
-                          <IconComponent className={`h-6 w-6 ${service.color}`} />
-                        </div>
-                        <span className="font-medium text-foreground">{service.text}</span>
-                      </div>
-                    );
-                  })}
-                </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            {/* Service Areas */}
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-sm" data-testid="framework-diagram-services">
+              <h4 className="text-xl font-bold text-center mb-6 text-blue-600">Service Areas</h4>
+              <div className="space-y-4">
+                <div className="text-center font-semibold text-lg text-foreground mb-4">Career Counselling at CareerSkope</div>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start">
+                    <span className="text-green-600 mr-2">•</span>
+                    <span>Evaluate Career Options</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-600 mr-2">•</span>
+                    <span>Career Opportunities</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-blue-600 mr-2">•</span>
+                    <span>Unbiased Counselling Process</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-purple-600 mr-2">•</span>
+                    <span>Informed Career Decisions</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-orange-600 mr-2">•</span>
+                    <span>Education and Career Road Map Discussions</span>
+                  </li>
+                </ul>
               </div>
             </div>
             
-            {/* Scientific Assessment Approach */}
-            <div>
-              <h4 className="text-xl font-semibold mb-6 text-center">Scientific Assessment Approach</h4>
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg" data-testid="framework-diagram-assessment">
-                <div className="space-y-6">
-                  <div className="text-center text-muted-foreground text-sm font-medium mb-6">
-                    Our assessment is based on three core components:
-                  </div>
-                  
-                  {[
-                    { text: "Individual's Personality", icon: Users, color: "bg-orange-500" },
-                    { text: "Career Interest", icon: Heart, color: "bg-green-500" },
-                    { text: "Learning Abilities", icon: GraduationCap, color: "bg-blue-500" }
-                  ].map((component, index) => {
-                    const IconComponent = component.icon;
-                    return (
-                      <div key={index} className="text-center">
-                        <div className={`${component.color} text-white mx-auto w-fit px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300`}>
-                          <div className="flex items-center justify-center space-x-3">
-                            <IconComponent className="h-6 w-6" />
-                            <span className="font-semibold">{component.text}</span>
-                          </div>
-                        </div>
-                        {index < 2 && (
-                          <div className="flex justify-center mt-3 mb-3">
-                            <ArrowRight className="h-5 w-5 text-gray-400 transform rotate-90" />
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                  
-                  <div className="text-center mt-8">
-                    <div className="inline-block bg-gradient-to-r from-blue-600 to-blue-800 text-white px-8 py-4 rounded-xl shadow-xl">
-                      <div className="flex items-center justify-center space-x-3">
-                        <Target className="h-8 w-8" />
-                        <div className="text-lg font-bold">Informed Career Choice</div>
-                      </div>
-                    </div>
+            {/* Assessment Approach */}
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-sm" data-testid="framework-diagram-assessment">
+              <h4 className="text-xl font-bold text-center mb-6 text-blue-600">Assessment Approach</h4>
+              <div className="space-y-4">
+                <p className="text-center text-muted-foreground text-sm mb-4">
+                  Our assessment is based on three core components:
+                </p>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start">
+                    <span className="text-orange-600 mr-2">•</span>
+                    <span>Individual's Personality</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-600 mr-2">•</span>
+                    <span>Career Interest</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-blue-600 mr-2">•</span>
+                    <span>Learning Abilities</span>
+                  </li>
+                </ul>
+                <div className="text-center mt-6 pt-4 border-t border-gray-200 dark:border-gray-600">
+                  <div className="text-lg font-bold text-blue-600">
+                    ↓ Informed Career Choice
                   </div>
                 </div>
               </div>
