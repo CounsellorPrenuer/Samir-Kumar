@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, Star, Play, Pause } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import type { Testimonial } from "@shared/schema";
+import { useAutoScroll } from "@/hooks/use-auto-scroll";
+import { useInView } from "@/hooks/use-in-view";
 
 export default function TestimonialsSection() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const { ref: sectionRef, isInView } = useInView({ threshold: 0.3 });
 
   // Fetch testimonials from database
   const { data: testimonials = [], isLoading } = useQuery<Testimonial[]>({
@@ -12,40 +14,71 @@ export default function TestimonialsSection() {
     queryFn: () => fetch('/api/testimonials').then(res => res.json())
   });
 
-  const nextTestimonial = () => {
-    if (testimonials.length > 0) {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  // Enhanced auto-scroll with controls
+  const {
+    currentIndex,
+    isPlaying,
+    isPaused,
+    goToNext,
+    goToPrevious,
+    goToSlide,
+    pause,
+    resume,
+    toggle
+  } = useAutoScroll({
+    interval: 4000,
+    pauseOnHover: true,
+    itemCount: testimonials.length || 0
+  });
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!isInView) return;
+
+      switch (event.key) {
+        case 'ArrowLeft':
+          event.preventDefault();
+          goToPrevious();
+          break;
+        case 'ArrowRight':
+          event.preventDefault();
+          goToNext();
+          break;
+        case ' ':
+          event.preventDefault();
+          toggle();
+          break;
+        case 'Home':
+          event.preventDefault();
+          goToSlide(0);
+          break;
+        case 'End':
+          event.preventDefault();
+          goToSlide(testimonials.length - 1);
+          break;
+      }
+    };
+
+    if (isInView) {
+      window.addEventListener('keydown', handleKeyDown);
     }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isInView, testimonials.length, goToNext, goToPrevious, goToSlide, toggle]);
+
+  const nextTestimonial = () => {
+    goToNext();
   };
 
   const prevTestimonial = () => {
-    if (testimonials.length > 0) {
-      setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-    }
+    goToPrevious();
   };
 
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    if (testimonials.length === 0 || isLoading) return;
-    
-    // Delay the start of auto-advance to ensure proper initialization
-    const timer = setTimeout(() => {
-      intervalRef.current = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-      }, 5000);
-    }, 5000);
-    
-    return () => {
-      clearTimeout(timer);
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [testimonials.length, isLoading]);
-
   return (
-    <section className="py-20 bg-card">
+    <section ref={sectionRef} className="py-20 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Success Stories</h2>
@@ -82,9 +115,49 @@ export default function TestimonialsSection() {
           </div>
         ) : testimonials.length > 0 ? (
           <div className="relative max-w-4xl mx-auto">
-            <div className="overflow-hidden rounded-xl">
+            {/* Control Panel */}
+            <div className="flex justify-center items-center mb-6 space-x-4">
+              <button
+                onClick={toggle}
+                className="flex items-center space-x-2 bg-white shadow-md rounded-full px-4 py-2 hover:bg-gray-50 transition-all duration-200 transform hover:scale-105"
+                data-testid="button-play-pause"
+                aria-label={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
+              >
+                {isPlaying ? (
+                  <Pause className="h-4 w-4 text-gray-600" />
+                ) : (
+                  <Play className="h-4 w-4 text-gray-600" />
+                )}
+                <span className="text-sm text-gray-600">
+                  {isPlaying ? 'Pause' : 'Play'}
+                </span>
+              </button>
+              
+              {/* Indicator Dots */}
+              <div className="flex space-x-2">
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 transform hover:scale-125 ${
+                      index === currentIndex
+                        ? 'bg-blue-600 shadow-lg'
+                        : 'bg-gray-300 hover:bg-gray-400'
+                    }`}
+                    data-testid={`indicator-${index}`}
+                    aria-label={`Go to testimonial ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div 
+              className="overflow-hidden rounded-xl"
+              onMouseEnter={pause}
+              onMouseLeave={resume}
+            >
               <div 
-                className="flex transition-transform duration-500 ease-in-out"
+                className="flex transition-transform duration-700 ease-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
                 {testimonials.map((testimonial, index) => (
@@ -93,7 +166,7 @@ export default function TestimonialsSection() {
                     className="w-full flex-shrink-0 p-4"
                     data-testid={`testimonial-${index}`}
                   >
-                    <div className="testimonial-card bg-muted p-8 rounded-xl h-full">
+                    <div className="testimonial-card bg-muted p-8 rounded-xl h-full transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
                       <div className="flex items-center mb-6">
                         <div className={`w-12 h-12 bg-gradient-to-r ${testimonial.gradient} rounded-full flex items-center justify-center text-white font-bold mr-4 text-xl`}>
                           {testimonial.initial}
@@ -119,15 +192,17 @@ export default function TestimonialsSection() {
             
             <button 
               onClick={prevTestimonial}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full w-12 h-12 flex items-center justify-center hover:bg-gray-50 transition-colors"
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full w-12 h-12 flex items-center justify-center hover:bg-gray-50 transition-all duration-200 transform hover:scale-110 hover:shadow-xl opacity-80 hover:opacity-100"
               data-testid="button-prev-testimonial"
+              aria-label="Previous testimonial"
             >
               <ChevronLeft className="h-6 w-6 text-gray-600" />
             </button>
             <button 
               onClick={nextTestimonial}
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full w-12 h-12 flex items-center justify-center hover:bg-gray-50 transition-colors"
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full w-12 h-12 flex items-center justify-center hover:bg-gray-50 transition-all duration-200 transform hover:scale-110 hover:shadow-xl opacity-80 hover:opacity-100"
               data-testid="button-next-testimonial"
+              aria-label="Next testimonial"
             >
               <ChevronRight className="h-6 w-6 text-gray-600" />
             </button>
