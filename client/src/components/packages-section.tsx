@@ -1,6 +1,9 @@
 import { Check } from "lucide-react";
+import { useInView } from "@/hooks/use-in-view";
 
 export default function PackagesSection() {
+  const { ref: fresherCardsRef, isInView: fresherCardsInView } = useInView({ threshold: 0.2 });
+  const { ref: professionalCardRef, isInView: professionalCardInView } = useInView({ threshold: 0.3 });
   const ascendFeatures = [
     "Psychometric assessment",
     "1 career coaching session", 
@@ -39,9 +42,9 @@ export default function PackagesSection() {
           <h3 className="text-2xl font-bold text-center mb-8 text-blue-600">
             For Freshers & College Graduates
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div ref={fresherCardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Ascend Package */}
-            <div className="pricing-card bg-card border border-border rounded-xl p-8 hover-lift" data-testid="package-ascend">
+            <div className={`group pricing-card bg-card border border-border rounded-xl p-8 hover-lift transition-all duration-500 transform hover:scale-105 hover:rotate-1 cursor-pointer ${fresherCardsInView ? 'animate-fade-in' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '0ms' }} data-testid="package-ascend">
               <div className="text-center">
                 <h4 className="text-2xl font-bold mb-2">Ascend</h4>
                 <div className="text-3xl font-bold text-blue-600 mb-4">₹6,499</div>
@@ -53,14 +56,14 @@ export default function PackagesSection() {
                     </li>
                   ))}
                 </ul>
-                <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-300" data-testid="button-choose-ascend">
+                <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 hover:shadow-lg group-hover:animate-pulse" data-testid="button-choose-ascend">
                   Choose Ascend
                 </button>
               </div>
             </div>
 
             {/* Ascend Plus Package */}
-            <div className="pricing-card bg-gradient-to-br from-blue-50 to-green-50 border-2 border-blue-200 rounded-xl p-8 hover-lift relative" data-testid="package-ascend-plus">
+            <div className={`group pricing-card bg-gradient-to-br from-blue-50 to-green-50 border-2 border-blue-200 rounded-xl p-8 hover-lift relative transition-all duration-500 transform hover:scale-105 hover:-rotate-1 cursor-pointer ${fresherCardsInView ? 'animate-fade-in' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '200ms' }} data-testid="package-ascend-plus">
               <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                 <span className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-4 py-1 rounded-full text-sm font-medium mt-8">
                   Most Popular
@@ -77,7 +80,7 @@ export default function PackagesSection() {
                     </li>
                   ))}
                 </ul>
-                <button className="w-full bg-gradient-to-r from-green-600 to-blue-600 text-white py-3 rounded-lg font-semibold hover:from-green-700 hover:to-blue-700 transition-all duration-300" data-testid="button-choose-ascend-plus">
+                <button className="w-full bg-gradient-to-r from-green-600 to-blue-600 text-white py-3 rounded-lg font-semibold hover:from-green-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg group-hover:animate-pulse" data-testid="button-choose-ascend-plus">
                   Choose Ascend Plus
                 </button>
               </div>
@@ -86,11 +89,11 @@ export default function PackagesSection() {
         </div>
 
         {/* Working Professionals */}
-        <div className="max-w-2xl mx-auto">
+        <div ref={professionalCardRef} className="max-w-2xl mx-auto">
           <h3 className="text-2xl font-bold text-center mb-8 text-red-600">
             For Working Professionals & Mid-Career
           </h3>
-          <div className="bg-gradient-to-br from-red-50 to-purple-50 border-2 border-red-200 rounded-xl p-8 text-center" data-testid="package-professional">
+          <div className={`group bg-gradient-to-br from-red-50 to-purple-50 border-2 border-red-200 rounded-xl p-8 text-center transition-all duration-500 transform hover:scale-105 hover:rotate-1 cursor-pointer hover:shadow-2xl ${professionalCardInView ? 'animate-fade-in' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '0ms' }} data-testid="package-professional">
             <h4 className="text-2xl font-bold mb-4">Professional Transformation</h4>
             <p className="text-lg text-muted-foreground mb-6">
               Career clarity, skill mapping, corporate mentorship, and leadership guidance
@@ -107,7 +110,7 @@ export default function PackagesSection() {
                 <div className="text-sm text-muted-foreground">Guarantee</div>
               </div>
             </div>
-            <button className="bg-gradient-to-r from-red-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-red-700 hover:to-purple-700 transition-all duration-300" data-testid="button-get-professional-guidance">
+            <button className="bg-gradient-to-r from-red-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-red-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg group-hover:animate-pulse" data-testid="button-get-professional-guidance">
               Get Professional Guidance
             </button>
           </div>

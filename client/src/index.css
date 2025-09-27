@@ -209,6 +209,22 @@
     }
   }
 
+  /* Reduced motion support for all animations */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-slide-up,
+    .animate-fade-in,
+    .animate-float,
+    .animate-pulse-glow,
+    .animate-bounce-in {
+      animation: none !important;
+    }
+    
+    * {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+
   .animate-bounce-in {
     animation: bounceIn 0.8s ease-out;
   }

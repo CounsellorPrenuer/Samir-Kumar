@@ -1,6 +1,8 @@
 import { ArrowRight, Target, Heart, TrendingUp, Users, BookOpen, MapPin, CheckCircle, Lightbulb, GraduationCap } from "lucide-react";
+import { useInView } from "@/hooks/use-in-view";
 
 export default function AboutSection() {
+  const { ref: cardsRef, isInView: cardsInView } = useInView({ threshold: 0.2 });
   const transformations = [
     {
       from: "Confusion",
@@ -42,13 +44,14 @@ export default function AboutSection() {
         </div>
 
         {/* Transformations Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {transformations.map((transform, index) => {
             const IconComponent = transform.icon;
             return (
               <div 
                 key={index}
-                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+                className={`group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 hover:rotate-1 cursor-pointer border border-transparent hover:border-gray-200 dark:hover:border-gray-600 ${cardsInView ? 'animate-fade-in' : 'opacity-0 translate-y-8'}`}
+                style={{ animationDelay: `${index * 150}ms` }}
                 data-testid={`transformation-${transform.from.toLowerCase()}`}
               >
                 <div className="text-center">
