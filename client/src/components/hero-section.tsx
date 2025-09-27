@@ -24,18 +24,18 @@ export default function HeroSection() {
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 animate-slide-up">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 animate-slide-up">
             Empowering Careers,<br/>
-            <span className="bg-gradient-to-r from-yellow-200 to-pink-200 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-yellow-700 to-pink-600 bg-clip-text text-transparent">
               Creating Futures
             </span>
           </h1>
-          
-          <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto animate-slide-up" style={{animationDelay: '0.2s'}}>
+
+          <p className="text-xl md:text-2xl text-gray-800/90 mb-8 max-w-3xl mx-auto animate-slide-up" style={{animationDelay: '0.2s'}}>
             Clarity Today, Success Tomorrow
           </p>
-          
-          <p className="text-lg text-white/80 mb-10 max-w-2xl mx-auto animate-slide-up" style={{animationDelay: '0.4s'}}>
+
+          <p className="text-lg text-gray-700/80 mb-10 max-w-2xl mx-auto animate-slide-up" style={{animationDelay: '0.4s'}}>
             Professional career guidance for Students, Parents, Schools, Colleges, Corporates, and Working Professionals
           </p>
           

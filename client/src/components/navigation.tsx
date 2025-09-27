@@ -1,9 +1,21 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User, LogOut } from "lucide-react";
 import careerSkopeLogoPath from "@assets/Screenshot 2025-09-27 114759_1758954653506.png";
+import { useAuth } from "@/hooks/use-auth";
+import { AuthDialog } from "./auth-dialog";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const { user, logout, isLoading } = useAuth();
 
   const navLinks = [
     { href: "#why-careerskope", label: "Why Careerskope" },
@@ -34,9 +46,6 @@ export default function Navigation() {
               className="h-10 w-auto"
               data-testid="logo-image"
             />
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">
-              Careerskope
-            </span>
           </div>
 
           {/* Desktop Navigation */}

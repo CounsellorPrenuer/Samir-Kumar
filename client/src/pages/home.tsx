@@ -18,7 +18,7 @@ export default function Home() {
     <div className="min-h-screen scroll-smooth">
       <Navigation />
       <HeroSection />
-      <StatsSection />
+      {/* <StatsSection /> */}
       <WhyCareerskope />
       <CareerTransformation />
       <HowItWorks />
