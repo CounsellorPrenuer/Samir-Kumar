@@ -119,94 +119,74 @@ export default function AboutSection() {
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Comprehensive Service Areas */}
-            <div className="text-center">
-              <h4 className="text-xl font-semibold mb-6">Comprehensive Service Areas</h4>
+            <div>
+              <h4 className="text-xl font-semibold mb-6 text-center">Comprehensive Service Areas</h4>
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg" data-testid="framework-diagram-services">
-                <div className="relative w-full max-w-md mx-auto h-80">
-                  {/* Central Circle */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
-                    <div className="text-center text-white">
-                      <div className="text-xs font-bold leading-tight">Career</div>
-                      <div className="text-xs font-bold leading-tight">Counselling</div>
-                      <div className="text-xs leading-tight">at</div>
-                      <div className="text-xs font-bold leading-tight">CareerSkope</div>
-                    </div>
+                <div className="text-center mb-6">
+                  <div className="inline-block bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-xl font-bold">
+                    Career Counselling at CareerSkope
                   </div>
-                  
-                  {/* Surrounding Service Areas */}
+                </div>
+                
+                <div className="space-y-4">
                   {[
-                    { text: "Evaluate Career Options", icon: Target, position: "top-0 left-1/2 transform -translate-x-1/2", color: "bg-green-500" },
-                    { text: "Career Opportunities", icon: TrendingUp, position: "top-8 right-0", color: "bg-red-500" },
-                    { text: "Unbiased Counselling Process", icon: CheckCircle, position: "bottom-8 right-0", color: "bg-blue-500" },
-                    { text: "Informed Career Decisions", icon: Lightbulb, position: "bottom-0 left-1/2 transform -translate-x-1/2", color: "bg-purple-500" },
-                    { text: "Education and Career Road Map", icon: MapPin, position: "top-8 left-0", color: "bg-orange-500" }
+                    { text: "Evaluate Career Options", icon: Target, color: "text-green-600" },
+                    { text: "Career Opportunities", icon: TrendingUp, color: "text-red-600" },
+                    { text: "Unbiased Counselling Process", icon: CheckCircle, color: "text-blue-600" },
+                    { text: "Informed Career Decisions", icon: Lightbulb, color: "text-purple-600" },
+                    { text: "Education and Career Road Map Discussions", icon: MapPin, color: "text-orange-600" }
                   ].map((service, index) => {
                     const IconComponent = service.icon;
                     return (
-                      <div key={index} className={`absolute ${service.position} w-20 h-20 ${service.color} rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-300 group cursor-pointer`}>
-                        <div className="text-center text-white">
-                          <IconComponent className="h-6 w-6 mx-auto mb-1" />
+                      <div key={index} className="flex items-center space-x-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:shadow-md transition-all duration-300">
+                        <div className={`w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-600 flex items-center justify-center`}>
+                          <IconComponent className={`h-6 w-6 ${service.color}`} />
                         </div>
-                        {/* Tooltip */}
-                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-                          {service.text}
-                        </div>
+                        <span className="font-medium text-foreground">{service.text}</span>
                       </div>
                     );
                   })}
-                  
-                  {/* Connection Lines */}
-                  <div className="absolute inset-0 pointer-events-none">
-                    <svg className="w-full h-full" viewBox="0 0 320 320">
-                      {/* Lines connecting center to each service */}
-                      <line x1="160" y1="160" x2="160" y2="40" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="4,4" />
-                      <line x1="160" y1="160" x2="280" y2="72" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="4,4" />
-                      <line x1="160" y1="160" x2="280" y2="248" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="4,4" />
-                      <line x1="160" y1="160" x2="160" y2="280" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="4,4" />
-                      <line x1="160" y1="160" x2="40" y2="72" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="4,4" />
-                    </svg>
-                  </div>
                 </div>
               </div>
             </div>
             
             {/* Scientific Assessment Approach */}
-            <div className="text-center">
-              <h4 className="text-xl font-semibold mb-6">Scientific Assessment Approach</h4>
+            <div>
+              <h4 className="text-xl font-semibold mb-6 text-center">Scientific Assessment Approach</h4>
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg" data-testid="framework-diagram-assessment">
-                <div className="relative w-full max-w-md mx-auto h-80 flex flex-col justify-center">
-                  {/* Three Assessment Components */}
-                  <div className="grid grid-cols-1 gap-6 mb-8">
-                    {[
-                      { text: "Individual's Personality", color: "bg-orange-500", icon: Users },
-                      { text: "Career Interest", color: "bg-green-500", icon: Heart },
-                      { text: "Learning Abilities", color: "bg-blue-500", icon: GraduationCap }
-                    ].map((component, index) => {
-                      const IconComponent = component.icon;
-                      return (
-                        <div key={index} className="relative">
-                          <div className={`${component.color} text-white px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1`}>
-                            <div className="flex items-center justify-center space-x-3">
-                              <IconComponent className="h-6 w-6" />
-                              <span className="font-semibold text-sm">{component.text}</span>
-                            </div>
-                          </div>
-                          {/* Arrow pointing down */}
-                          <div className="flex justify-center mt-2">
-                            <ArrowRight className="h-5 w-5 text-gray-400 transform rotate-90" />
-                          </div>
-                        </div>
-                      );
-                    })}
+                <div className="space-y-6">
+                  <div className="text-center text-muted-foreground text-sm font-medium mb-6">
+                    Our assessment is based on three core components:
                   </div>
                   
-                  {/* Central Career Choice Circle */}
-                  <div className="flex justify-center">
-                    <div className="w-32 h-32 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center shadow-xl">
-                      <div className="text-center text-white">
-                        <Target className="h-8 w-8 mx-auto mb-2" />
-                        <div className="text-sm font-bold leading-tight">Career</div>
-                        <div className="text-sm font-bold leading-tight">Choice</div>
+                  {[
+                    { text: "Individual's Personality", icon: Users, color: "bg-orange-500" },
+                    { text: "Career Interest", icon: Heart, color: "bg-green-500" },
+                    { text: "Learning Abilities", icon: GraduationCap, color: "bg-blue-500" }
+                  ].map((component, index) => {
+                    const IconComponent = component.icon;
+                    return (
+                      <div key={index} className="text-center">
+                        <div className={`${component.color} text-white mx-auto w-fit px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300`}>
+                          <div className="flex items-center justify-center space-x-3">
+                            <IconComponent className="h-6 w-6" />
+                            <span className="font-semibold">{component.text}</span>
+                          </div>
+                        </div>
+                        {index < 2 && (
+                          <div className="flex justify-center mt-3 mb-3">
+                            <ArrowRight className="h-5 w-5 text-gray-400 transform rotate-90" />
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                  
+                  <div className="text-center mt-8">
+                    <div className="inline-block bg-gradient-to-r from-blue-600 to-blue-800 text-white px-8 py-4 rounded-xl shadow-xl">
+                      <div className="flex items-center justify-center space-x-3">
+                        <Target className="h-8 w-8" />
+                        <div className="text-lg font-bold">Informed Career Choice</div>
                       </div>
                     </div>
                   </div>
