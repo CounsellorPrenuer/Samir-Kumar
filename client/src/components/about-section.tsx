@@ -1,6 +1,4 @@
-import { ArrowRight, Target, Heart, TrendingUp, Users } from "lucide-react";
-import frameworkDiagram1 from "@assets/image_1758962768189.png";
-import frameworkDiagram2 from "@assets/image_1758962780132.png";
+import { ArrowRight, Target, Heart, TrendingUp, Users, BookOpen, MapPin, CheckCircle, Lightbulb, GraduationCap } from "lucide-react";
 
 export default function AboutSection() {
   const transformations = [
@@ -120,27 +118,99 @@ export default function AboutSection() {
           </h3>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Comprehensive Service Areas */}
             <div className="text-center">
               <h4 className="text-xl font-semibold mb-6">Comprehensive Service Areas</h4>
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
-                <img 
-                  src={frameworkDiagram1} 
-                  alt="CareerSkope Counselling Framework showing five key service areas: Evaluate Career Options, Career Opportunities, Unbiased Counselling Process, Informed Career decisions, and Education and Career Road Map Discussions"
-                  className="w-full h-auto max-w-md mx-auto"
-                  data-testid="framework-diagram-services"
-                />
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg" data-testid="framework-diagram-services">
+                <div className="relative w-full max-w-md mx-auto h-80">
+                  {/* Central Circle */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
+                    <div className="text-center text-white">
+                      <div className="text-xs font-bold leading-tight">Career</div>
+                      <div className="text-xs font-bold leading-tight">Counselling</div>
+                      <div className="text-xs leading-tight">at</div>
+                      <div className="text-xs font-bold leading-tight">CareerSkope</div>
+                    </div>
+                  </div>
+                  
+                  {/* Surrounding Service Areas */}
+                  {[
+                    { text: "Evaluate Career Options", icon: Target, position: "top-0 left-1/2 transform -translate-x-1/2", color: "bg-green-500" },
+                    { text: "Career Opportunities", icon: TrendingUp, position: "top-8 right-0", color: "bg-red-500" },
+                    { text: "Unbiased Counselling Process", icon: CheckCircle, position: "bottom-8 right-0", color: "bg-blue-500" },
+                    { text: "Informed Career Decisions", icon: Lightbulb, position: "bottom-0 left-1/2 transform -translate-x-1/2", color: "bg-purple-500" },
+                    { text: "Education and Career Road Map", icon: MapPin, position: "top-8 left-0", color: "bg-orange-500" }
+                  ].map((service, index) => {
+                    const IconComponent = service.icon;
+                    return (
+                      <div key={index} className={`absolute ${service.position} w-20 h-20 ${service.color} rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-300 group cursor-pointer`}>
+                        <div className="text-center text-white">
+                          <IconComponent className="h-6 w-6 mx-auto mb-1" />
+                        </div>
+                        {/* Tooltip */}
+                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+                          {service.text}
+                        </div>
+                      </div>
+                    );
+                  })}
+                  
+                  {/* Connection Lines */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    <svg className="w-full h-full" viewBox="0 0 320 320">
+                      {/* Lines connecting center to each service */}
+                      <line x1="160" y1="160" x2="160" y2="40" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="4,4" />
+                      <line x1="160" y1="160" x2="280" y2="72" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="4,4" />
+                      <line x1="160" y1="160" x2="280" y2="248" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="4,4" />
+                      <line x1="160" y1="160" x2="160" y2="280" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="4,4" />
+                      <line x1="160" y1="160" x2="40" y2="72" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="4,4" />
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
             
+            {/* Scientific Assessment Approach */}
             <div className="text-center">
               <h4 className="text-xl font-semibold mb-6">Scientific Assessment Approach</h4>
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
-                <img 
-                  src={frameworkDiagram2} 
-                  alt="CareerSkope Counselling Framework based on three core components: Individual's Personality, Career Interest, and Learning Abilities, all leading to informed Career Choice"
-                  className="w-full h-auto max-w-md mx-auto"
-                  data-testid="framework-diagram-assessment"
-                />
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg" data-testid="framework-diagram-assessment">
+                <div className="relative w-full max-w-md mx-auto h-80 flex flex-col justify-center">
+                  {/* Three Assessment Components */}
+                  <div className="grid grid-cols-1 gap-6 mb-8">
+                    {[
+                      { text: "Individual's Personality", color: "bg-orange-500", icon: Users },
+                      { text: "Career Interest", color: "bg-green-500", icon: Heart },
+                      { text: "Learning Abilities", color: "bg-blue-500", icon: GraduationCap }
+                    ].map((component, index) => {
+                      const IconComponent = component.icon;
+                      return (
+                        <div key={index} className="relative">
+                          <div className={`${component.color} text-white px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1`}>
+                            <div className="flex items-center justify-center space-x-3">
+                              <IconComponent className="h-6 w-6" />
+                              <span className="font-semibold text-sm">{component.text}</span>
+                            </div>
+                          </div>
+                          {/* Arrow pointing down */}
+                          <div className="flex justify-center mt-2">
+                            <ArrowRight className="h-5 w-5 text-gray-400 transform rotate-90" />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  
+                  {/* Central Career Choice Circle */}
+                  <div className="flex justify-center">
+                    <div className="w-32 h-32 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center shadow-xl">
+                      <div className="text-center text-white">
+                        <Target className="h-8 w-8 mx-auto mb-2" />
+                        <div className="text-sm font-bold leading-tight">Career</div>
+                        <div className="text-sm font-bold leading-tight">Choice</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
