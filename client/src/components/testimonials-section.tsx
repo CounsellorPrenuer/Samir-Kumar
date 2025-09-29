@@ -117,40 +117,22 @@ export default function TestimonialsSection() {
           <div className="relative max-w-4xl mx-auto">
             {/* Control Panel */}
             <div className="flex justify-center items-center mb-6 space-x-4">
-              <button
-                onClick={toggle}
-                className="flex items-center space-x-2 bg-white shadow-md rounded-full px-4 py-2 hover:bg-gray-50 transition-all duration-200 transform hover:scale-105"
-                data-testid="button-play-pause"
-                aria-label={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
-              >
-                {isPlaying ? (
-                  <Pause className="h-4 w-4 text-gray-600" />
-                ) : (
-                  <Play className="h-4 w-4 text-gray-600" />
-                )}
-                <span className="text-sm text-gray-600">
-                  {isPlaying ? 'Pause' : 'Play'}
-                </span>
-              </button>
-              
               {/* Indicator Dots */}
               <div className="flex space-x-2">
                 {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToSlide(index)}
-                    className={`w-6 h-6 p-2 rounded-full transition-all duration-300 transform hover:scale-125 min-h-[44px] min-w-[44px] flex items-center justify-center ${
-                      index === currentIndex
-                        ? 'bg-blue-600 shadow-lg'
-                        : 'bg-gray-300 hover:bg-gray-400'
-                    }`}
-                    data-testid={`indicator-${index}`}
-                    aria-label={`Go to testimonial ${index + 1}`}
-                  >
-                    <div className={`w-3 h-3 rounded-full ${
-                      index === currentIndex ? 'bg-white' : 'bg-gray-600'
-                    }`} />
-                  </button>
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`p-1.5 rounded-full transition-all duration-300 transform hover:scale-125 flex items-center justify-center ${
+                index === currentIndex
+                  ? 'bg-blue-600 shadow-lg'
+                  : 'bg-gray-300 hover:bg-gray-400'
+              }`}
+              data-testid={`indicator-${index}`}
+              aria-label={`Go to testimonial ${index + 1}`}
+            >
+            </button>
+
                 ))}
               </div>
             </div>

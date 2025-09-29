@@ -46,24 +46,7 @@ export default function BlogSection() {
             Stay updated with career planning, admissions, and industry trends
           </p>
         </div>
-        
-        {/* Filter Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {filters.map((filter) => (
-            <button
-              key={filter.key}
-              onClick={() => setActiveFilter(filter.key)}
-              className={`px-6 py-2 rounded-full font-medium transition-colors ${
-                activeFilter === filter.key
-                  ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white"
-                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-              }`}
-              data-testid={`filter-button-${filter.key}`}
-            >
-              {filter.label}
-            </button>
-          ))}
-        </div>
+
         
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -60,7 +60,6 @@ export default function AboutSection() {
                   </div>
                   <div className="text-sm text-muted-foreground mb-2">From</div>
                   <div className="font-semibold text-gray-600 dark:text-gray-300 mb-2">{transform.from}</div>
-                  <ArrowRight className="h-5 w-5 mx-auto text-gray-400 mb-2" />
                   <div className="text-sm text-muted-foreground mb-2">To</div>
                   <div className={`font-bold ${transform.color}`}>{transform.to}</div>
                 </div>
