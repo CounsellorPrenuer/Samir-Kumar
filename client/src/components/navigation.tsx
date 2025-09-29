@@ -35,7 +35,12 @@ export default function Navigation() {
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Respect user's reduced motion preference
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      element.scrollIntoView({ 
+        behavior: prefersReducedMotion ? 'auto' : 'smooth', 
+        block: 'start' 
+      });
     }
     setIsMobileMenuOpen(false);
     // Update URL hash for better accessibility and navigation
