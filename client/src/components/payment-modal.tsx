@@ -89,9 +89,8 @@ export default function PaymentModal({ isOpen, onClose, package: selectedPackage
         setOrderId(data.orderId);
         setStep('payment');
         
-        // For now, since we don't have actual Razorpay integration, 
-        // we'll simulate the payment process
-        simulatePayment(data.orderId);
+        // Initialize Razorpay payment
+        initiateRazorpayPayment(data);
       } else {
         throw new Error(data.message);
       }
@@ -101,52 +100,105 @@ export default function PaymentModal({ isOpen, onClose, package: selectedPackage
         description: "Failed to create payment order. Please try again.",
         variant: "destructive"
       });
-    } finally {
       setLoading(false);
     }
   };
 
-  const simulatePayment = async (orderId: string) => {
+  const initiateRazorpayPayment = (orderData: any) => {
     try {
-      // Simulate Razorpay payment process
-      setTimeout(async () => {
-        try {
-          const response = await fetch("/api/update-payment-status", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              orderId: orderId,
-              status: "success",
-              paymentId: `pay_${Date.now()}`,
-              signature: `sig_${Date.now()}`,
-              method: "card",
-            }),
-          });
+      // Load Razorpay script
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.onload = () => {
+        const options = {
+          key: orderData.key,
+          amount: orderData.amount,
+          currency: orderData.currency,
+          name: 'Careerskope',
+          description: `Payment for ${selectedPackage?.name}`,
+          order_id: orderData.orderId,
+          prefill: {
+            name: customerData.name,
+            email: customerData.email,
+            contact: customerData.phone,
+          },
+          theme: {
+            color: '#2563eb'
+          },
+          handler: async (response: any) => {
+            // Payment successful - verify payment
+            try {
+              const verifyResponse = await fetch('/api/verify-payment', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature,
+                }),
+              });
 
-          const data = await response.json();
+              const verifyData = await verifyResponse.json();
 
-          if (data.success) {
-            setStep('success');
-            toast({
-              title: "Payment Successful!",
-              description: "Your payment has been processed successfully.",
-            });
-          } else {
-            throw new Error(data.message);
+              if (verifyData.success) {
+                setStep('success');
+                setLoading(false);
+                toast({
+                  title: "Payment Successful!",
+                  description: "Your payment has been processed successfully.",
+                });
+              } else {
+                throw new Error('Payment verification failed');
+              }
+            } catch (error) {
+              setLoading(false);
+              setStep('details');
+              toast({
+                title: "Payment Verification Failed",
+                description: "Payment was processed but verification failed. Please contact support.",
+                variant: "destructive"
+              });
+            }
+          },
+          modal: {
+            ondismiss: () => {
+              setLoading(false);
+              setStep('details');
+              toast({
+                title: "Payment Cancelled",
+                description: "Payment was cancelled by user.",
+                variant: "destructive"
+              });
+            }
           }
-        } catch (error) {
-          toast({
-            title: "Payment Failed",
-            description: "Payment processing failed. Please try again.",
-            variant: "destructive"
-          });
-          setStep('details');
-        }
-      }, 3000); // Simulate 3 second payment processing
+        };
+
+        const razorpay = new (window as any).Razorpay(options);
+        razorpay.open();
+      };
+      
+      script.onerror = () => {
+        setLoading(false);
+        setStep('details');
+        toast({
+          title: "Payment Error",
+          description: "Failed to load payment gateway. Please try again.",
+          variant: "destructive"
+        });
+      };
+      
+      document.body.appendChild(script);
     } catch (error) {
-      console.error("Payment simulation error:", error);
+      setLoading(false);
+      setStep('details');
+      console.error("Razorpay initialization error:", error);
+      toast({
+        title: "Payment Error",
+        description: "Failed to initialize payment. Please try again.",
+        variant: "destructive"
+      });
     }
   };
 

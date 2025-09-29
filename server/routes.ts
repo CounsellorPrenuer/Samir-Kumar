@@ -13,6 +13,13 @@ import {
 } from "@shared/schema";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
+import Razorpay from "razorpay";
+
+// Initialize Razorpay
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID!,
+  key_secret: process.env.RAZORPAY_KEY_SECRET!,
+});
 
 // Admin middleware
 const requireAdmin = async (req: any, res: any, next: any) => {
@@ -299,6 +306,120 @@ export async function registerRoutes(app: Express): Promise<Server> {
           message: "Internal server error" 
         });
       }
+    }
+  });
+
+  // ===============================
+  // PAYMENT ROUTES
+  // ===============================
+
+  // Create Razorpay Order
+  app.post("/api/create-payment-order", async (req, res) => {
+    try {
+      const { packageId, customerName, customerEmail, customerPhone, notes } = req.body;
+      
+      // Get package details
+      const packages = await storage.getPackages();
+      const selectedPackage = packages.find(pkg => pkg.id === packageId);
+      
+      if (!selectedPackage) {
+        return res.status(404).json({
+          success: false,
+          message: "Package not found"
+        });
+      }
+
+      // Create Razorpay order
+      const amount = Math.round(parseFloat(selectedPackage.price) * 100); // Amount in paise
+      const currency = "INR";
+      
+      const razorpayOrder = await razorpay.orders.create({
+        amount,
+        currency,
+        receipt: `receipt_${Date.now()}`,
+        notes: {
+          packageId,
+          customerName,
+          customerEmail,
+          customerPhone,
+          notes: notes || ""
+        }
+      });
+
+      // Store payment record in database
+      const paymentData = {
+        razorpayOrderId: razorpayOrder.id,
+        packageId,
+        customerName,
+        customerEmail,
+        customerPhone,
+        amount: selectedPackage.price,
+        status: "pending" as const,
+        paymentMethod: "card" as const,
+        notes: notes || ""
+      };
+      
+      await storage.createPayment(paymentData);
+
+      res.json({
+        success: true,
+        orderId: razorpayOrder.id,
+        amount,
+        currency,
+        key: process.env.RAZORPAY_KEY_ID
+      });
+    } catch (error) {
+      console.error("Payment order creation error:", error);
+      res.status(500).json({
+        success: false,
+        message: "Failed to create payment order"
+      });
+    }
+  });
+
+  // Payment verification
+  app.post("/api/verify-payment", async (req, res) => {
+    try {
+      const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+      
+      // Verify signature
+      const crypto = require('crypto');
+      const generated_signature = crypto
+        .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET!)
+        .update(razorpay_order_id + "|" + razorpay_payment_id)
+        .digest('hex');
+
+      if (generated_signature !== razorpay_signature) {
+        return res.status(400).json({
+          success: false,
+          message: "Payment verification failed"
+        });
+      }
+
+      // Update payment status
+      const payments = await storage.getPayments();
+      const payment = payments.find(p => p.razorpayOrderId === razorpay_order_id);
+      
+      if (!payment) {
+        return res.status(404).json({
+          success: false,
+          message: "Payment record not found"
+        });
+      }
+
+      // Update payment record
+      await storage.updatePaymentStatus(razorpay_order_id, "success");
+
+      res.json({
+        success: true,
+        message: "Payment verified successfully"
+      });
+    } catch (error) {
+      console.error("Payment verification error:", error);
+      res.status(500).json({
+        success: false,
+        message: "Payment verification failed"
+      });
     }
   });
 

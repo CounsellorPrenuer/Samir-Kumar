@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { BlogArticle } from "@shared/schema";
+import BlogDetailModal from "./blog-detail-modal";
 
 export default function BlogSection() {
   const [activeFilter, setActiveFilter] = useState("all");
+  const [showAll, setShowAll] = useState(false);
+  const [selectedArticle, setSelectedArticle] = useState<BlogArticle | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   const filters = [
     { key: "all", label: "All Articles" },
@@ -36,6 +40,23 @@ export default function BlogSection() {
   };
 
   const filteredArticles = Array.isArray(articles) ? articles : [];
+  
+  // Show only first 3 articles unless "showAll" is true
+  const displayedArticles = showAll ? filteredArticles : filteredArticles.slice(0, 3);
+
+  const handleReadMore = (article: BlogArticle) => {
+    setSelectedArticle(article);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedArticle(null);
+  };
+
+  const handleViewAllArticles = () => {
+    setShowAll(true);
+  };
 
   return (
     <section id="blog" className="scroll-mt-20 py-20 bg-card">
@@ -68,7 +89,7 @@ export default function BlogSection() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredArticles.map((article) => {
+            {displayedArticles.map((article) => {
               const styles = getArticleStyles(article.category);
               return (
                 <article 
@@ -87,7 +108,11 @@ export default function BlogSection() {
                     <p className="text-muted-foreground text-sm mb-4">{article.description}</p>
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-muted-foreground">{article.readTime}</span>
-                      <button className={`font-medium ${styles.color} ${styles.hoverColor}`} data-testid={`button-read-more-${article.id}`}>
+                      <button 
+                        onClick={() => handleReadMore(article)}
+                        className={`font-medium ${styles.color} ${styles.hoverColor} transition-colors duration-200`} 
+                        data-testid={`button-read-more-${article.id}`}
+                      >
                         Read More
                       </button>
                     </div>
@@ -98,12 +123,36 @@ export default function BlogSection() {
           </div>
         )}
         
-        <div className="text-center mt-12">
-          <button className="bg-gradient-to-r from-blue-600 to-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-red-700 transition-all duration-300" data-testid="button-view-all-articles">
-            View All Articles
-          </button>
-        </div>
+        {!showAll && filteredArticles.length > 3 && (
+          <div className="text-center mt-12">
+            <button 
+              onClick={handleViewAllArticles}
+              className="bg-gradient-to-r from-blue-600 to-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-red-700 transition-all duration-300 transform hover:scale-105" 
+              data-testid="button-view-all-articles"
+            >
+              View All Articles ({filteredArticles.length - 3} more)
+            </button>
+          </div>
+        )}
+
+        {showAll && (
+          <div className="text-center mt-12">
+            <button 
+              onClick={() => setShowAll(false)}
+              className="bg-gradient-to-r from-gray-600 to-gray-700 text-white px-8 py-3 rounded-lg font-semibold hover:from-gray-700 hover:to-gray-800 transition-all duration-300" 
+              data-testid="button-show-less-articles"
+            >
+              Show Less
+            </button>
+          </div>
+        )}
       </div>
+
+      <BlogDetailModal
+        isOpen={showModal}
+        onClose={handleCloseModal}
+        article={selectedArticle}
+      />
     </section>
   );
 }
