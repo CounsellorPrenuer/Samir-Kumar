@@ -50,18 +50,15 @@ export default function Navigation() {
   return (
     <>
       <ScrollProgressBar />
-      <nav className="fixed top-0 w-full z-50 modern-card border-b border-white/20 backdrop-blur-lg">
+      <nav className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-18 lg:h-20">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-3 flex-shrink-0">
-            <div className="service-icon p-2 rounded-xl">
-              <Sparkles className="h-6 w-6 text-white" />
-            </div>
+          <div className="flex items-center space-x-2 flex-shrink-0">
             <ResponsiveImage 
               src={careerSkopeLogoPath} 
               alt="Careerskope Logo" 
-              className="h-10 sm:h-11 md:h-12 lg:h-14 w-auto transition-all duration-300 hover:scale-105"
+              className="h-8 sm:h-9 w-auto"
               loading="eager"
               priority={true}
               sizes="(max-width: 640px) 150px, (max-width: 768px) 180px, 200px"
@@ -82,10 +79,10 @@ export default function Navigation() {
                   e.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className={`nav-link transition-all duration-300 text-sm lg:text-base font-semibold whitespace-nowrap hover:scale-105 px-3 py-2 rounded-lg ${
+                className={`nav-link transition-colors duration-200 text-sm lg:text-base font-medium whitespace-nowrap px-3 py-2 ${
                   activeSection === link.href
-                    ? 'text-white bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg'
-                    : 'text-gray-700 hover:text-gray-900 hover:bg-white/50'
+                    ? 'text-blue-600 border-b-2 border-blue-600'
+                    : 'text-gray-700 hover:text-blue-600'
                 }`}
                 aria-current={activeSection === link.href ? 'page' : undefined}
                 data-testid={`nav-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
@@ -95,7 +92,7 @@ export default function Navigation() {
             ))}
             <button 
               onClick={() => scrollToSection("#contact")}
-              className="vibrant-button btn-interactive text-white px-6 lg:px-8 py-3 lg:py-4 rounded-xl font-bold min-h-[44px] text-sm lg:text-base whitespace-nowrap shadow-lg"
+              className="vibrant-button text-white px-6 py-2 rounded-lg font-semibold min-h-[44px] text-sm lg:text-base whitespace-nowrap"
               data-testid="button-book-free-call"
             >
               Book a Free Call
@@ -112,10 +109,10 @@ export default function Navigation() {
                   e.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className={`nav-link transition-all duration-300 text-sm font-semibold whitespace-nowrap hover:scale-105 px-3 py-2 rounded-lg ${
+                className={`nav-link transition-colors duration-200 text-sm font-medium whitespace-nowrap px-3 py-2 ${
                   activeSection === link.href
-                    ? 'text-white bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg'
-                    : 'text-gray-700 hover:text-gray-900 hover:bg-white/50'
+                    ? 'text-blue-600 border-b-2 border-blue-600'
+                    : 'text-gray-700 hover:text-blue-600'
                 }`}
                 aria-current={activeSection === link.href ? 'page' : undefined}
                 data-testid={`nav-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
@@ -124,15 +121,15 @@ export default function Navigation() {
               </a>
             ))}
             <DropdownMenu>
-              <DropdownMenuTrigger className="text-gray-700 hover:text-gray-900 hover:bg-white/50 transition-all duration-300 text-sm font-semibold px-3 py-2 rounded-lg">
+              <DropdownMenuTrigger className="text-gray-700 hover:text-blue-600 transition-colors duration-200 text-sm font-medium px-3 py-2">
                 More
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48 modern-card border-white/20">
+              <DropdownMenuContent align="end" className="w-48">
                 {navLinks.slice(4).map((link) => (
                   <DropdownMenuItem 
                     key={link.href}
                     onClick={() => scrollToSection(link.href)}
-                    className="cursor-pointer hover:bg-white/50 font-medium"
+                    className="cursor-pointer font-medium"
                   >
                     {link.label}
                   </DropdownMenuItem>
@@ -140,7 +137,7 @@ export default function Navigation() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem 
                   onClick={() => scrollToSection("#contact")}
-                  className="cursor-pointer font-bold bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600"
+                  className="cursor-pointer font-semibold text-blue-600"
                 >
                   Book a Free Call
                 </DropdownMenuItem>
@@ -152,11 +149,11 @@ export default function Navigation() {
           <div className="flex md:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-gray-700 hover:text-gray-900 hover:bg-white/50 p-3 rounded-xl min-h-[44px] min-w-[44px] flex items-center justify-center transition-all duration-300 backdrop-blur-sm"
+              className="text-gray-700 hover:text-blue-600 p-2 rounded-md min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors duration-200"
               data-testid="button-mobile-menu"
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
-              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
@@ -164,8 +161,8 @@ export default function Navigation() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden modern-card border-b border-white/20 animate-slide-up shadow-xl backdrop-blur-lg">
-          <div className="px-4 sm:px-6 pt-4 pb-6 space-y-2 max-h-[calc(100vh-4rem)] overflow-y-auto">
+        <div className="md:hidden bg-white border-b border-gray-200 shadow-lg animate-slide-up">
+          <div className="px-4 pt-2 pb-4 space-y-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
             {navLinks.map((link, index) => (
               <a
                 key={link.href}
@@ -174,10 +171,10 @@ export default function Navigation() {
                   e.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className={`block w-full text-left px-4 py-4 rounded-xl transition-all duration-300 animate-fade-in min-h-[44px] flex items-center font-bold ${
+                className={`block w-full text-left px-3 py-3 rounded-lg transition-colors duration-200 animate-fade-in min-h-[44px] flex items-center font-medium ${
                   activeSection === link.href
-                    ? 'text-white bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg'
-                    : 'text-gray-700 hover:text-gray-900 hover:bg-white/50'
+                    ? 'text-blue-600 bg-blue-50'
+                    : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
                 }`}
                 style={{ animationDelay: `${index * 50}ms` }}
                 aria-current={activeSection === link.href ? 'page' : undefined}
@@ -189,7 +186,7 @@ export default function Navigation() {
             <div className="pt-2">
               <button 
                 onClick={() => scrollToSection("#contact")}
-                className="w-full vibrant-button btn-interactive text-white px-6 py-4 rounded-xl animate-scale-in min-h-[44px] font-bold text-base shadow-lg"
+                className="w-full vibrant-button text-white px-6 py-3 rounded-lg animate-scale-in min-h-[44px] font-semibold text-base"
                 style={{ animationDelay: `${navLinks.length * 50}ms` }}
                 data-testid="mobile-button-book-free-call"
               >
