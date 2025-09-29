@@ -17,6 +17,11 @@ interface Package {
 
 export default function PackagesSection() {
   const { ref: sectionRef, isInView: sectionInView } = useInView({ threshold: 0.2 });
+  
+  // Check for reduced motion preference to ensure packages are always visible
+  const prefersReducedMotion = typeof window !== 'undefined' 
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+    : false;
   const [packages, setPackages] = useState<Package[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
@@ -121,7 +126,7 @@ export default function PackagesSection() {
                 {categoryPackages.map((pkg, index) => (
                   <div 
                     key={pkg.id}
-                    className={`group pricing-card ${pkg.isPopular ? 'bg-gradient-to-br from-blue-50 to-green-50 border-2 border-blue-200' : 'bg-card border border-border'} rounded-xl p-8 hover-lift transition-all duration-500 transform hover:scale-105 cursor-pointer relative ${sectionInView ? 'animate-fade-in' : 'opacity-0 translate-y-8'}`}
+                    className={`group pricing-card ${pkg.isPopular ? 'bg-gradient-to-br from-blue-50 to-green-50 border-2 border-blue-200' : 'bg-card border border-border'} rounded-xl p-8 hover-lift transition-all duration-500 transform hover:scale-105 cursor-pointer relative ${sectionInView || prefersReducedMotion ? 'animate-fade-in' : 'opacity-0 translate-y-8'}`}
                     style={{ animationDelay: `${(categoryIndex * 200) + (index * 100)}ms` }}
                     data-testid={`package-${pkg.name.toLowerCase().replace(/\s+/g, '-')}`}
                   >
