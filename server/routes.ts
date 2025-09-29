@@ -451,6 +451,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Admin create testimonial
+  app.post("/api/admin/testimonials", requireAdmin, async (req, res) => {
+    try {
+      const validatedData = insertTestimonialSchema.parse(req.body);
+      const testimonial = await storage.createTestimonial(validatedData);
+      res.json({ success: true, data: testimonial, message: "Testimonial created successfully" });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ success: false, message: "Invalid testimonial data", errors: error.errors });
+      } else {
+        res.status(500).json({ success: false, message: "Failed to create testimonial" });
+      }
+    }
+  });
+
   // Admin update testimonial
   app.put("/api/admin/testimonials/:id", requireAdmin, async (req, res) => {
     try {
