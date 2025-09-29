@@ -159,10 +159,14 @@ export default function HeroSection() {
           {/* Image Column - Visible on larger screens */}
           <div className="hidden lg:block relative">
             <div className="modern-card rounded-2xl overflow-hidden transform rotate-3 hover:rotate-0 transition-transform duration-500">
-              <img 
-                src={teamImage}
+              <ResponsiveImage 
+                src={heroImage}
                 alt="Professional career guidance team"
                 className="w-full h-96 object-cover"
+                loading="lazy"
+                sizes="(min-width: 1024px) 400px, 0px"
+                width={400}
+                height={384}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
             </div>
