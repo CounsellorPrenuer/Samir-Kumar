@@ -24,14 +24,26 @@
   --input: hsl(214.3, 31.8%, 91.4%);
   --ring: hsl(214, 80%, 50%);
   
-  /* Careerskope Brand Colors */
-  --careerskope-blue: hsl(214, 80%, 50%);
-  --careerskope-blue-light: hsl(214, 80%, 60%);
-  --careerskope-red: hsl(354, 70%, 54%);
-  --careerskope-red-light: hsl(354, 70%, 64%);
-  --careerskope-green: hsl(142, 69%, 45%);
-  --careerskope-green-light: hsl(142, 69%, 55%);
-  --gradient-brand: linear-gradient(135deg, hsl(214, 80%, 50%) 0%, hsl(142, 69%, 45%) 50%, hsl(354, 70%, 54%) 100%);
+  /* Enhanced Vibrant Brand Colors */
+  --careerskope-blue: hsl(220, 90%, 56%);
+  --careerskope-blue-light: hsl(220, 90%, 65%);
+  --careerskope-blue-dark: hsl(220, 90%, 45%);
+  --careerskope-purple: hsl(260, 75%, 60%);
+  --careerskope-purple-light: hsl(260, 75%, 70%);
+  --careerskope-green: hsl(150, 75%, 50%);
+  --careerskope-green-light: hsl(150, 75%, 60%);
+  --careerskope-green-dark: hsl(150, 75%, 40%);
+  --careerskope-orange: hsl(25, 85%, 60%);
+  --careerskope-orange-light: hsl(25, 85%, 70%);
+  --careerskope-pink: hsl(330, 75%, 65%);
+  --careerskope-pink-light: hsl(330, 75%, 75%);
+  --careerskope-red: hsl(0, 75%, 60%);
+  
+  /* Enhanced Gradients */
+  --gradient-primary: linear-gradient(135deg, hsl(220, 90%, 56%) 0%, hsl(260, 75%, 60%) 50%, hsl(150, 75%, 50%) 100%);
+  --gradient-secondary: linear-gradient(135deg, hsl(25, 85%, 60%) 0%, hsl(330, 75%, 65%) 50%, hsl(220, 90%, 56%) 100%);
+  --gradient-hero: linear-gradient(135deg, hsl(220, 90%, 65%) 0%, hsl(150, 75%, 60%) 25%, hsl(25, 85%, 65%) 50%, hsl(330, 75%, 70%) 75%, hsl(260, 75%, 65%) 100%);
+  --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
   
   --font-sans: 'Inter', sans-serif;
   --radius: 0.75rem;
@@ -103,12 +115,91 @@
 
 @layer components {
   .gradient-bg {
-      background: linear-gradient(
-          135deg,
-          hsl(221, 60%, 80%) 0%,
-          hsl(147, 60%, 75%) 50%,
-          hsl(0, 65%, 85%) 100%
-      );
+      background: var(--gradient-hero);
+      position: relative;
+  }
+
+  .gradient-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    pointer-events: none;
+  }
+
+  .modern-card {
+    background: var(--gradient-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      0 1px 0px rgba(255, 255, 255, 0.4) inset;
+  }
+
+  .enhanced-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 100%);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+      0 12px 40px rgba(0, 0, 0, 0.15),
+      0 2px 16px rgba(0, 0, 0, 0.1),
+      0 1px 0px rgba(255, 255, 255, 0.5) inset;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .enhanced-card:hover {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.85) 100%);
+    box-shadow: 
+      0 20px 50px rgba(0, 0, 0, 0.2),
+      0 4px 20px rgba(0, 0, 0, 0.15),
+      0 1px 0px rgba(255, 255, 255, 0.6) inset;
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .vibrant-button {
+    background: var(--gradient-primary);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .vibrant-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 70%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .vibrant-button:hover::before {
+    transform: translateX(100%);
+  }
+
+  .service-icon {
+    background: linear-gradient(135deg, var(--careerskope-blue), var(--careerskope-purple));
+    padding: 1rem;
+    border-radius: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .service-icon:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   }
 
 
@@ -311,11 +402,12 @@
     transform: scale(1.05);
   }
 
-  /* Interactive button effects */
+  /* Enhanced Interactive button effects */
   .btn-interactive {
     position: relative;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
   }
 
   .btn-interactive::before {
@@ -325,16 +417,24 @@
     left: 50%;
     width: 0;
     height: 0;
-    background: rgba(255, 255, 255, 0.2);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    transition: width 0.3s ease, height 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .btn-interactive:hover::before {
     width: 300px;
     height: 300px;
   }
+
+  .btn-interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 10px 40px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  }
+
 
   /* Scroll progress bar */
   .scroll-progress {
