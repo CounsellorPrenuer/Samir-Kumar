@@ -422,6 +422,70 @@
     z-index: 1000;
     transition: width 0.1s ease;
   }
+
+  /* Sparkle Animation */
+  .sparkle-container {
+    pointer-events: none;
+  }
+
+  .sparkle {
+    position: absolute;
+    font-size: 12px;
+    opacity: 0;
+    animation: sparkle-float 3s infinite ease-in-out;
+  }
+
+  @keyframes sparkle-float {
+    0%, 100% {
+      opacity: 0;
+      transform: translateY(0px) scale(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-20px) scale(1);
+    }
+  }
+
+  /* Floating Icon Animation */
+  .floating-icon {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  /* Custom Animations */
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin-reverse {
+    from {
+      transform: rotate(360deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 8s linear infinite;
+  }
+
+  .animate-spin-reverse {
+    animation: spin-reverse 12s linear infinite;
+  }
 }
 
 @keyframes fadeIn {

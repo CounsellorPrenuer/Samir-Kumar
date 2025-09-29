@@ -1,6 +1,4 @@
-import { Compass, Phone } from "lucide-react";
-import { ResponsiveImage } from "./responsive-image";
-import heroImage from "@assets/stock_images/professional_career__d7965c84.jpg";
+import { Compass, Phone, Star, Sparkles, Target, TrendingUp } from "lucide-react";
 
 export default function HeroSection() {
 
@@ -13,9 +11,26 @@ export default function HeroSection() {
 
 
   return (
-    <section className="pt-20 pb-16 bg-gradient-to-b from-blue-50 to-white min-h-[80vh] flex items-center">
+    <section className="pt-20 pb-16 bg-gradient-to-b from-blue-50 to-white min-h-[80vh] flex items-center relative overflow-hidden">
+      {/* Sparkle Background Effect */}
+      <div className="absolute inset-0 sparkle-container">
+        {[...Array(50)].map((_, i) => (
+          <div
+            key={i}
+            className="sparkle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 3}s`
+            }}
+          >
+            ✨
+          </div>
+        ))}
+      </div>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content Column */}
           <div className="text-center lg:text-left">
@@ -69,18 +84,50 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Image Column */}
-          <div className="hidden lg:block">
-            <ResponsiveImage 
-              src={heroImage}
-              alt="Professional career guidance team"
-              className="w-full h-96 object-cover rounded-xl shadow-lg"
-              loading="eager"
-              priority={true}
-              sizes="(min-width: 1024px) 400px, 0px"
-              width={400}
-              height={384}
-            />
+          {/* Graphical Animation Column */}
+          <div className="hidden lg:block relative">
+            <div className="relative w-full h-96 flex items-center justify-center">
+              {/* Floating Icons Animation */}
+              <div className="absolute inset-0">
+                <div className="floating-icon absolute top-10 left-10 text-blue-500">
+                  <Target className="h-8 w-8 animate-bounce" style={{ animationDelay: '0s' }} />
+                </div>
+                <div className="floating-icon absolute top-20 right-16 text-purple-500">
+                  <TrendingUp className="h-10 w-10 animate-bounce" style={{ animationDelay: '0.5s' }} />
+                </div>
+                <div className="floating-icon absolute bottom-20 left-20 text-green-500">
+                  <Star className="h-6 w-6 animate-bounce" style={{ animationDelay: '1s' }} />
+                </div>
+                <div className="floating-icon absolute bottom-32 right-8 text-orange-500">
+                  <Sparkles className="h-8 w-8 animate-bounce" style={{ animationDelay: '1.5s' }} />
+                </div>
+                <div className="floating-icon absolute top-32 left-32 text-pink-500">
+                  <Star className="h-7 w-7 animate-bounce" style={{ animationDelay: '2s' }} />
+                </div>
+              </div>
+              
+              {/* Central Animated Circle */}
+              <div className="relative">
+                <div className="w-48 h-48 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-20 animate-pulse"></div>
+                <div className="absolute inset-4 w-40 h-40 rounded-full bg-gradient-to-r from-purple-400 to-pink-500 opacity-30 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                <div className="absolute inset-8 w-32 h-32 rounded-full bg-gradient-to-r from-pink-400 to-blue-400 opacity-40 animate-pulse" style={{ animationDelay: '1s' }}></div>
+                
+                {/* Center Icon */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center animate-spin-slow">
+                    <Compass className="h-8 w-8 text-blue-600" />
+                  </div>
+                </div>
+              </div>
+              
+              {/* Orbital Dots */}
+              <div className="absolute inset-0 animate-spin-reverse">
+                <div className="absolute top-0 left-1/2 w-3 h-3 bg-blue-500 rounded-full transform -translate-x-1/2"></div>
+                <div className="absolute bottom-0 left-1/2 w-3 h-3 bg-purple-500 rounded-full transform -translate-x-1/2"></div>
+                <div className="absolute top-1/2 left-0 w-3 h-3 bg-green-500 rounded-full transform -translate-y-1/2"></div>
+                <div className="absolute top-1/2 right-0 w-3 h-3 bg-pink-500 rounded-full transform -translate-y-1/2"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
