@@ -272,6 +272,41 @@
     transition: transform 0.3s ease;
   }
 
+  /* Navigation responsive utilities */
+  .nav-responsive {
+    @media (max-width: 640px) {
+      font-size: 0.875rem;
+      padding: 0.5rem 0.75rem;
+    }
+    @media (min-width: 641px) and (max-width: 1024px) {
+      font-size: 0.875rem;
+      padding: 0.5rem 1rem;
+    }
+    @media (min-width: 1025px) {
+      font-size: 1rem;
+      padding: 0.75rem 1.25rem;
+    }
+  }
+
+  /* Container responsive max-widths */
+  .container-responsive {
+    @media (max-width: 640px) {
+      max-width: 100%;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    @media (min-width: 641px) and (max-width: 768px) {
+      max-width: 100%;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      max-width: 100%;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
   .hover-scale:hover {
     transform: scale(1.05);
   }

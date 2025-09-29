@@ -33,7 +33,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-foreground text-white py-16">
+    <footer className=" py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mentoria Partnership Section */}
         <div className="text-center mb-12 pb-8 border-b border-gray-700">
@@ -57,15 +57,10 @@ export default function Footer() {
           </button>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 bg-foreground text-white">
           {/* Company Info */}
           <div className="md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <img 
-                src={careerSkopeLogoPath} 
-                alt="Careerskope Logo" 
-                className="h-8 w-auto filter brightness-0 invert"
-              />
               <span className="text-xl font-bold">Careerskope</span>
             </div>
             <p className="text-gray-300 mb-4">
