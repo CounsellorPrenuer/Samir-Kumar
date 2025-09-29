@@ -114,7 +114,7 @@ export default function PackagesSection() {
             {sortedPackages.map((pkg, index) => (
               <div 
                 key={pkg.id}
-                className={`group pricing-card ${pkg.isPopular ? 'bg-gradient-to-br from-blue-50 to-green-50 border-2 border-blue-200' : 'bg-card border border-border'} rounded-xl p-8 hover-lift transition-all duration-500 transform hover:scale-105 cursor-pointer relative ${sectionInView || prefersReducedMotion ? 'animate-fade-in' : 'opacity-0 translate-y-8'}`}
+                className={`group pricing-card ${pkg.isPopular ? 'bg-gradient-to-br from-blue-50 to-green-50 border-2 border-blue-200' : 'bg-card border border-border'} rounded-xl p-8 hover-lift transition-all duration-500 transform hover:scale-105 cursor-pointer relative`}
                 style={{ animationDelay: `${index * 100}ms` }}
                 data-testid={`package-${pkg.name.toLowerCase().replace(/\s+/g, '-')}`}
               >
