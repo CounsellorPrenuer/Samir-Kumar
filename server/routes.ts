@@ -792,6 +792,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ===============================
+  // PHOTO GALLERY ROUTES
+  // ===============================
+
+  // Get active photo gallery items (public)
+  app.get("/api/photo-gallery", async (req, res) => {
+    try {
+      const photos = await storage.getActivePhotoGalleryItems();
+      res.json(photos);
+    } catch (error) {
+      res.status(500).json({ success: false, message: "Failed to fetch photos" });
+    }
+  });
+
+  // Admin get all photo gallery items
+  app.get("/api/admin/photo-gallery", requireAdmin, async (req, res) => {
+    try {
+      const photos = await storage.getPhotoGalleryItems();
+      res.json({ success: true, data: photos });
+    } catch (error) {
+      res.status(500).json({ success: false, message: "Failed to fetch photos" });
+    }
+  });
+
+  // Admin create photo gallery item
+  app.post("/api/admin/photo-gallery", requireAdmin, async (req, res) => {
+    try {
+      const photo = await storage.createPhotoGalleryItem(req.body);
+      res.status(201).json({ success: true, message: "Photo added successfully", photo });
+    } catch (error) {
+      res.status(500).json({ success: false, message: "Failed to add photo" });
+    }
+  });
+
+  // Admin delete photo gallery item
+  app.delete("/api/admin/photo-gallery/:id", requireAdmin, async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.deletePhotoGalleryItem(id);
+      res.json({ success: true, message: "Photo deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ success: false, message: "Failed to delete photo" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
