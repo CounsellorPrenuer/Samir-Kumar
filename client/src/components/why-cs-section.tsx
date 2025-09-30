@@ -1,6 +1,5 @@
 import { Target, Brain, Lightbulb, TrendingUp, Users } from "lucide-react";
-import counsellingFramework1 from "@assets/image_1759211621193.png";
-import counsellingFramework2 from "@assets/image_1759211627992.png";
+import counsellingFrameworkImage from "@assets/WhatsApp Image 2025-09-30 at 11.56.28_1759219050985.jpeg";
 
 export default function WhyCSSection() {
   return (
@@ -28,27 +27,16 @@ export default function WhyCSSection() {
               Our comprehensive counselling framework combines evaluation, career planning, unbiased guidance, and informed decision-making to help you make the right career choices. We integrate personality assessment, career interests, and learning abilities to guide you toward the perfect career path.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
               <img 
-                src={counsellingFramework1} 
-                alt="Career Counselling at Careerskope Framework" 
+                src={counsellingFrameworkImage} 
+                alt="CareerSkope Counselling Framework" 
                 className="w-full h-auto rounded-lg"
-                data-testid="img-counselling-framework-1"
+                data-testid="img-counselling-framework"
               />
               <p className="mt-4 text-sm text-gray-600 text-center">
-                Comprehensive approach covering career options evaluation, roadmap discussion, opportunities exploration, and informed decisions
-              </p>
-            </div>
-            <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-              <img 
-                src={counsellingFramework2} 
-                alt="Career Choice Framework" 
-                className="w-full h-auto rounded-lg"
-                data-testid="img-counselling-framework-2"
-              />
-              <p className="mt-4 text-sm text-gray-600 text-center">
-                Integrating individual personality, career interests, and learning abilities for optimal career guidance
+                Our comprehensive counselling framework integrating personality assessment, career interests, and learning abilities
               </p>
             </div>
           </div>
@@ -244,7 +232,7 @@ export default function WhyCSSection() {
           Start Your Career Assessment
         </button>
       </div>
-
+      CareerSkope Counselling Framework based on === use this image
     </section>
   );
 }
