@@ -98,27 +98,6 @@ export default function WhyCSSection() {
             </div>
           </div>
 
-        {/* Call to Action */}
-        <div className="text-center mb-20">
-          <h3 className="text-2xl font-bold mb-6">Ready to Transform Your Career Journey?</h3>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Embark on a fulfilling career path with our expert career guidance services. Our knowledgeable career counsellors 
-            will assist you in exploring various industries, identifying your interests, and mapping your personality to help 
-            you make informed career decisions.
-          </p>
-          <button 
-            onClick={() => {
-              const contactSection = document.querySelector('#contact');
-              if (contactSection) {
-                contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }
-            }}
-            className="bg-gradient-to-r from-blue-600 via-green-600 to-red-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
-            data-testid="button-start-assessment"
-          >
-            Start Your Career Assessment
-          </button>
-        </div>
 
         {/* Subsection 3: Unique Approach */}
         <div className="mb-20" data-testid="subsection-unique-approach">
@@ -244,6 +223,28 @@ export default function WhyCSSection() {
           </div>
         </div>
       </div>
+      {/* Call to Action */}
+      <div className="text-center mb-20">
+        <h3 className="text-2xl font-bold mb-6">Ready to Transform Your Career Journey?</h3>
+        <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+          Embark on a fulfilling career path with our expert career guidance services. Our knowledgeable career counsellors 
+          will assist you in exploring various industries, identifying your interests, and mapping your personality to help 
+          you make informed career decisions.
+        </p>
+        <button 
+          onClick={() => {
+            const contactSection = document.querySelector('#contact');
+            if (contactSection) {
+              contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }}
+          className="bg-gradient-to-r from-blue-600 via-green-600 to-red-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+          data-testid="button-start-assessment"
+        >
+          Start Your Career Assessment
+        </button>
+      </div>
+
     </section>
   );
 }
