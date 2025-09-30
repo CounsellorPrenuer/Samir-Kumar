@@ -1,30 +1,24 @@
 import { useState } from "react";
-import { Menu, X, User, LogOut, Sparkles } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
 import careerSkopeLogoPath from "@assets/logo.png";
 import { ResponsiveImage } from "./responsive-image";
-import { useAuth } from "@/hooks/use-auth";
 import { useScrollspy } from "@/hooks/use-scrollspy";
-import { AuthDialog } from "./auth-dialog";
 import ScrollProgressBar from "./scroll-progress-bar";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [authDialogOpen, setAuthDialogOpen] = useState(false);
-  const { user, logout, isLoading } = useAuth();
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const navLinks = [
-    { href: "#about", label: "About" },
-    { href: "#why-careerskope", label: "Why Careerskope" },
-    { href: "#founder", label: "Our Founder" },
+    { href: "#about", label: "About CS" },
+    { href: "#why-cs", label: "Why CS" },
+    { href: "#transform", label: "Transform" },
+    { href: "#packages", label: "Solutions" },
+    { href: "#testimonials", label: "Success Stories" },
     { href: "#blog", label: "Resources" },
+    { href: "#leadership", label: "Leadership" },
+    { href: "#gallery", label: "Gallery" },
     { href: "#contact", label: "Contact" },
   ];
 
@@ -70,7 +64,7 @@ export default function Navigation() {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+          <div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -79,7 +73,7 @@ export default function Navigation() {
                   e.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className={`nav-link transition-colors duration-200 text-sm lg:text-base font-medium whitespace-nowrap px-3 py-2 ${
+                className={`nav-link transition-colors duration-200 text-xs xl:text-sm font-medium whitespace-nowrap px-2 xl:px-3 py-2 ${
                   activeSection === link.href
                     ? 'text-blue-600 border-b-2 border-blue-600'
                     : 'text-gray-700 hover:text-blue-600'
@@ -91,58 +85,25 @@ export default function Navigation() {
               </a>
             ))}
             <button 
-              onClick={() => scrollToSection("#contact")}
-              className="vibrant-button text-white px-6 py-2 rounded-lg font-semibold min-h-[44px] text-sm lg:text-base whitespace-nowrap"
-              data-testid="button-book-free-call"
+              onClick={() => setSearchOpen(!searchOpen)}
+              className="p-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+              data-testid="button-search"
+              aria-label="Search"
             >
-              Book a Free Call
+              <Search className="h-5 w-5" />
             </button>
           </div>
 
-          {/* Tablet Navigation */}
+          {/* Tablet Navigation - show search button */}
           <div className="hidden md:flex lg:hidden items-center space-x-4">
-            {navLinks.slice(0, 4).map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(link.href);
-                }}
-                className={`nav-link transition-colors duration-200 text-sm font-medium whitespace-nowrap px-3 py-2 ${
-                  activeSection === link.href
-                    ? 'text-blue-600 border-b-2 border-blue-600'
-                    : 'text-gray-700 hover:text-blue-600'
-                }`}
-                aria-current={activeSection === link.href ? 'page' : undefined}
-                data-testid={`nav-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
-              >
-                {link.label}
-              </a>
-            ))}
-            <DropdownMenu>
-              <DropdownMenuTrigger className="text-gray-700 hover:text-blue-600 transition-colors duration-200 text-sm font-medium px-3 py-2">
-                More
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                {navLinks.slice(4).map((link) => (
-                  <DropdownMenuItem 
-                    key={link.href}
-                    onClick={() => scrollToSection(link.href)}
-                    className="cursor-pointer font-medium"
-                  >
-                    {link.label}
-                  </DropdownMenuItem>
-                ))}
-                <DropdownMenuSeparator />
-                <DropdownMenuItem 
-                  onClick={() => scrollToSection("#contact")}
-                  className="cursor-pointer font-semibold text-blue-600"
-                >
-                  Book a Free Call
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <button 
+              onClick={() => setSearchOpen(!searchOpen)}
+              className="p-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+              data-testid="button-search-tablet"
+              aria-label="Search"
+            >
+              <Search className="h-5 w-5" />
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -185,12 +146,16 @@ export default function Navigation() {
             ))}
             <div className="pt-2">
               <button 
-                onClick={() => scrollToSection("#contact")}
-                className="w-full vibrant-button text-white px-6 py-3 rounded-lg animate-scale-in min-h-[44px] font-semibold text-base"
+                onClick={() => {
+                  setSearchOpen(true);
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg animate-scale-in min-h-[44px] font-semibold text-base transition-colors duration-200 flex items-center justify-center gap-2"
                 style={{ animationDelay: `${navLinks.length * 50}ms` }}
-                data-testid="mobile-button-book-free-call"
+                data-testid="mobile-button-search"
               >
-                Book a Free Call
+                <Search className="h-5 w-5" />
+                Search
               </button>
             </div>
           </div>
