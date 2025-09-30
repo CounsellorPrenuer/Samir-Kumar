@@ -127,7 +127,7 @@ export default function PackagesManagement() {
   };
 
   const deletePackage = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this package?")) return;
+    if (!confirm("Are you sure you want to archive this package? It will be hidden from customers but retained in the system.")) return;
 
     try {
       const response = await fetch(`/api/admin/packages/${id}`, {
@@ -138,7 +138,14 @@ export default function PackagesManagement() {
       if (data.success) {
         toast({
           title: "Success",
-          description: "Package deleted successfully",
+          description: data.message || "Package archived successfully",
+        });
+        fetchPackages();
+      } else if (response.status === 409) {
+        // Package has payments - show informative message
+        toast({
+          title: "Package Archived",
+          description: data.message || "Package has existing payments and has been archived instead of deleted.",
         });
         fetchPackages();
       } else {
@@ -147,7 +154,7 @@ export default function PackagesManagement() {
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to delete package",
+        description: "Failed to archive package",
         variant: "destructive"
       });
     }
@@ -220,7 +227,7 @@ export default function PackagesManagement() {
                           Popular
                         </Badge>
                       )}
-                      {!pkg.isActive && <Badge variant="secondary">Inactive</Badge>}
+                      {!pkg.isActive && <Badge variant="secondary">Archived</Badge>}
                     </div>
                     <div className="flex items-center gap-2 mb-4">
                       <DollarSign className="h-5 w-5 text-green-600" />

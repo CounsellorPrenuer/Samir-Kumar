@@ -659,12 +659,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Admin delete package
+  // Admin delete package (soft delete by default, hard delete with ?hard=true)
   app.delete("/api/admin/packages/:id", requireAdmin, async (req, res) => {
     try {
       const { id } = req.params;
-      await storage.deletePackage(id);
-      res.json({ success: true, message: "Package deleted successfully" });
+      const hardDelete = req.query.hard === 'true';
+      
+      if (hardDelete) {
+        // Attempt hard delete
+        try {
+          await storage.deletePackage(id);
+          res.json({ success: true, message: "Package permanently deleted" });
+        } catch (error: any) {
+          if (error.message === "PACKAGE_HAS_PAYMENTS") {
+            // Archive it instead since it has payments
+            await storage.archivePackage(id);
+            res.status(409).json({ 
+              success: false, 
+              code: "PACKAGE_HAS_PAYMENTS",
+              message: "Cannot delete package with existing payments. The package has been archived instead." 
+            });
+          } else {
+            throw error;
+          }
+        }
+      } else {
+        // Soft delete (archive)
+        await storage.archivePackage(id);
+        res.json({ success: true, message: "Package archived successfully" });
+      }
     } catch (error) {
       res.status(500).json({ success: false, message: "Failed to delete package" });
     }

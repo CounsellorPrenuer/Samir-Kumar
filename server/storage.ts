@@ -64,7 +64,9 @@ export interface IStorage {
   getPackage(id: string): Promise<Package | undefined>;
   createPackage(pkg: InsertPackage): Promise<Package>;
   updatePackage(id: string, pkg: Partial<InsertPackage>): Promise<Package>;
+  archivePackage(id: string): Promise<Package>;
   deletePackage(id: string): Promise<void>;
+  hasPaymentsForPackage(id: string): Promise<boolean>;
   
   // Payments
   getPayments(): Promise<Payment[]>;
@@ -238,7 +240,7 @@ export class DatabaseStorage implements IStorage {
 
   async getPackagesByCategory(category: string): Promise<Package[]> {
     return await db.select().from(packages)
-      .where(eq(packages.category, category))
+      .where(sql`${packages.category} = ${category} AND ${packages.isActive} = true`)
       .orderBy(desc(packages.createdAt));
   }
 
@@ -264,8 +266,29 @@ export class DatabaseStorage implements IStorage {
     return updatedPackage;
   }
 
+  async archivePackage(id: string): Promise<Package> {
+    const [archivedPackage] = await db
+      .update(packages)
+      .set({ isActive: false })
+      .where(eq(packages.id, id))
+      .returning();
+    return archivedPackage;
+  }
+
   async deletePackage(id: string): Promise<void> {
+    const hasPayments = await this.hasPaymentsForPackage(id);
+    if (hasPayments) {
+      throw new Error("PACKAGE_HAS_PAYMENTS");
+    }
     await db.delete(packages).where(eq(packages.id, id));
+  }
+
+  async hasPaymentsForPackage(id: string): Promise<boolean> {
+    const result = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(payments)
+      .where(eq(payments.packageId, id));
+    return result[0]?.count > 0;
   }
 
   // Payments operations

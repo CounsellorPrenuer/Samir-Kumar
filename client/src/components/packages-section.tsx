@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Check, Star, GraduationCap, Briefcase, Users, Crown, Zap, Sparkles } from "lucide-react";
-import { useInView } from "@/hooks/use-in-view";
 import PaymentModal from "./payment-modal";
 import { useToast } from "@/hooks/use-toast";
 
@@ -16,12 +15,6 @@ interface Package {
 }
 
 export default function PackagesSection() {
-  const { ref: sectionRef, isInView: sectionInView } = useInView({ threshold: 0.2 });
-  
-  // Check for reduced motion preference to ensure packages are always visible
-  const prefersReducedMotion = typeof window !== 'undefined' 
-    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
-    : false;
   const [packages, setPackages] = useState<Package[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
@@ -42,7 +35,7 @@ export default function PackagesSection() {
       toast({
         title: "Error",
         description: "Failed to load packages. Please refresh the page.",
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -55,36 +48,48 @@ export default function PackagesSection() {
   };
 
   const formatPrice = (price: string) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR'
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
     }).format(parseFloat(price));
   };
 
   const getCategoryDisplayName = (category: string) => {
     switch (category) {
-      case 'students': return 'Students';
-      case 'graduates': return 'Graduates';
-      case 'professionals': return 'Professionals';
-      default: return category.charAt(0).toUpperCase() + category.slice(1);
+      case "students":
+        return "Students";
+      case "graduates":
+        return "Graduates";
+      case "professionals":
+        return "Professionals";
+      default:
+        return category.charAt(0).toUpperCase() + category.slice(1);
     }
   };
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'students': return 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white';
-      case 'graduates': return 'bg-gradient-to-r from-green-500 to-emerald-500 text-white';
-      case 'professionals': return 'bg-gradient-to-r from-purple-500 to-pink-500 text-white';
-      default: return 'bg-gradient-to-r from-gray-500 to-slate-500 text-white';
+      case "students":
+        return "bg-gradient-to-r from-blue-500 to-cyan-500 text-white";
+      case "graduates":
+        return "bg-gradient-to-r from-green-500 to-emerald-500 text-white";
+      case "professionals":
+        return "bg-gradient-to-r from-purple-500 to-pink-500 text-white";
+      default:
+        return "bg-gradient-to-r from-gray-500 to-slate-500 text-white";
     }
   };
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'students': return <GraduationCap className="h-4 w-4" />;
-      case 'graduates': return <Users className="h-4 w-4" />;
-      case 'professionals': return <Briefcase className="h-4 w-4" />;
-      default: return <Star className="h-4 w-4" />;
+      case "students":
+        return <GraduationCap className="h-4 w-4" />;
+      case "graduates":
+        return <Users className="h-4 w-4" />;
+      case "professionals":
+        return <Briefcase className="h-4 w-4" />;
+      default:
+        return <Star className="h-4 w-4" />;
     }
   };
 
@@ -110,13 +115,16 @@ export default function PackagesSection() {
 
   return (
     <>
-      <section id="services" className="scroll-mt-20 py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden" ref={sectionRef}>
+      <section
+        id="services"
+        className="scroll-mt-20 py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden"
+      >
         {/* Background decoration */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-pink-400 to-orange-400 rounded-full blur-3xl"></div>
         </div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-20">
             <div className="mb-6">
@@ -134,12 +142,11 @@ export default function PackagesSection() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {sortedPackages.map((pkg, index) => (
-              <div 
+            {sortedPackages.map((pkg) => (
+              <div
                 key={pkg.id}
-                className={`group enhanced-card ${pkg.isPopular ? 'ring-2 ring-purple-400' : ''} rounded-2xl p-8 cursor-pointer relative transform transition-all duration-500 ${sectionInView || prefersReducedMotion ? 'animate-fade-in' : 'opacity-0 translate-y-8'}`}
-                style={{ animationDelay: `${index * 150}ms` }}
-                data-testid={`package-${pkg.name.toLowerCase().replace(/\s+/g, '-')}`}
+                className={`group enhanced-card ${pkg.isPopular ? "ring-2 ring-purple-400" : ""} rounded-2xl p-8 cursor-pointer relative`}
+                data-testid={`package-${pkg.name.toLowerCase().replace(/\s+/g, "-")}`}
               >
                 {pkg.isPopular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
@@ -150,10 +157,12 @@ export default function PackagesSection() {
                     </span>
                   </div>
                 )}
-                
+
                 {/* Category Tag */}
                 <div className="mb-6">
-                  <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold shadow-lg ${getCategoryColor(pkg.category)}`}>
+                  <span
+                    className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold shadow-lg ${getCategoryColor(pkg.category)}`}
+                  >
                     {getCategoryIcon(pkg.category)}
                     {getCategoryDisplayName(pkg.category)}
                   </span>
@@ -170,11 +179,17 @@ export default function PackagesSection() {
                   <h4 className="text-2xl font-bold mb-3 text-gray-800">{pkg.name}</h4>
                   <p className="text-gray-600 mb-6 leading-relaxed">{pkg.description}</p>
                   <div className="mb-8">
-                    <span className={`text-4xl font-bold ${pkg.isPopular ? 'bg-gradient-to-r from-purple-600 to-pink-600' : 'bg-gradient-to-r from-blue-600 to-cyan-600'} bg-clip-text text-transparent`}>
+                    <span
+                      className={`text-4xl font-bold ${
+                        pkg.isPopular
+                          ? "bg-gradient-to-r from-purple-600 to-pink-600"
+                          : "bg-gradient-to-r from-blue-600 to-cyan-600"
+                      } bg-clip-text text-transparent`}
+                    >
                       {formatPrice(pkg.price)}
                     </span>
                   </div>
-                  
+
                   <ul className="text-left space-y-4 mb-8">
                     {pkg.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-start group">
@@ -185,11 +200,15 @@ export default function PackagesSection() {
                       </li>
                     ))}
                   </ul>
-                  
-                  <button 
+
+                  <button
                     onClick={() => handlePackageSelect(pkg)}
-                    className={`w-full vibrant-button btn-interactive text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 ${pkg.isPopular ? 'bg-gradient-to-r from-purple-600 to-pink-600' : 'bg-gradient-to-r from-blue-600 to-cyan-600'}`}
-                    data-testid={`button-choose-${pkg.name.toLowerCase().replace(/\s+/g, '-')}`}
+                    className={`w-full vibrant-button btn-interactive text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 ${
+                      pkg.isPopular
+                        ? "bg-gradient-to-r from-purple-600 to-pink-600"
+                        : "bg-gradient-to-r from-blue-600 to-cyan-600"
+                    }`}
+                    data-testid={`button-choose-${pkg.name.toLowerCase().replace(/\s+/g, "-")}`}
                   >
                     Choose {pkg.name}
                   </button>
