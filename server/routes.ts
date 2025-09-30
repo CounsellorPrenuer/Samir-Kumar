@@ -319,13 +319,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { packageId, customerName, customerEmail, customerPhone, notes } = req.body;
       
       // Get package details
-      const packages = await storage.getPackages();
-      const selectedPackage = packages.find(pkg => pkg.id === packageId);
+      const selectedPackage = await storage.getPackage(packageId);
       
       if (!selectedPackage) {
         return res.status(404).json({
           success: false,
           message: "Package not found"
+        });
+      }
+
+      // Prevent payment for archived packages
+      if (!selectedPackage.isActive) {
+        return res.status(400).json({
+          success: false,
+          message: "This package is no longer available for purchase"
         });
       }
 
