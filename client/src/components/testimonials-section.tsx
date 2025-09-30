@@ -79,7 +79,7 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section ref={sectionRef} className="py-24 bg-gradient-to-b from-white to-purple-50 relative overflow-hidden">
+    <section id="testimonials" ref={sectionRef} className="scroll-mt-20 py-24 bg-gradient-to-b from-white to-purple-50 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-10 right-10 w-80 h-80 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full blur-3xl"></div>

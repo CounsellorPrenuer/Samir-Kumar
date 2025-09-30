@@ -1,16 +1,12 @@
 import Navigation from "@/components/navigation";
-import HeroSection from "@/components/hero-section";
-import StatsSection from "@/components/stats-section";
 import AboutSection from "@/components/about-section";
-import WhyCareerskope from "@/components/why-careerskope";
+import WhyCSSection from "@/components/why-cs-section";
 import CareerTransformation from "@/components/career-transformation";
-import HowItWorks from "@/components/how-it-works";
-import FourPillars from "@/components/four-pillars";
 import PackagesSection from "@/components/packages-section";
-import FounderSection from "@/components/founder-section";
 import TestimonialsSection from "@/components/testimonials-section";
-import WorkshopsSection from "@/components/workshops-section";
 import BlogSection from "@/components/blog-section";
+import FounderSection from "@/components/founder-section";
+import PhotoGallerySection from "@/components/photo-gallery-section";
 import ContactSection from "@/components/contact-section";
 import Footer from "@/components/footer";
 
@@ -18,19 +14,34 @@ export default function Home() {
   return (
     <div className="min-h-screen scroll-smooth">
       <Navigation />
-      <HeroSection />
-      <StatsSection />
+      
+      {/* Section 1: About CS */}
       <AboutSection />
-      <WhyCareerskope />
+      
+      {/* Section 2: Why CS (with 5 subsections) */}
+      <WhyCSSection />
+      
+      {/* Section 3: Ready to transform your career path? */}
       <CareerTransformation />
-      <HowItWorks />
-      <FourPillars />
+      
+      {/* Section 4: Our Career Solutions / Packages */}
       <PackagesSection />
-      <FounderSection />
+      
+      {/* Section 5: Success Stories */}
       <TestimonialsSection />
-      <WorkshopsSection />
+      
+      {/* Section 6: Resources */}
       <BlogSection />
+      
+      {/* Section 7: Leadership @ CS */}
+      <FounderSection />
+      
+      {/* Section 8: Photo Gallery */}
+      <PhotoGallerySection />
+      
+      {/* Section 9: Get in touch */}
       <ContactSection />
+      
       <Footer />
     </div>
   );

@@ -13,9 +13,9 @@ export default function FounderSection() {
   ];
 
   return (
-    <section id="founder" className="scroll-mt-20 py-20 bg-muted">
+    <section id="leadership" className="scroll-mt-20 py-20 bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">Meet Our Founder</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">Leadership @ Careerskope</h2>
         
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden max-w-5xl mx-auto">
           <div className="md:flex">
