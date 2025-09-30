@@ -1,5 +1,5 @@
-import { Target, Brain, Lightbulb, TrendingUp, Users, CheckCircle2 } from "lucide-react";
-import counsellingFrameworkImage from "@assets/WhatsApp Image 2025-09-30 at 11.47.22_1759219205543.jpeg";
+import { Target, Brain, Lightbulb, TrendingUp, Users, CheckCircle2, ArrowRight } from "lucide-react";
+import counsellingFrameworkImage from "@assets/WhatsApp Image 2025-09-30 at 11.56.28_1759219364143.jpeg";
 
 export default function WhyCSSection() {
   return (
@@ -32,74 +32,74 @@ export default function WhyCSSection() {
                 </p>
               </div>
 
-              {/* Framework Image */}
+              {/* Framework Flow Diagram */}
               <div className="mb-10">
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 shadow-inner">
-                  <img 
-                    src={counsellingFrameworkImage} 
-                    alt="CareerSkope Counselling Framework - Four Pillars" 
-                    className="w-full h-auto rounded-xl shadow-lg"
-                    data-testid="img-counselling-framework"
-                  />
+                <h4 className="text-2xl font-bold text-center mb-8 text-gray-900">Our 4-Step Counselling Framework</h4>
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8">
+                  <div className="grid md:grid-cols-4 gap-4 items-center">
+                    {/* Step 1 */}
+                    <div className="text-center">
+                      <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 text-white shadow-lg hover:shadow-xl transition-shadow">
+                        <div className="text-3xl font-bold mb-2">1</div>
+                        <h5 className="font-bold text-lg mb-2">Career Options Evaluation</h5>
+                        <p className="text-sm text-white/90">Analyze available career paths</p>
+                      </div>
+                    </div>
+
+                    {/* Arrow */}
+                    <div className="hidden md:flex justify-center">
+                      <ArrowRight className="h-8 w-8 text-blue-600" />
+                    </div>
+
+                    {/* Step 2 */}
+                    <div className="text-center">
+                      <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl p-6 text-white shadow-lg hover:shadow-xl transition-shadow">
+                        <div className="text-3xl font-bold mb-2">2</div>
+                        <h5 className="font-bold text-lg mb-2">Career Roadmap Discussion</h5>
+                        <p className="text-sm text-white/90">Plan your journey step-by-step</p>
+                      </div>
+                    </div>
+
+                    {/* Arrow */}
+                    <div className="hidden md:flex justify-center">
+                      <ArrowRight className="h-8 w-8 text-indigo-600" />
+                    </div>
+
+                    {/* Step 3 */}
+                    <div className="text-center">
+                      <div className="bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl p-6 text-white shadow-lg hover:shadow-xl transition-shadow">
+                        <div className="text-3xl font-bold mb-2">3</div>
+                        <h5 className="font-bold text-lg mb-2">Opportunities Exploration</h5>
+                        <p className="text-sm text-white/90">Discover new possibilities</p>
+                      </div>
+                    </div>
+
+                    {/* Arrow */}
+                    <div className="hidden md:flex justify-center">
+                      <ArrowRight className="h-8 w-8 text-cyan-600" />
+                    </div>
+
+                    {/* Step 4 */}
+                    <div className="text-center">
+                      <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl p-6 text-white shadow-lg hover:shadow-xl transition-shadow">
+                        <div className="text-3xl font-bold mb-2">4</div>
+                        <h5 className="font-bold text-lg mb-2">Informed Decisions</h5>
+                        <p className="text-sm text-white/90">Make confident choices</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Framework Pillars */}
-              <div className="grid md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border-l-4 border-blue-600">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0">
-                      <CheckCircle2 className="h-6 w-6 text-blue-600 mt-1" />
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-bold text-gray-900 mb-2">Career Options Evaluation</h4>
-                      <p className="text-gray-700">
-                        Comprehensive analysis of all available career paths based on your unique profile, market trends, and future opportunities.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-6 border-l-4 border-indigo-600">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0">
-                      <CheckCircle2 className="h-6 w-6 text-indigo-600 mt-1" />
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-bold text-gray-900 mb-2">Career Roadmap Discussion</h4>
-                      <p className="text-gray-700">
-                        Personalized step-by-step plan from where you are today to where you want to be, with clear milestones and actionable goals.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl p-6 border-l-4 border-cyan-600">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0">
-                      <CheckCircle2 className="h-6 w-6 text-cyan-600 mt-1" />
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-bold text-gray-900 mb-2">Opportunities Exploration</h4>
-                      <p className="text-gray-700">
-                        Discover emerging fields, hidden opportunities, and unconventional paths that align with your passions and abilities.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border-l-4 border-purple-600">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0">
-                      <CheckCircle2 className="h-6 w-6 text-purple-600 mt-1" />
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-bold text-gray-900 mb-2">Informed Decisions</h4>
-                      <p className="text-gray-700">
-                        Make confident choices backed by scientific assessment, expert insights, and comprehensive understanding of your strengths.
-                      </p>
-                    </div>
-                  </div>
+              {/* Framework Details Image */}
+              <div className="mb-10">
+                <div className="bg-white rounded-2xl p-6 shadow-lg">
+                  <img 
+                    src={counsellingFrameworkImage} 
+                    alt="CareerSkope Counselling Framework Integration" 
+                    className="w-full h-auto rounded-xl"
+                    data-testid="img-counselling-framework"
+                  />
                 </div>
               </div>
 
