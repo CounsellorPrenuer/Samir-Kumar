@@ -9,12 +9,14 @@ import FounderSection from "@/components/founder-section";
 import PhotoGallerySection from "@/components/photo-gallery-section";
 import ContactSection from "@/components/contact-section";
 import Footer from "@/components/footer";
+import HeroSection from "@/components/hero-section"
 
 export default function Home() {
   return (
     <div className="min-h-screen scroll-smooth">
       <Navigation />
-      
+      <HeroSection />
+
       {/* Section 1: About CS */}
       <AboutSection />
       

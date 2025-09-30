@@ -55,42 +55,69 @@ export default function WhyCSSection() {
         </div>
 
         {/* Subsection 2: Advanced Psychometrics */}
-        <div className="mb-20" data-testid="subsection-advanced-psychometrics">
-          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-            <div className="flex items-start gap-6">
-              <div className="flex-shrink-0">
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center">
-                  <Brain className="h-8 w-8 text-white" />
+        <div className="bg-gradient-to-r from-blue-600 via-green-600 to-red-600 rounded-3xl p-1 mb-16">
+            <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 md:p-12">
+              <h3 className="text-3xl font-bold text-center mb-8">
+                Advanced Psychometric <span className="bg-gradient-to-r from-blue-600 via-green-600 to-red-600 bg-clip-text text-transparent">Career Assessment</span>
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-6">
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    The psychometric assessment administered by Careerskope is the most advanced and accurate online career test 
+                    that will help you make informed career decisions. It is one of the highest rated career assessment platforms in India.
+                  </p>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Our online career assessment is based on well-proven psychometric theories and Artificial Intelligence (AI). 
+                    The multi-dimensional career assessment test includes detailed analysis of interests, personality, and abilities.
+                  </p>
                 </div>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                  Advanced Psychometrics
-                </h3>
-                <p className="text-lg text-gray-600 mb-6">
-                  Our scientifically-validated psychometric assessments provide deep insights into your personality, aptitudes, interests, and values. These comprehensive tools help identify your natural strengths and guide you toward careers where you'll excel and find fulfillment.
-                </p>
-                <ul className="space-y-3 text-gray-700">
-                  <li className="flex items-start">
-                    <span className="text-purple-600 mr-2">✓</span>
-                    <span>Personality profiling and behavioral assessment</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-purple-600 mr-2">✓</span>
-                    <span>Aptitude and cognitive ability testing</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-purple-600 mr-2">✓</span>
-                    <span>Interest inventories and values clarification</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-purple-600 mr-2">✓</span>
-                    <span>Detailed reports with actionable career recommendations</span>
-                  </li>
-                </ul>
+
+                <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6">
+                  <h4 className="text-xl font-bold mb-4 text-center">Assessment Features</h4>
+                  <ul className="space-y-3">
+                    <li className="flex items-center space-x-3">
+                      <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
+                      <span className="text-muted-foreground">Industry benchmark accuracy</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <div className="w-3 h-3 bg-green-600 rounded-full"></div>
+                      <span className="text-muted-foreground">AI-powered insights</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <div className="w-3 h-3 bg-red-600 rounded-full"></div>
+                      <span className="text-muted-foreground">Multi-dimensional analysis</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
+                      <span className="text-muted-foreground">10+ page comprehensive report</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
+
+        {/* Call to Action */}
+        <div className="text-center mb-20">
+          <h3 className="text-2xl font-bold mb-6">Ready to Transform Your Career Journey?</h3>
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Embark on a fulfilling career path with our expert career guidance services. Our knowledgeable career counsellors 
+            will assist you in exploring various industries, identifying your interests, and mapping your personality to help 
+            you make informed career decisions.
+          </p>
+          <button 
+            onClick={() => {
+              const contactSection = document.querySelector('#contact');
+              if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }}
+            className="bg-gradient-to-r from-blue-600 via-green-600 to-red-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+            data-testid="button-start-assessment"
+          >
+            Start Your Career Assessment
+          </button>
         </div>
 
         {/* Subsection 3: Unique Approach */}
@@ -168,7 +195,7 @@ export default function WhyCSSection() {
         </div>
 
         {/* Subsection 5: Professional Development */}
-        <div data-testid="subsection-professional-development">
+        <div className="mb-20" data-testid="subsection-professional-development">
           <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
             <div className="flex items-start gap-6">
               <div className="flex-shrink-0">
