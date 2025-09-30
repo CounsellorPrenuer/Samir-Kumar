@@ -165,7 +165,6 @@ export default function PaymentsManagement() {
                 <p className="text-sm font-medium text-muted-foreground">Total Revenue</p>
                 <p className="text-2xl font-bold text-green-600">{stats.successful}</p>
               </div>
-              <DollarSign className="h-8 w-8 text-green-600" />
             </div>
           </CardContent>
         </Card>

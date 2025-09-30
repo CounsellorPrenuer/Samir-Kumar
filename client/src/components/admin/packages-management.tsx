@@ -230,7 +230,6 @@ export default function PackagesManagement() {
                       {!pkg.isActive && <Badge variant="secondary">Archived</Badge>}
                     </div>
                     <div className="flex items-center gap-2 mb-4">
-                      <DollarSign className="h-5 w-5 text-green-600" />
                       <span className="text-2xl font-bold text-green-600">
                         {formatPrice(pkg.price)}
                       </span>

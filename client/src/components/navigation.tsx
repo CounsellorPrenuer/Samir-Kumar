@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Menu, X, User, LogOut, Sparkles } from "lucide-react";
-import careerSkopeLogoPath from "@assets/Screenshot 2025-09-27 114759_1758954653506.png";
+import careerSkopeLogoPath from "@assets/logo.png";
 import { ResponsiveImage } from "./responsive-image";
 import { useAuth } from "@/hooks/use-auth";
 import { useScrollspy } from "@/hooks/use-scrollspy";

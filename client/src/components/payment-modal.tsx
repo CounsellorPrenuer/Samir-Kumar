@@ -313,7 +313,6 @@ export default function PaymentModal({ isOpen, onClose, package: selectedPackage
                     </>
                   ) : (
                     <>
-                      <DollarSign className="mr-2 h-4 w-4" />
                       Proceed to Payment
                     </>
                   )}

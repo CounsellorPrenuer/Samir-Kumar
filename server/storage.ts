@@ -6,6 +6,7 @@ import {
   packages,
   payments,
   adminUsers,
+  photoGallery,
   type User, 
   type InsertUser, 
   type ContactSubmission, 
@@ -20,6 +21,8 @@ import {
   type InsertPayment,
   type AdminUser,
   type InsertAdminUser,
+  type PhotoGallery,
+  type InsertPhotoGallery,
   type UpdateContactStatus
 } from "@shared/schema";
 import { db } from "./db";
@@ -75,6 +78,12 @@ export interface IStorage {
   createPayment(payment: InsertPayment): Promise<Payment>;
   updatePayment(id: string, payment: Partial<InsertPayment>): Promise<Payment>;
   updatePaymentStatus(id: string, status: string, paymentDetails?: any): Promise<Payment>;
+  
+  // Photo Gallery
+  getPhotoGalleryItems(): Promise<PhotoGallery[]>;
+  getActivePhotoGalleryItems(): Promise<PhotoGallery[]>;
+  createPhotoGalleryItem(photo: InsertPhotoGallery): Promise<PhotoGallery>;
+  deletePhotoGalleryItem(id: string): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -341,6 +350,30 @@ export class DatabaseStorage implements IStorage {
       .where(eq(payments.id, id))
       .returning();
     return updatedPayment;
+  }
+
+  // Photo Gallery operations
+  async getPhotoGalleryItems(): Promise<PhotoGallery[]> {
+    return await db.select().from(photoGallery)
+      .orderBy(photoGallery.displayOrder, desc(photoGallery.createdAt));
+  }
+
+  async getActivePhotoGalleryItems(): Promise<PhotoGallery[]> {
+    return await db.select().from(photoGallery)
+      .where(eq(photoGallery.isActive, true))
+      .orderBy(photoGallery.displayOrder, desc(photoGallery.createdAt));
+  }
+
+  async createPhotoGalleryItem(photo: InsertPhotoGallery): Promise<PhotoGallery> {
+    const [newPhoto] = await db
+      .insert(photoGallery)
+      .values(photo)
+      .returning();
+    return newPhoto;
+  }
+
+  async deletePhotoGalleryItem(id: string): Promise<void> {
+    await db.delete(photoGallery).where(eq(photoGallery.id, id));
   }
 }
 

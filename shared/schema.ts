@@ -87,6 +87,15 @@ export const adminUsers = pgTable("admin_users", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const photoGallery = pgTable("photo_gallery", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  imageUrl: text("image_url").notNull(),
+  caption: text("caption"),
+  displayOrder: integer("display_order").default(0).notNull(),
+  isActive: boolean("is_active").default(true).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
@@ -129,6 +138,11 @@ export const insertAdminUserSchema = createInsertSchema(adminUsers).omit({
   lastLogin: true,
 });
 
+export const insertPhotoGallerySchema = createInsertSchema(photoGallery).omit({
+  id: true,
+  createdAt: true,
+});
+
 export const updateContactStatusSchema = z.object({
   status: z.enum(["pending", "responded", "archived"]),
   adminNotes: z.string().optional(),
@@ -149,4 +163,6 @@ export type InsertPayment = z.infer<typeof insertPaymentSchema>;
 export type Payment = typeof payments.$inferSelect;
 export type InsertAdminUser = z.infer<typeof insertAdminUserSchema>;
 export type AdminUser = typeof adminUsers.$inferSelect;
+export type InsertPhotoGallery = z.infer<typeof insertPhotoGallerySchema>;
+export type PhotoGallery = typeof photoGallery.$inferSelect;
 export type UpdateContactStatus = z.infer<typeof updateContactStatusSchema>;
