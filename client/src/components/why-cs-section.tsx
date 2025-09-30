@@ -1,5 +1,5 @@
-import { Target, Brain, Lightbulb, TrendingUp, Users } from "lucide-react";
-import counsellingFrameworkImage from "@assets/WhatsApp Image 2025-09-30 at 11.56.28_1759219050985.jpeg";
+import { Target, Brain, Lightbulb, TrendingUp, Users, CheckCircle2 } from "lucide-react";
+import counsellingFrameworkImage from "@assets/WhatsApp Image 2025-09-30 at 11.47.22_1759219205543.jpeg";
 
 export default function WhyCSSection() {
   return (
@@ -16,28 +16,117 @@ export default function WhyCSSection() {
 
         {/* Subsection 1: Counselling Framework */}
         <div className="mb-20" data-testid="subsection-counselling-framework">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-full mb-4">
-              <Target className="h-8 w-8 text-white" />
-            </div>
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-              Counselling Framework
-            </h3>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
-              Our comprehensive counselling framework combines evaluation, career planning, unbiased guidance, and informed decision-making to help you make the right career choices. We integrate personality assessment, career interests, and learning abilities to guide you toward the perfect career path.
-            </p>
-          </div>
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-              <img 
-                src={counsellingFrameworkImage} 
-                alt="CareerSkope Counselling Framework" 
-                className="w-full h-auto rounded-lg"
-                data-testid="img-counselling-framework"
-              />
-              <p className="mt-4 text-sm text-gray-600 text-center">
-                Our comprehensive counselling framework integrating personality assessment, career interests, and learning abilities
-              </p>
+          <div className="bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-600 rounded-3xl p-1 shadow-2xl">
+            <div className="bg-white rounded-3xl p-8 md:p-12">
+              <div className="text-center mb-12">
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full mb-6 shadow-lg">
+                  <Target className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold mb-6">
+                  <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 bg-clip-text text-transparent">
+                    CareerSkope Counselling Framework
+                  </span>
+                </h3>
+                <p className="text-lg text-gray-700 max-w-4xl mx-auto mb-8 leading-relaxed">
+                  Our scientifically-designed counselling framework is built on four fundamental pillars that guide you through a transformative career discovery journey. We combine cutting-edge psychometric assessment with personalized expert guidance to help you make confident, informed career decisions.
+                </p>
+              </div>
+
+              {/* Framework Image */}
+              <div className="mb-10">
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 shadow-inner">
+                  <img 
+                    src={counsellingFrameworkImage} 
+                    alt="CareerSkope Counselling Framework - Four Pillars" 
+                    className="w-full h-auto rounded-xl shadow-lg"
+                    data-testid="img-counselling-framework"
+                  />
+                </div>
+              </div>
+
+              {/* Framework Pillars */}
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border-l-4 border-blue-600">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">
+                      <CheckCircle2 className="h-6 w-6 text-blue-600 mt-1" />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-gray-900 mb-2">Career Options Evaluation</h4>
+                      <p className="text-gray-700">
+                        Comprehensive analysis of all available career paths based on your unique profile, market trends, and future opportunities.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-6 border-l-4 border-indigo-600">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">
+                      <CheckCircle2 className="h-6 w-6 text-indigo-600 mt-1" />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-gray-900 mb-2">Career Roadmap Discussion</h4>
+                      <p className="text-gray-700">
+                        Personalized step-by-step plan from where you are today to where you want to be, with clear milestones and actionable goals.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl p-6 border-l-4 border-cyan-600">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">
+                      <CheckCircle2 className="h-6 w-6 text-cyan-600 mt-1" />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-gray-900 mb-2">Opportunities Exploration</h4>
+                      <p className="text-gray-700">
+                        Discover emerging fields, hidden opportunities, and unconventional paths that align with your passions and abilities.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border-l-4 border-purple-600">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">
+                      <CheckCircle2 className="h-6 w-6 text-purple-600 mt-1" />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-gray-900 mb-2">Informed Decisions</h4>
+                      <p className="text-gray-700">
+                        Make confident choices backed by scientific assessment, expert insights, and comprehensive understanding of your strengths.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Integration Section */}
+              <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 rounded-2xl p-8 text-white text-center">
+                <h4 className="text-2xl font-bold mb-4">Integrated Assessment Approach</h4>
+                <p className="text-lg text-white/90 mb-6 max-w-3xl mx-auto">
+                  Our framework uniquely integrates three critical dimensions to provide you with the most accurate career guidance:
+                </p>
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                    <Brain className="h-8 w-8 mx-auto mb-3" />
+                    <h5 className="font-semibold mb-2">Individual Personality</h5>
+                    <p className="text-sm text-white/80">Understanding your unique traits and behavioral patterns</p>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                    <Target className="h-8 w-8 mx-auto mb-3" />
+                    <h5 className="font-semibold mb-2">Career Interests</h5>
+                    <p className="text-sm text-white/80">Identifying what truly motivates and excites you</p>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                    <Lightbulb className="h-8 w-8 mx-auto mb-3" />
+                    <h5 className="font-semibold mb-2">Learning Abilities</h5>
+                    <p className="text-sm text-white/80">Assessing your strengths and cognitive capabilities</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
