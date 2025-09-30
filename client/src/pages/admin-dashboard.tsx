@@ -13,13 +13,15 @@ import {
   CreditCard,
   LogOut,
   Settings,
-  BarChart3
+  BarChart3,
+  Image
 } from "lucide-react";
 import ContactsManagement from "@/components/admin/contacts-management";
 import TestimonialsManagement from "@/components/admin/testimonials-management";
 import BlogManagement from "@/components/admin/blog-management";
 import PackagesManagement from "@/components/admin/packages-management";
 import PaymentsManagement from "@/components/admin/payments-management";
+import PhotoGalleryManagement from "@/components/admin/photo-gallery-management";
 import DashboardOverview from "@/components/admin/dashboard-overview";
 import { useToast } from "@/hooks/use-toast";
 
@@ -112,7 +114,7 @@ export default function AdminDashboard() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className="grid w-full grid-cols-7">
             <TabsTrigger value="overview" className="flex items-center gap-2">
               <BarChart3 className="h-4 w-4" />
               Overview
@@ -136,6 +138,10 @@ export default function AdminDashboard() {
             <TabsTrigger value="payments" className="flex items-center gap-2">
               <CreditCard className="h-4 w-4" />
               Payments
+            </TabsTrigger>
+            <TabsTrigger value="gallery" className="flex items-center gap-2">
+              <Image className="h-4 w-4" />
+              Gallery
             </TabsTrigger>
           </TabsList>
 
@@ -161,6 +167,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="payments" className="space-y-6">
             <PaymentsManagement />
+          </TabsContent>
+
+          <TabsContent value="gallery" className="space-y-6">
+            <PhotoGalleryManagement />
           </TabsContent>
         </Tabs>
       </main>
