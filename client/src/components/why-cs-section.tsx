@@ -321,7 +321,7 @@ export default function WhyCSSection() {
           Start Your Career Assessment
         </button>
       </div>
-      CareerSkope Counselling Framework based on === use this image
+      CareerSkope Counselling Framework based on === use this imagei w
     </section>
   );
 }
