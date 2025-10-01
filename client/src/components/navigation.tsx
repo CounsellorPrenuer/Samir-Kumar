@@ -1,10 +1,13 @@
+// src/components/layout/navigation.tsx
+
 import { useState } from "react";
 import { Menu, X, Search } from "lucide-react";
-import careerSkopeLogoPath from "@assets/logo (2)_1759307185073.png";
+import careerSkopeLogoPath from "@assets/logo.png";
 import { ResponsiveImage } from "./responsive-image";
 import { useScrollspy } from "@/hooks/use-scrollspy";
 import ScrollProgressBar from "./scroll-progress-bar";
 import { Button } from "@/components/ui/button";
+import SearchDialog from "./search-dialog";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -40,19 +43,19 @@ export default function Navigation() {
   return (
     <>
       <ScrollProgressBar />
-      <nav className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm transition-all duration-300 hover:shadow-md">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 py-2">
+      <nav className="fixed top-0 w-full z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 shadow-sm transition-all duration-300 hover:shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <div className="flex items-center space-x-2 flex-shrink-0">
+          <div className="flex items-center flex-shrink-0">
             <ResponsiveImage 
               src={careerSkopeLogoPath} 
               alt="Careerskope Logo" 
-              className="h-12 sm:h-14 w-auto object-contain"
+              className="h-10 sm:h-12 md:h-14 w-auto object-contain"
               loading="eager"
               priority={true}
-              sizes="(max-width: 640px) 150px, (max-width: 768px) 180px, 200px"
-              width={200}
+              sizes="(max-width: 640px) 150px, (max-width: 768px) 180px, 220px"
+              width={220}
               height={56}
               fixed={true}
               data-testid="logo-image"
@@ -60,7 +63,7 @@ export default function Navigation() {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
+          <div className="hidden lg:flex items-center space-x-1 xl:space-x-2">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -69,10 +72,10 @@ export default function Navigation() {
                   e.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className={`nav-link transition-all duration-300 text-xs xl:text-sm font-medium whitespace-nowrap px-2 xl:px-3 py-2 relative ${
+                className={`nav-link transition-all duration-200 text-sm font-medium whitespace-nowrap px-3 xl:px-4 py-2 rounded-lg relative ${
                   activeSection === link.href
-                    ? 'text-blue-600 border-b-2 border-blue-600'
-                    : 'text-gray-700 hover:text-blue-600 hover:scale-105 hover:font-semibold'
+                    ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/30 dark:text-blue-400'
+                    : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800'
                 }`}
                 aria-current={activeSection === link.href ? 'page' : undefined}
                 data-testid={`nav-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
@@ -82,44 +85,62 @@ export default function Navigation() {
             ))}
             <button 
               onClick={() => setSearchOpen(!searchOpen)}
-              className="p-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+              className="p-2.5 ml-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
               data-testid="button-search"
-              aria-label="Search"
+              aria-label="Search (⌘K)"
+              title="Search (⌘K)"
             >
               <Search className="h-5 w-5" />
             </button>
           </div>
 
-          {/* Tablet Navigation - show search button */}
-          <div className="hidden md:flex lg:hidden items-center space-x-4">
+          {/* Tablet Navigation */}
+          <div className="hidden md:flex lg:hidden items-center gap-2">
             <button 
               onClick={() => setSearchOpen(!searchOpen)}
-              className="p-2 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+              className="p-2.5 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
               data-testid="button-search-tablet"
-              aria-label="Search"
+              aria-label="Search (⌘K)"
+              title="Search (⌘K)"
             >
               <Search className="h-5 w-5" />
+            </button>
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2.5 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
+              data-testid="button-tablet-menu"
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            >
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex md:hidden">
+          <div className="flex md:hidden gap-2">
+            <button 
+              onClick={() => setSearchOpen(!searchOpen)}
+              className="p-2.5 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
+              data-testid="button-search-mobile"
+              aria-label="Search"
+            >
+              <Search className="h-5 w-5" />
+            </button>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-gray-700 hover:text-blue-600 p-2 rounded-md min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors duration-200"
+              className="p-2.5 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
               data-testid="button-mobile-menu"
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
-              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile & Tablet Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-gray-200 shadow-lg animate-slide-up">
-          <div className="px-4 pt-2 pb-4 space-y-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
+        <div className="lg:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-lg animate-slide-up">
+          <div className="px-4 pt-2 pb-4 space-y-1 max-h-[calc(100vh-5rem)] overflow-y-auto">
             {navLinks.map((link, index) => (
               <a
                 key={link.href}
@@ -128,10 +149,10 @@ export default function Navigation() {
                   e.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className={`block w-full text-left px-3 py-3 rounded-lg transition-colors duration-200 animate-fade-in min-h-[44px] flex items-center font-medium ${
+                className={`block w-full text-left px-4 py-3 rounded-lg transition-all duration-200 animate-fade-in min-h-[44px] flex items-center font-medium ${
                   activeSection === link.href
-                    ? 'text-blue-600 bg-blue-50'
-                    : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                    ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30'
+                    : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800'
                 }`}
                 style={{ animationDelay: `${index * 50}ms` }}
                 aria-current={activeSection === link.href ? 'page' : undefined}
@@ -140,24 +161,13 @@ export default function Navigation() {
                 {link.label}
               </a>
             ))}
-            <div className="pt-2">
-              <button 
-                onClick={() => {
-                  setSearchOpen(true);
-                  setIsMobileMenuOpen(false);
-                }}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg animate-scale-in min-h-[44px] font-semibold text-base transition-colors duration-200 flex items-center justify-center gap-2"
-                style={{ animationDelay: `${navLinks.length * 50}ms` }}
-                data-testid="mobile-button-search"
-              >
-                <Search className="h-5 w-5" />
-                Search
-              </button>
-            </div>
           </div>
         </div>
       )}
       </nav>
+      
+      {/* Search Dialog */}
+      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </>
   );
 }
