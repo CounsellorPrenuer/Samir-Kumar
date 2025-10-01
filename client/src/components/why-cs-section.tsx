@@ -17,72 +17,95 @@ export default function WhyCSSection() {
 
         {/* Subsection 1: Counselling Framework */}
         <div className="mb-16" data-testid="subsection-counselling-framework">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-14 h-14 bg-blue-600 rounded-full mb-4">
-              <Target className="h-7 w-7 text-white" />
+          <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-lg ring-1 ring-black/5 p-8 md:p-12 space-y-8 max-w-6xl mx-auto">
+            {/* Header */}
+            <div className="text-center space-y-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full shadow-lg mb-2">
+                <Target className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
+                <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                  Counselling Framework
+                </span>
+              </h3>
+              <p className="text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Our comprehensive framework combines evaluation, career planning, unbiased guidance, and informed decision-making to guide you toward the perfect career path.
+              </p>
             </div>
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-              Counselling Framework
-            </h3>
-            <p className="text-base text-gray-600 max-w-3xl mx-auto">
-              Our framework combines evaluation, planning, and guidance to help you make informed career decisions.
-            </p>
-          </div>
 
-          {/* Framework Flow - Compact */}
-          <div className="mb-6">
-            <div className="flex flex-wrap justify-center items-center gap-3 max-w-5xl mx-auto">
-              <div className="bg-blue-500 text-white rounded-lg px-4 py-2 text-sm font-semibold shadow">
-                1. Career Options Evaluation
-              </div>
-              <ArrowRight className="h-5 w-5 text-gray-400 hidden sm:block" />
-              <div className="bg-indigo-500 text-white rounded-lg px-4 py-2 text-sm font-semibold shadow">
-                2. Career Roadmap Discussion
-              </div>
-              <ArrowRight className="h-5 w-5 text-gray-400 hidden sm:block" />
-              <div className="bg-cyan-500 text-white rounded-lg px-4 py-2 text-sm font-semibold shadow">
-                3. Opportunities Exploration
-              </div>
-              <ArrowRight className="h-5 w-5 text-gray-400 hidden sm:block" />
-              <div className="bg-purple-500 text-white rounded-lg px-4 py-2 text-sm font-semibold shadow">
-                4. Informed Decisions
+            {/* Framework Flow - Stepper Style */}
+            <div className="py-4">
+              <div className="flex items-center justify-center gap-2 md:gap-4 max-w-4xl mx-auto">
+                <div className="flex flex-col items-center text-center gap-2 flex-1">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center shadow-md">
+                    1
+                  </div>
+                  <span className="text-xs md:text-sm font-medium text-gray-800">Career Options</span>
+                </div>
+                <div className="hidden md:block h-px flex-1 max-w-[80px] bg-gradient-to-r from-blue-300 to-indigo-300"></div>
+                
+                <div className="flex flex-col items-center text-center gap-2 flex-1">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center shadow-md">
+                    2
+                  </div>
+                  <span className="text-xs md:text-sm font-medium text-gray-800">Roadmap</span>
+                </div>
+                <div className="hidden md:block h-px flex-1 max-w-[80px] bg-gradient-to-r from-blue-300 to-indigo-300"></div>
+                
+                <div className="flex flex-col items-center text-center gap-2 flex-1">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center shadow-md">
+                    3
+                  </div>
+                  <span className="text-xs md:text-sm font-medium text-gray-800">Opportunities</span>
+                </div>
+                <div className="hidden md:block h-px flex-1 max-w-[80px] bg-gradient-to-r from-blue-300 to-indigo-300"></div>
+                
+                <div className="flex flex-col items-center text-center gap-2 flex-1">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center shadow-md">
+                    4
+                  </div>
+                  <span className="text-xs md:text-sm font-medium text-gray-800">Decisions</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Framework Images */}
-          <div className="max-w-5xl mx-auto">
-            <p className="text-center text-gray-700 mb-6 max-w-3xl mx-auto">
-              Our comprehensive counselling framework combines evaluation, career planning, unbiased guidance, and informed decision-making. We integrate personality assessment, career interests, and learning abilities to guide you toward the perfect career path.
-            </p>
-            <div className="flex gap-4 items-stretch">
-              {/* First Image - 3/5 width */}
-              <div className="w-3/5">
-                <div className="bg-white rounded-xl shadow-lg p-4 h-full">
-                  <img 
-                    src={counsellingFramework1} 
-                    alt="Career Counselling at CareerSkope Framework" 
-                    className="w-full h-full object-contain rounded-lg"
-                    data-testid="img-counselling-framework-1"
-                  />
-                  <p className="mt-3 text-sm text-gray-600 text-center">
-                    Career Counselling at CareerSkope
-                  </p>
+            {/* Framework Images - Responsive Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+              {/* First Image - 7 cols on desktop */}
+              <div className="md:col-span-7 group">
+                <div className="bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-[2px] rounded-2xl h-full">
+                  <div className="bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-sm h-full transition-all duration-300 group-hover:shadow-xl">
+                    <div className="aspect-[4/3] relative overflow-hidden rounded-lg">
+                      <img 
+                        src={counsellingFramework1} 
+                        alt="Career Counselling at CareerSkope Framework" 
+                        className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+                        data-testid="img-counselling-framework-1"
+                      />
+                    </div>
+                    <p className="mt-3 text-sm font-medium text-gray-700/80 text-center border-t border-gray-100 pt-3">
+                      Career Counselling at CareerSkope
+                    </p>
+                  </div>
                 </div>
               </div>
               
-              {/* Second Image - 2/5 width */}
-              <div className="w-2/5">
-                <div className="bg-white rounded-xl shadow-lg p-4 h-full">
-                  <img 
-                    src={counsellingFramework2} 
-                    alt="Career Choice Framework" 
-                    className="w-full h-full object-contain rounded-lg"
-                    data-testid="img-counselling-framework-2"
-                  />
-                  <p className="mt-3 text-sm text-gray-600 text-center">
-                    Career Choice Framework
-                  </p>
+              {/* Second Image - 5 cols on desktop */}
+              <div className="md:col-span-5 group">
+                <div className="bg-gradient-to-br from-indigo-500/20 to-blue-500/20 p-[2px] rounded-2xl h-full">
+                  <div className="bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-sm h-full transition-all duration-300 group-hover:shadow-xl">
+                    <div className="aspect-[4/3] relative overflow-hidden rounded-lg">
+                      <img 
+                        src={counsellingFramework2} 
+                        alt="Career Choice Framework" 
+                        className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+                        data-testid="img-counselling-framework-2"
+                      />
+                    </div>
+                    <p className="mt-3 text-sm font-medium text-gray-700/80 text-center border-t border-gray-100 pt-3">
+                      Career Choice Framework
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
