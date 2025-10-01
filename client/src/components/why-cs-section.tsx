@@ -1,5 +1,6 @@
 import { Target, Brain, Lightbulb, TrendingUp, Users, CheckCircle2, ArrowRight } from "lucide-react";
-import counsellingFrameworkImage from "@assets/WhatsApp Image 2025-09-30 at 11.56.28_1759219364143.jpeg";
+import counsellingFramework1 from "@assets/WhatsApp Image 2025-09-30 at 11.47.22_1759303602858.jpeg";
+import counsellingFramework2 from "@assets/WhatsApp Image 2025-09-30 at 11.56.28_1759303602861.jpeg";
 
 export default function WhyCSSection() {
   return (
@@ -49,15 +50,41 @@ export default function WhyCSSection() {
             </div>
           </div>
 
-          {/* Framework Image */}
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-xl shadow-lg p-4">
-              <img 
-                src={counsellingFrameworkImage} 
-                alt="CareerSkope Counselling Framework" 
-                className="w-full h-auto rounded-lg"
-                data-testid="img-counselling-framework"
-              />
+          {/* Framework Images */}
+          <div className="max-w-5xl mx-auto">
+            <p className="text-center text-gray-700 mb-6 max-w-3xl mx-auto">
+              Our comprehensive counselling framework combines evaluation, career planning, unbiased guidance, and informed decision-making. We integrate personality assessment, career interests, and learning abilities to guide you toward the perfect career path.
+            </p>
+            <div className="flex gap-4 items-stretch">
+              {/* First Image - 3/5 width */}
+              <div className="w-3/5">
+                <div className="bg-white rounded-xl shadow-lg p-4 h-full">
+                  <img 
+                    src={counsellingFramework1} 
+                    alt="Career Counselling at CareerSkope Framework" 
+                    className="w-full h-full object-contain rounded-lg"
+                    data-testid="img-counselling-framework-1"
+                  />
+                  <p className="mt-3 text-sm text-gray-600 text-center">
+                    Career Counselling at CareerSkope
+                  </p>
+                </div>
+              </div>
+              
+              {/* Second Image - 2/5 width */}
+              <div className="w-2/5">
+                <div className="bg-white rounded-xl shadow-lg p-4 h-full">
+                  <img 
+                    src={counsellingFramework2} 
+                    alt="Career Choice Framework" 
+                    className="w-full h-full object-contain rounded-lg"
+                    data-testid="img-counselling-framework-2"
+                  />
+                  <p className="mt-3 text-sm text-gray-600 text-center">
+                    Career Choice Framework
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -107,79 +134,7 @@ export default function WhyCSSection() {
           </div>
 
 
-        {/* Subsection 3: Unique Approach */}
-        <div className="mb-20" data-testid="subsection-unique-approach">
-          <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-2xl shadow-xl p-8 md:p-12 text-white">
-            <div className="flex items-start gap-6">
-              <div className="flex-shrink-0">
-                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                  <Lightbulb className="h-8 w-8 text-white" />
-                </div>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                  Unique Approach
-                </h3>
-                <p className="text-lg mb-6 text-white/90">
-                  What sets Careerskope apart is our personalized, holistic methodology that combines data-driven insights with human expertise. We don't just assess—we partner with you throughout your career journey.
-                </p>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                    <h4 className="font-semibold mb-2">One-on-One Mentorship</h4>
-                    <p className="text-sm text-white/80">Personalized guidance from industry experts</p>
-                  </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                    <h4 className="font-semibold mb-2">Industry Connections</h4>
-                    <p className="text-sm text-white/80">Access to our network of professionals</p>
-                  </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                    <h4 className="font-semibold mb-2">Continuous Support</h4>
-                    <p className="text-sm text-white/80">Ongoing guidance beyond initial consultation</p>
-                  </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                    <h4 className="font-semibold mb-2">Real-World Focus</h4>
-                    <p className="text-sm text-white/80">Practical strategies for immediate application</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        {/* Subsection 4: Comprehensive Approach to Career Development */}
-        <div className="mb-20" data-testid="subsection-comprehensive-approach">
-          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-            <div className="flex items-start gap-6">
-              <div className="flex-shrink-0">
-                <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center">
-                  <TrendingUp className="h-8 w-8 text-white" />
-                </div>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                  Comprehensive Approach to Career Development
-                </h3>
-                <p className="text-lg text-gray-600 mb-6">
-                  Our 360-degree approach covers every aspect of career development, from initial exploration to ongoing professional growth. We address not just what career to choose, but how to thrive in it.
-                </p>
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="border-l-4 border-red-500 pl-4">
-                    <h4 className="font-semibold text-gray-900 mb-2">Career Planning</h4>
-                    <p className="text-sm text-gray-600">Strategic roadmap for your professional journey</p>
-                  </div>
-                  <div className="border-l-4 border-red-500 pl-4">
-                    <h4 className="font-semibold text-gray-900 mb-2">Skill Development</h4>
-                    <p className="text-sm text-gray-600">Identifying and building essential competencies</p>
-                  </div>
-                  <div className="border-l-4 border-red-500 pl-4">
-                    <h4 className="font-semibold text-gray-900 mb-2">Market Insights</h4>
-                    <p className="text-sm text-gray-600">Understanding industry trends and opportunities</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Subsection 5: Professional Development */}
         <div className="mb-20" data-testid="subsection-professional-development">
@@ -252,7 +207,6 @@ export default function WhyCSSection() {
           Start Your Career Assessment
         </button>
       </div>
-      CareerSkope Counselling Framework based on === use this imagei w
     </section>
   );
 }

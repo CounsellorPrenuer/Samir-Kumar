@@ -1,4 +1,4 @@
-import { ArrowRight, Target, Heart, TrendingUp, Users, BookOpen, MapPin, CheckCircle, Lightbulb, GraduationCap } from "lucide-react";
+import { ArrowRight, Target, ShieldCheck , TrendingUp, Users, BookOpen, MapPin, CheckCircle, Lightbulb, GraduationCap } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 
 export default function AboutSection() {
@@ -13,7 +13,7 @@ export default function AboutSection() {
     {
       from: "Doubts",
       to: "Confidence", 
-      icon: Heart,
+      icon: ShieldCheck,
       color: "text-red-600"
     },
     {

@@ -88,12 +88,6 @@ export default function TestimonialsSection() {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-20">
-          <div className="mb-6">
-            <span className="inline-flex items-center modern-card px-6 py-3 rounded-full text-gray-700 text-sm font-medium">
-              <Heart className="mr-2 h-4 w-4 text-red-500" />
-              Client Success Stories
-            </span>
-          </div>
           <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-6">
             Success Stories
           </h2>
