@@ -40,7 +40,7 @@ export default function Navigation() {
   return (
     <>
       <ScrollProgressBar />
-      <nav className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+      <nav className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm transition-all duration-300 hover:shadow-md">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -69,10 +69,10 @@ export default function Navigation() {
                   e.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className={`nav-link transition-colors duration-200 text-xs xl:text-sm font-medium whitespace-nowrap px-2 xl:px-3 py-2 ${
+                className={`nav-link transition-all duration-300 text-xs xl:text-sm font-medium whitespace-nowrap px-2 xl:px-3 py-2 relative ${
                   activeSection === link.href
                     ? 'text-blue-600 border-b-2 border-blue-600'
-                    : 'text-gray-700 hover:text-blue-600'
+                    : 'text-gray-700 hover:text-blue-600 hover:scale-105 hover:font-semibold'
                 }`}
                 aria-current={activeSection === link.href ? 'page' : undefined}
                 data-testid={`nav-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
