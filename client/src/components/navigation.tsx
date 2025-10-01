@@ -42,18 +42,18 @@ export default function Navigation() {
       <ScrollProgressBar />
       <nav className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm transition-all duration-300 hover:shadow-md">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20 py-2">
           {/* Logo */}
           <div className="flex items-center space-x-2 flex-shrink-0">
             <ResponsiveImage 
               src={careerSkopeLogoPath} 
               alt="Careerskope Logo" 
-              className="h-8 sm:h-9 w-auto"
+              className="h-12 sm:h-14 w-auto object-contain"
               loading="eager"
               priority={true}
               sizes="(max-width: 640px) 150px, (max-width: 768px) 180px, 200px"
               width={200}
-              height={40}
+              height={56}
               fixed={true}
               data-testid="logo-image"
             />
