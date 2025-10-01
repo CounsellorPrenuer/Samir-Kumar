@@ -1,6 +1,42 @@
-import { Compass, Phone, Star, Sparkles, Target, TrendingUp } from "lucide-react";
+import { Compass, Phone, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import careerCounseling from "@assets/stock_images/professional_career__5b346d1f.jpg";
+import careerSuccess from "@assets/stock_images/young_professional_c_daf83086.jpg";
+import studentPlanning from "@assets/stock_images/diverse_students_pla_376617c1.jpg";
+import teamCollaboration from "@assets/stock_images/business_team_collab_a04ec0d9.jpg";
 
 export default function HeroSection() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    {
+      image: careerCounseling,
+      title: "Professional Career Guidance",
+      description: "Expert counselors to guide your career journey"
+    },
+    {
+      image: careerSuccess,
+      title: "Achieve Your Goals",
+      description: "Transform your aspirations into reality"
+    },
+    {
+      image: studentPlanning,
+      title: "Plan Your Future",
+      description: "Strategic career planning for students"
+    },
+    {
+      image: teamCollaboration,
+      title: "Expert Mentorship",
+      description: "Learn from industry professionals"
+    }
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
 
   const scrollToContact = () => {
     const element = document.querySelector("#contact");
@@ -9,49 +45,41 @@ export default function HeroSection() {
     }
   };
 
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
 
   return (
-    <section className="pt-20 pb-16 bg-gradient-to-b from-blue-50 to-white min-h-[80vh] flex items-center relative overflow-hidden">
-      {/* Sparkle Background Effect */}
-      <div className="absolute inset-0 sparkle-container">
-        {[...Array(50)].map((_, i) => (
-          <div
-            key={i}
-            className="sparkle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
-            }}
-          >
-            ✨
-          </div>
-        ))}
-      </div>
+    <section className="pt-20 pb-16 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 min-h-[90vh] flex items-center relative overflow-hidden">
+      {/* Animated Gradient Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.05)_25%,rgba(255,255,255,0.05)_50%,transparent_50%,transparent_75%,rgba(255,255,255,0.05)_75%,rgba(255,255,255,0.05))] bg-[length:60px_60px] animate-[slide_20s_linear_infinite]"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content Column */}
-          <div className="text-center lg:text-left">
-            <div className="mb-6">
-              <span className="inline-block bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium">
+          <div className="text-center lg:text-left text-white">
+            <div className="mb-6 animate-fade-in">
+              <span className="inline-block bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium border border-white/30">
                 ✨ Transform Your Career Journey
               </span>
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight" data-testid="hero-title">
-              Unlock Your <span className="text-blue-600">Career Potential</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-slide-up" data-testid="hero-title">
+              Unlock Your <span className="text-yellow-300">Career Potential</span>
             </h1>
             
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl leading-relaxed" data-testid="hero-description">
+            <p className="text-xl text-white/90 mb-8 max-w-2xl leading-relaxed animate-slide-up" style={{ animationDelay: '0.1s' }} data-testid="hero-description">
               Expert career guidance, personalized coaching, and proven strategies to help students and professionals achieve their dream careers.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8 animate-slide-up" style={{ animationDelay: '0.2s' }}>
               <button 
                 onClick={scrollToContact}
-                className="vibrant-button text-white px-8 py-4 rounded-lg font-semibold text-lg flex items-center justify-center"
+                className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg flex items-center justify-center hover:bg-yellow-300 hover:text-blue-700 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
                 data-testid="button-discover-path"
               >
                 <Compass className="mr-2 h-5 w-5" />
@@ -59,7 +87,7 @@ export default function HeroSection() {
               </button>
               <button 
                 onClick={scrollToContact}
-                className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-600 hover:text-white transition-all duration-300 flex items-center justify-center"
+                className="border-2 border-white/50 backdrop-blur-sm bg-white/10 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 flex items-center justify-center transform hover:scale-105"
                 data-testid="button-free-call"
               >
                 <Phone className="mr-2 h-5 w-5" />
@@ -67,65 +95,75 @@ export default function HeroSection() {
               </button>
             </div>
 
-            {/* Simplified Stats */}
-            <div className="grid grid-cols-3 gap-6 max-w-md mx-auto lg:mx-0">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">5K+</div>
-                <div className="text-sm text-gray-600">Success Stories</div>
+            {/* Enhanced Stats */}
+            <div className="grid grid-cols-3 gap-6 max-w-md mx-auto lg:mx-0 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+              <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20 hover:bg-white/20 transition-all">
+                <div className="text-3xl font-bold text-yellow-300">5K+</div>
+                <div className="text-sm text-white/80">Success Stories</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">4.9★</div>
-                <div className="text-sm text-gray-600">Client Rating</div>
+              <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20 hover:bg-white/20 transition-all">
+                <div className="text-3xl font-bold text-yellow-300">4.9★</div>
+                <div className="text-sm text-white/80">Client Rating</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">98%</div>
-                <div className="text-sm text-gray-600">Satisfaction</div>
+              <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20 hover:bg-white/20 transition-all">
+                <div className="text-3xl font-bold text-yellow-300">98%</div>
+                <div className="text-sm text-white/80">Satisfaction</div>
               </div>
             </div>
           </div>
 
-          {/* Graphical Animation Column */}
-          <div className="hidden lg:block relative">
-            <div className="relative w-full h-96 flex items-center justify-center">
-              {/* Floating Icons Animation */}
-              <div className="absolute inset-0">
-                <div className="floating-icon absolute top-10 left-10 text-blue-500">
-                  <Target className="h-8 w-8 animate-bounce" style={{ animationDelay: '0s' }} />
-                </div>
-                <div className="floating-icon absolute top-20 right-16 text-purple-500">
-                  <TrendingUp className="h-10 w-10 animate-bounce" style={{ animationDelay: '0.5s' }} />
-                </div>
-                <div className="floating-icon absolute bottom-20 left-20 text-green-500">
-                  <Star className="h-6 w-6 animate-bounce" style={{ animationDelay: '1s' }} />
-                </div>
-                <div className="floating-icon absolute bottom-32 right-8 text-orange-500">
-                  <Sparkles className="h-8 w-8 animate-bounce" style={{ animationDelay: '1.5s' }} />
-                </div>
-                <div className="floating-icon absolute top-32 left-32 text-pink-500">
-                  <Star className="h-7 w-7 animate-bounce" style={{ animationDelay: '2s' }} />
-                </div>
-              </div>
-              
-              {/* Central Animated Circle */}
-              <div className="relative">
-                <div className="w-48 h-48 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-20 animate-pulse"></div>
-                <div className="absolute inset-4 w-40 h-40 rounded-full bg-gradient-to-r from-purple-400 to-pink-500 opacity-30 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                <div className="absolute inset-8 w-32 h-32 rounded-full bg-gradient-to-r from-pink-400 to-blue-400 opacity-40 animate-pulse" style={{ animationDelay: '1s' }}></div>
-                
-                {/* Center Icon */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center animate-spin-slow">
-                    <Compass className="h-8 w-8 text-blue-600" />
+          {/* Image Carousel */}
+          <div className="relative group">
+            <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+              {slides.map((slide, index) => (
+                <div
+                  key={index}
+                  className={`absolute inset-0 transition-all duration-1000 ${
+                    index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                  }`}
+                >
+                  <img 
+                    src={slide.image} 
+                    alt={slide.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end">
+                    <div className="p-8 text-white">
+                      <h3 className="text-2xl font-bold mb-2">{slide.title}</h3>
+                      <p className="text-white/90">{slide.description}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
               
-              {/* Orbital Dots */}
-              <div className="absolute inset-0 animate-spin-reverse">
-                <div className="absolute top-0 left-1/2 w-3 h-3 bg-blue-500 rounded-full transform -translate-x-1/2"></div>
-                <div className="absolute bottom-0 left-1/2 w-3 h-3 bg-purple-500 rounded-full transform -translate-x-1/2"></div>
-                <div className="absolute top-1/2 left-0 w-3 h-3 bg-green-500 rounded-full transform -translate-y-1/2"></div>
-                <div className="absolute top-1/2 right-0 w-3 h-3 bg-pink-500 rounded-full transform -translate-y-1/2"></div>
+              {/* Navigation Arrows */}
+              <button
+                onClick={prevSlide}
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100"
+                data-testid="carousel-prev"
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </button>
+              <button
+                onClick={nextSlide}
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100"
+                data-testid="carousel-next"
+              >
+                <ChevronRight className="h-6 w-6" />
+              </button>
+              
+              {/* Dots Indicator */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                {slides.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      index === currentSlide ? 'bg-white w-8' : 'bg-white/50'
+                    }`}
+                    data-testid={`carousel-dot-${index}`}
+                  />
+                ))}
               </div>
             </div>
           </div>

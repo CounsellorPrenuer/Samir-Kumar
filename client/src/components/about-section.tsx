@@ -31,8 +31,25 @@ export default function AboutSection() {
   ];
 
   return (
-    <section id="about" className="scroll-mt-20 py-20 bg-gradient-to-br from-blue-50 via-green-50 to-red-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="scroll-mt-20 py-20 bg-gradient-to-br from-blue-50 via-green-50 to-red-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
+      {/* Sparkle Background Effect */}
+      <div className="absolute inset-0 sparkle-container pointer-events-none">
+        {[...Array(40)].map((_, i) => (
+          <div
+            key={i}
+            className="sparkle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 3}s`
+            }}
+          >
+            ✨
+          </div>
+        ))}
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">

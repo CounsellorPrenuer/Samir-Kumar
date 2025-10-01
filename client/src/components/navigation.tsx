@@ -11,12 +11,8 @@ export default function Navigation() {
   const [searchOpen, setSearchOpen] = useState(false);
 
   const navLinks = [
-    { href: "#about", label: "About CS" },
     { href: "#why-cs", label: "Why CS" },
-    { href: "#transform", label: "Transform" },
     { href: "#packages", label: "Solutions" },
-    { href: "#testimonials", label: "Success Stories" },
-    { href: "#blog", label: "Resources" },
     { href: "#leadership", label: "Leadership" },
     { href: "#gallery", label: "Gallery" },
     { href: "#contact", label: "Contact" },
