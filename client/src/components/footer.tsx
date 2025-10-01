@@ -75,8 +75,9 @@ export default function Footer() {
                 <Twitter className="h-5 w-5" />
               </button>
               <button className="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-blue-900 transition-colors" data-testid="social-facebook">
-                <Facebook className="h-5 w-5" />
-              </button>
+               <a href="https://www.facebook.com/Careerskope" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-blue-900 transition-colors" data-testid="social-facebook">
+              <Facebook className="h-5 w-5" />
+              </a>              </button>
               <button className="w-10 h-10 bg-pink-600 rounded-full flex items-center justify-center hover:bg-pink-700 transition-colors" data-testid="social-instagram">
                 <Instagram className="h-5 w-5" />
               </button>
