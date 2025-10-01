@@ -16,141 +16,95 @@ export default function WhyCSSection() {
         </div>
 
         {/* Subsection 1: Counselling Framework */}
-        <div className="mb-16 no-rainbow" data-testid="subsection-counselling-framework">
-          <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm rounded-3xl shadow-2xl ring-1 ring-black/5 p-10 md:p-12 max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-10 md:gap-12">
-              {/* Left Column: Header + Vertical Stepper */}
-              <div className="space-y-8">
-                {/* Header */}
-                <div className="space-y-4">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl shadow-lg">
-                    <Target className="h-8 w-8 text-white" />
+        <div className="mb-16" data-testid="subsection-counselling-framework">
+          <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-lg ring-1 ring-black/5 p-8 md:p-12 space-y-8 max-w-6xl mx-auto">
+            {/* Header */}
+            <div className="text-center space-y-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full shadow-lg mb-2">
+                <Target className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
+                <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                  Counselling Framework
+                </span>
+              </h3>
+              <p className="text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Our comprehensive framework combines evaluation, career planning, unbiased guidance, and informed decision-making to guide you toward the perfect career path.
+              </p>
+            </div>
+
+            {/* Framework Flow - Stepper Style */}
+            <div className="py-4">
+              <div className="flex items-center justify-center gap-2 md:gap-4 max-w-4xl mx-auto">
+                <div className="flex flex-col items-center text-center gap-2 flex-1">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center shadow-md">
+                    1
                   </div>
-                  <h3 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    Our <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Counselling Framework</span>
-                  </h3>
-                  <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                    Our comprehensive framework combines evaluation, career planning, unbiased guidance, and informed decision-making to guide you toward the perfect career path.
-                  </p>
+                  <span className="text-xs md:text-sm font-medium text-gray-800">Career Options</span>
                 </div>
-
-                {/* Vertical Stepper - Desktop */}
-                <ol className="hidden md:flex md:flex-col space-y-6 relative">
-                  <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-gradient-to-b from-blue-200 to-indigo-200"></div>
-                  
-                  <li className="flex items-start gap-4 relative group">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center shadow-md ring-4 ring-white dark:ring-gray-900 transition-transform group-hover:scale-105">
-                      <Lightbulb className="h-6 w-6" />
-                    </div>
-                    <div className="pt-2">
-                      <h4 className="font-semibold text-gray-900 dark:text-white text-lg">Career Options</h4>
-                      <p className="text-sm text-muted-foreground mt-1">Explore diverse career paths</p>
-                    </div>
-                  </li>
-
-                  <li className="flex items-start gap-4 relative group">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center shadow-md ring-4 ring-white dark:ring-gray-900 transition-transform group-hover:scale-105">
-                      <TrendingUp className="h-6 w-6" />
-                    </div>
-                    <div className="pt-2">
-                      <h4 className="font-semibold text-gray-900 dark:text-white text-lg">Roadmap</h4>
-                      <p className="text-sm text-muted-foreground mt-1">Create your action plan</p>
-                    </div>
-                  </li>
-
-                  <li className="flex items-start gap-4 relative group">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center shadow-md ring-4 ring-white dark:ring-gray-900 transition-transform group-hover:scale-105">
-                      <Brain className="h-6 w-6" />
-                    </div>
-                    <div className="pt-2">
-                      <h4 className="font-semibold text-gray-900 dark:text-white text-lg">Opportunities</h4>
-                      <p className="text-sm text-muted-foreground mt-1">Identify growth prospects</p>
-                    </div>
-                  </li>
-
-                  <li className="flex items-start gap-4 relative group">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center shadow-md ring-4 ring-white dark:ring-gray-900 transition-transform group-hover:scale-105">
-                      <CheckCircle2 className="h-6 w-6" />
-                    </div>
-                    <div className="pt-2">
-                      <h4 className="font-semibold text-gray-900 dark:text-white text-lg">Decisions</h4>
-                      <p className="text-sm text-muted-foreground mt-1">Make informed choices</p>
-                    </div>
-                  </li>
-                </ol>
-
-                {/* Horizontal Stepper - Mobile */}
-                <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-2 px-2">
-                  <div className="flex-shrink-0 snap-center flex flex-col items-center text-center gap-2 min-w-[140px]">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-md">
-                      <Lightbulb className="h-6 w-6" />
-                    </div>
-                    <span className="text-sm font-semibold text-gray-900 dark:text-white">Career Options</span>
+                <div className="hidden md:block h-px flex-1 max-w-[80px] bg-gradient-to-r from-blue-300 to-indigo-300"></div>
+                
+                <div className="flex flex-col items-center text-center gap-2 flex-1">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center shadow-md">
+                    2
                   </div>
-                  <div className="flex-shrink-0 snap-center flex flex-col items-center text-center gap-2 min-w-[140px]">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-md">
-                      <TrendingUp className="h-6 w-6" />
-                    </div>
-                    <span className="text-sm font-semibold text-gray-900 dark:text-white">Roadmap</span>
+                  <span className="text-xs md:text-sm font-medium text-gray-800">Roadmap</span>
+                </div>
+                <div className="hidden md:block h-px flex-1 max-w-[80px] bg-gradient-to-r from-blue-300 to-indigo-300"></div>
+                
+                <div className="flex flex-col items-center text-center gap-2 flex-1">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center shadow-md">
+                    3
                   </div>
-                  <div className="flex-shrink-0 snap-center flex flex-col items-center text-center gap-2 min-w-[140px]">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-md">
-                      <Brain className="h-6 w-6" />
-                    </div>
-                    <span className="text-sm font-semibold text-gray-900 dark:text-white">Opportunities</span>
+                  <span className="text-xs md:text-sm font-medium text-gray-800">Opportunities</span>
+                </div>
+                <div className="hidden md:block h-px flex-1 max-w-[80px] bg-gradient-to-r from-blue-300 to-indigo-300"></div>
+                
+                <div className="flex flex-col items-center text-center gap-2 flex-1">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center shadow-md">
+                    4
                   </div>
-                  <div className="flex-shrink-0 snap-center flex flex-col items-center text-center gap-2 min-w-[140px]">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-md">
-                      <CheckCircle2 className="h-6 w-6" />
-                    </div>
-                    <span className="text-sm font-semibold text-gray-900 dark:text-white">Decisions</span>
-                  </div>
+                  <span className="text-xs md:text-sm font-medium text-gray-800">Decisions</span>
                 </div>
               </div>
+            </div>
 
-              {/* Right Column: Framework Images */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-stretch">
-                {/* First Image */}
-                <div className="group">
-                  <div className="bg-white/90 dark:bg-gray-900/80 backdrop-blur-sm rounded-2xl shadow-md hover:shadow-2xl ring-1 ring-black/5 overflow-hidden transition-all duration-300 h-full">
-                    <div className="aspect-[4/3] relative overflow-hidden">
+            {/* Framework Images - Responsive Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+              {/* First Image - 50% on desktop */}
+              <div className="group">
+                <div className="bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-[2px] rounded-2xl h-full">
+                  <div className="bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-sm h-full transition-all duration-300 group-hover:shadow-xl">
+                    <div className="aspect-[4/3] relative overflow-hidden rounded-lg">
                       <img 
                         src={counsellingFramework1} 
                         alt="Career Counselling at CareerSkope Framework" 
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        loading="lazy"
-                        decoding="async"
+                        className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
                         data-testid="img-counselling-framework-1"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
-                    <div className="p-4 border-t border-gray-100 dark:border-gray-800">
-                      <p className="text-sm font-medium text-muted-foreground text-center">
-                        Career Counselling at CareerSkope
-                      </p>
-                    </div>
+                    <p className="mt-3 text-sm font-medium text-gray-700/80 text-center border-t border-gray-100 pt-3">
+                      Career Counselling at CareerSkope
+                    </p>
                   </div>
                 </div>
-                
-                {/* Second Image */}
-                <div className="group">
-                  <div className="bg-white/90 dark:bg-gray-900/80 backdrop-blur-sm rounded-2xl shadow-md hover:shadow-2xl ring-1 ring-black/5 overflow-hidden transition-all duration-300 h-full">
-                    <div className="aspect-[4/3] relative overflow-hidden">
+              </div>
+              
+              {/* Second Image - 50% on desktop */}
+              <div className="group">
+                <div className="bg-gradient-to-br from-indigo-500/20 to-blue-500/20 p-[2px] rounded-2xl h-full">
+                  <div className="bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-sm h-full transition-all duration-300 group-hover:shadow-xl">
+                    <div className="aspect-[4/3] relative overflow-hidden rounded-lg">
                       <img 
                         src={counsellingFramework2} 
                         alt="Career Choice Framework" 
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        loading="lazy"
-                        decoding="async"
+                        className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
                         data-testid="img-counselling-framework-2"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
-                    <div className="p-4 border-t border-gray-100 dark:border-gray-800">
-                      <p className="text-sm font-medium text-muted-foreground text-center">
-                        Career Choice Framework
-                      </p>
-                    </div>
+                    <p className="mt-3 text-sm font-medium text-gray-700/80 text-center border-t border-gray-100 pt-3">
+                      Career Choice Framework
+                    </p>
                   </div>
                 </div>
               </div>
