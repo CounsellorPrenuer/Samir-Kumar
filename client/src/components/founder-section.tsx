@@ -20,16 +20,22 @@ export default function FounderSection() {
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden max-w-5xl mx-auto">
           <div className="md:flex">
             {/* Image Section */}
-            <div className="md:w-2/5">
+            <div className="md:w-2/5 flex flex-col">
               <ResponsiveImage 
                 src={samirKumarPhoto} 
                 alt="Samir Kumar - Founder & Career Strategist" 
-                className="object-cover"
+                className="object-cover flex-grow"
                 loading="lazy"
                 sizes="(max-width: 768px) 100vw, 40vw"
                 aspectRatio="1/1"
                 data-testid="founder-image"
               />
+              <div className="p-6 bg-white dark:bg-gray-800">
+                <button className="w-full bg-gradient-to-r from-blue-600 to-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-red-700 transition-all duration-300 flex items-center justify-center min-h-[44px] min-w-[44px]" data-testid="button-connect-linkedin">
+                  <Linkedin className="mr-2 h-5 w-5" />
+                  Connect on LinkedIn
+                </button>
+              </div>
             </div>
             
             {/* Content Section */}
@@ -65,11 +71,6 @@ export default function FounderSection() {
                   and professionals to help them achieve their career aspirations.
                 </p>
               </div>
-              
-              <button className="bg-gradient-to-r from-blue-600 to-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-red-700 transition-all duration-300 flex items-center min-h-[44px] min-w-[44px]" data-testid="button-connect-linkedin">
-                <Linkedin className="mr-2 h-5 w-5" />
-                Connect on LinkedIn
-              </button>
             </div>
           </div>
         </div>
