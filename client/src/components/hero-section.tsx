@@ -54,27 +54,79 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="pt-20 pb-16 bg-gradient-to-r from-blue-600 via-purple-600 to-red-600 relative overflow-hidden">
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+      {/* Background Image Carousel */}
+      <div className="absolute inset-0 z-0">
+        {slides.map((slide, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-all duration-1000 ${
+              index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+            }`}
+          >
+            <img 
+              src={slide.image} 
+              alt={slide.title}
+              className="w-full h-full object-cover"
+            />
+            {/* Dark Overlay for readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
+          </div>
+        ))}
+      </div>
+
+      {/* Navigation Arrows */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white p-3 rounded-full transition-all hover:scale-110"
+        data-testid="carousel-prev"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft className="h-6 w-6" />
+      </button>
+      <button
+        onClick={nextSlide}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white p-3 rounded-full transition-all hover:scale-110"
+        data-testid="carousel-next"
+        aria-label="Next slide"
+      >
+        <ChevronRight className="h-6 w-6" />
+      </button>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Content Column */}
-          <div className="text-center lg:text-left text-white">
+      {/* Dots Indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`h-2 rounded-full transition-all ${
+              index === currentSlide ? 'bg-white w-8' : 'bg-white/50 w-2'
+            }`}
+            data-testid={`carousel-dot-${index}`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+
+      {/* Content Overlay */}
+      <div className="relative z-10 w-full pt-20 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl">
             <div className="mb-6 animate-fade-in">
               <span className="inline-block bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium border border-white/30">
                 ✨ Transform Your Career Journey
               </span>
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-slide-up" data-testid="hero-title">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight animate-slide-up" data-testid="hero-title">
               Unlock Your <span className="text-yellow-300">Career Potential</span>
             </h1>
             
-            <p className="text-xl text-white/90 mb-8 max-w-2xl leading-relaxed animate-slide-up" style={{ animationDelay: '0.1s' }} data-testid="hero-description">
+            <p className="text-xl text-white/95 mb-8 leading-relaxed animate-slide-up" style={{ animationDelay: '0.1s' }} data-testid="hero-description">
               Expert career guidance, personalized coaching, and proven strategies to help students and professionals achieve their dream careers.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+            <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-slide-up" style={{ animationDelay: '0.2s' }}>
               <button 
                 onClick={scrollToContact}
                 className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg flex items-center justify-center hover:bg-yellow-300 hover:text-blue-700 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
@@ -85,7 +137,7 @@ export default function HeroSection() {
               </button>
               <button 
                 onClick={scrollToContact}
-                className="border-2 border-white/50 backdrop-blur-sm bg-white/10 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 flex items-center justify-center transform hover:scale-105"
+                className="border-2 border-white/80 backdrop-blur-sm bg-white/10 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 flex items-center justify-center transform hover:scale-105"
                 data-testid="button-free-call"
               >
                 <Phone className="mr-2 h-5 w-5" />
@@ -94,74 +146,18 @@ export default function HeroSection() {
             </div>
 
             {/* Enhanced Stats */}
-            <div className="grid grid-cols-3 gap-6 max-w-md mx-auto lg:mx-0 animate-slide-up" style={{ animationDelay: '0.3s' }}>
-              <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20 hover:bg-white/20 transition-all">
-                <div className="text-3xl font-bold text-yellow-300">5K+</div>
-                <div className="text-sm text-white/80">Success Stories</div>
+            <div className="grid grid-cols-3 gap-4 sm:gap-6 max-w-lg animate-slide-up" style={{ animationDelay: '0.3s' }}>
+              <div className="text-center bg-white/15 backdrop-blur-md rounded-lg p-4 border border-white/30 hover:bg-white/25 transition-all">
+                <div className="text-2xl sm:text-3xl font-bold text-yellow-300">5K+</div>
+                <div className="text-xs sm:text-sm text-white/90">Success Stories</div>
               </div>
-              <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20 hover:bg-white/20 transition-all">
-                <div className="text-3xl font-bold text-yellow-300">4.9★</div>
-                <div className="text-sm text-white/80">Client Rating</div>
+              <div className="text-center bg-white/15 backdrop-blur-md rounded-lg p-4 border border-white/30 hover:bg-white/25 transition-all">
+                <div className="text-2xl sm:text-3xl font-bold text-yellow-300">4.9★</div>
+                <div className="text-xs sm:text-sm text-white/90">Client Rating</div>
               </div>
-              <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20 hover:bg-white/20 transition-all">
-                <div className="text-3xl font-bold text-yellow-300">98%</div>
-                <div className="text-sm text-white/80">Satisfaction</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Image Carousel */}
-          <div className="relative group">
-            <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
-              {slides.map((slide, index) => (
-                <div
-                  key={index}
-                  className={`absolute inset-0 transition-all duration-1000 ${
-                    index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-                  }`}
-                >
-                  <img 
-                    src={slide.image} 
-                    alt={slide.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end">
-                    <div className="p-8 text-white">
-                      <h3 className="text-2xl font-bold mb-2">{slide.title}</h3>
-                      <p className="text-white/90">{slide.description}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-              
-              {/* Navigation Arrows */}
-              <button
-                onClick={prevSlide}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100"
-                data-testid="carousel-prev"
-              >
-                <ChevronLeft className="h-6 w-6" />
-              </button>
-              <button
-                onClick={nextSlide}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100"
-                data-testid="carousel-next"
-              >
-                <ChevronRight className="h-6 w-6" />
-              </button>
-              
-              {/* Dots Indicator */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                {slides.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentSlide(index)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      index === currentSlide ? 'bg-white w-8' : 'bg-white/50'
-                    }`}
-                    data-testid={`carousel-dot-${index}`}
-                  />
-                ))}
+              <div className="text-center bg-white/15 backdrop-blur-md rounded-lg p-4 border border-white/30 hover:bg-white/25 transition-all">
+                <div className="text-2xl sm:text-3xl font-bold text-yellow-300">98%</div>
+                <div className="text-xs sm:text-sm text-white/90">Satisfaction</div>
               </div>
             </div>
           </div>
