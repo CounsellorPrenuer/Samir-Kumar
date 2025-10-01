@@ -1,5 +1,5 @@
 import { Target, Brain, Lightbulb, TrendingUp, Users, CheckCircle2, ArrowRight } from "lucide-react";
-import counsellingFramework1 from "@assets/WhatsApp Image 2025-09-30 at 11.47.22_1759303602858.jpeg";
+import counsellingFramework1 from "@assets/WhatsApp Image 2025-10-01 at 14.09.57_1759310947676.jpeg";
 import counsellingFramework2 from "@assets/WhatsApp Image 2025-09-30 at 11.56.28_1759303602861.jpeg";
 
 export default function WhyCSSection() {
@@ -70,9 +70,9 @@ export default function WhyCSSection() {
             </div>
 
             {/* Framework Images - Responsive Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
-              {/* First Image - 7 cols on desktop */}
-              <div className="md:col-span-7 group">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+              {/* First Image - 50% on desktop */}
+              <div className="group">
                 <div className="bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-[2px] rounded-2xl h-full">
                   <div className="bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-sm h-full transition-all duration-300 group-hover:shadow-xl">
                     <div className="aspect-[4/3] relative overflow-hidden rounded-lg">
@@ -90,8 +90,8 @@ export default function WhyCSSection() {
                 </div>
               </div>
               
-              {/* Second Image - 5 cols on desktop */}
-              <div className="md:col-span-5 group">
+              {/* Second Image - 50% on desktop */}
+              <div className="group">
                 <div className="bg-gradient-to-br from-indigo-500/20 to-blue-500/20 p-[2px] rounded-2xl h-full">
                   <div className="bg-white dark:bg-gray-900 rounded-2xl p-4 shadow-sm h-full transition-all duration-300 group-hover:shadow-xl">
                     <div className="aspect-[4/3] relative overflow-hidden rounded-lg">
