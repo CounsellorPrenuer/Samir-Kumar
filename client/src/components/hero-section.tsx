@@ -54,9 +54,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="pt-20 pb-16 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 min-h-[90vh] flex items-center relative overflow-hidden">
-      {/* Animated Gradient Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.05)_25%,rgba(255,255,255,0.05)_50%,transparent_50%,transparent_75%,rgba(255,255,255,0.05)_75%,rgba(255,255,255,0.05))] bg-[length:60px_60px] animate-[slide_20s_linear_infinite]"></div>
+    <section className="pt-20 pb-16 bg-gradient-to-r from-blue-600 via-purple-600 to-red-600 relative overflow-hidden">
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
