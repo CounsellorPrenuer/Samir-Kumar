@@ -1,5 +1,5 @@
 import { Check, Linkedin } from "lucide-react";
-import samirKumarPhoto from "@assets/Samir Kumar_CS website - Samir Kumar_1758954653508.jpg";
+import samirKumarPhoto from "@assets/samir pic_1759307185073.jpg";
 import { ResponsiveImage } from "./responsive-image";
 
 export default function FounderSection() {

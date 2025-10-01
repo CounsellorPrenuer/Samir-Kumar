@@ -1,4 +1,4 @@
-import { Compass, Phone, ChevronLeft, ChevronRight } from "lucide-react";
+import { Compass, Phone } from "lucide-react";
 import { useState, useEffect } from "react";
 import careerCounseling from "@assets/stock_images/professional_career__5b346d1f.jpg";
 import careerSuccess from "@assets/stock_images/young_professional_c_daf83086.jpg";
@@ -31,26 +31,19 @@ export default function HeroSection() {
     }
   ];
 
+  // This effect handles the automatic sliding
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]); // Added slides.length to dependency array for safety
 
   const scrollToContact = () => {
     const element = document.querySelector("#contact");
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  };
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
   return (
@@ -64,47 +57,14 @@ export default function HeroSection() {
               index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
             }`}
           >
-            <img 
-              src={slide.image} 
+            <img  
+              src={slide.image}  
               alt={slide.title}
               className="w-full h-full object-cover"
             />
             {/* Dark Overlay for readability */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
           </div>
-        ))}
-      </div>
-
-      {/* Navigation Arrows */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white p-3 rounded-full transition-all hover:scale-110"
-        data-testid="carousel-prev"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft className="h-6 w-6" />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white p-3 rounded-full transition-all hover:scale-110"
-        data-testid="carousel-next"
-        aria-label="Next slide"
-      >
-        <ChevronRight className="h-6 w-6" />
-      </button>
-      
-      {/* Dots Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`h-2 rounded-full transition-all ${
-              index === currentSlide ? 'bg-white w-8' : 'bg-white/50 w-2'
-            }`}
-            data-testid={`carousel-dot-${index}`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
         ))}
       </div>
 
@@ -117,17 +77,17 @@ export default function HeroSection() {
                 ✨ Transform Your Career Journey
               </span>
             </div>
-            
+
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight animate-slide-up" data-testid="hero-title">
               Unlock Your <span className="text-yellow-300">Career Potential</span>
             </h1>
-            
+
             <p className="text-xl text-white/95 mb-8 leading-relaxed animate-slide-up" style={{ animationDelay: '0.1s' }} data-testid="hero-description">
               Expert career guidance, personalized coaching, and proven strategies to help students and professionals achieve their dream careers.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-              <button 
+              <button  
                 onClick={scrollToContact}
                 className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg flex items-center justify-center hover:bg-yellow-300 hover:text-blue-700 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
                 data-testid="button-discover-path"
@@ -135,7 +95,7 @@ export default function HeroSection() {
                 <Compass className="mr-2 h-5 w-5" />
                 Discover Your Path
               </button>
-              <button 
+              <button  
                 onClick={scrollToContact}
                 className="border-2 border-white/80 backdrop-blur-sm bg-white/10 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 flex items-center justify-center transform hover:scale-105"
                 data-testid="button-free-call"

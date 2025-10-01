@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Menu, X, Search } from "lucide-react";
-import careerSkopeLogoPath from "@assets/logo.png";
+import careerSkopeLogoPath from "@assets/logo (2)_1759307185073.png";
 import { ResponsiveImage } from "./responsive-image";
 import { useScrollspy } from "@/hooks/use-scrollspy";
 import ScrollProgressBar from "./scroll-progress-bar";
