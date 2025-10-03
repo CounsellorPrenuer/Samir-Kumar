@@ -47,16 +47,17 @@ export default function Navigation() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <div className="flex items-center flex-shrink-0">
+          <div className="flex items-center">
             <ResponsiveImage 
               src={careerSkopeLogoPath} 
               alt="Careerskope Logo" 
-              className="h-10 sm:h-12 md:h-14 w-auto object-contain"
+              // --- FINAL CHANGES ARE HERE ---
+              className="h-12 sm:h-14 md:h-16 w-auto object-contain"
               loading="eager"
               priority={true}
               sizes="(max-width: 640px) 150px, (max-width: 768px) 180px, 220px"
               width={220}
-              height={56}
+              height={56} // Note: This prop is for aspect ratio, the className controls display size.
               fixed={true}
               data-testid="logo-image"
             />
@@ -165,7 +166,7 @@ export default function Navigation() {
         </div>
       )}
       </nav>
-      
+
       {/* Search Dialog */}
       <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </>
