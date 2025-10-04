@@ -47,7 +47,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden mt-16">
       {/* Background Image Carousel */}
       <div className="absolute inset-0 z-0">
         {slides.map((slide, index) => (
@@ -108,15 +108,15 @@ export default function HeroSection() {
             {/* Enhanced Stats */}
             <div className="grid grid-cols-3 gap-4 sm:gap-6 max-w-lg animate-slide-up" style={{ animationDelay: '0.3s' }}>
               <div className="text-center bg-white/15 backdrop-blur-md rounded-lg p-4 border border-white/30 hover:bg-white/25 transition-all">
-                <div className="text-2xl sm:text-3xl font-bold text-yellow-300">5K+</div>
+                <div className="text-2xl sm:text-3xl font-bold text-yellow-300">76</div>
                 <div className="text-xs sm:text-sm text-white/90">Success Stories</div>
               </div>
               <div className="text-center bg-white/15 backdrop-blur-md rounded-lg p-4 border border-white/30 hover:bg-white/25 transition-all">
-                <div className="text-2xl sm:text-3xl font-bold text-yellow-300">4.9★</div>
+                <div className="text-2xl sm:text-3xl font-bold text-yellow-300">4.8★</div>
                 <div className="text-xs sm:text-sm text-white/90">Client Rating</div>
               </div>
               <div className="text-center bg-white/15 backdrop-blur-md rounded-lg p-4 border border-white/30 hover:bg-white/25 transition-all">
-                <div className="text-2xl sm:text-3xl font-bold text-yellow-300">98%</div>
+                <div className="text-2xl sm:text-3xl font-bold text-yellow-300">92%</div>
                 <div className="text-xs sm:text-sm text-white/90">Satisfaction</div>
               </div>
             </div>

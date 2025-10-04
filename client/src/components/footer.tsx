@@ -78,9 +78,16 @@ export default function Footer() {
                <a href="https://www.facebook.com/Careerskope" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-blue-900 transition-colors" data-testid="social-facebook">
               <Facebook className="h-5 w-5" />
               </a>              </button>
-              <button className="w-10 h-10 bg-pink-600 rounded-full flex items-center justify-center hover:bg-pink-700 transition-colors" data-testid="social-instagram">
+              <a 
+                href="https://www.instagram.com/careerskope" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Instagram @careerskope" 
+                className="w-10 h-10 bg-pink-600 rounded-full flex items-center justify-center hover:bg-pink-700 transition-colors" 
+                data-testid="social-instagram"
+              >
                 <Instagram className="h-5 w-5" />
-              </button>
+              </a>
             </div>
           </div>
           
@@ -122,7 +129,7 @@ export default function Footer() {
             for enhanced career guidance services
           </p>
           <p className="text-sm text-gray-500">
-            © 2024 Careerskope. All rights reserved. |{" "}
+            © 2025 Careerskope. All rights reserved. |{" "}
             <button className="hover:text-white transition-colors">Privacy Policy</button> |{" "}
             <button className="hover:text-white transition-colors">Terms of Service</button>
           </p>

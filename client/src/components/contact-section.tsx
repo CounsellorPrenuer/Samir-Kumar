@@ -80,7 +80,7 @@ export default function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <div className="bg-card p-8 rounded-xl">
-            <h3 className="text-2xl font-semibold mb-6">Book Your Free Call</h3>
+            <h3 className="text-2xl font-semibold mb-6">Book Your Call</h3>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
@@ -190,7 +190,7 @@ export default function ContactSection() {
                   data-testid="button-submit-contact"
                 >
                   <Calendar className="mr-2 h-5 w-5" />
-                  {contactMutation.isPending ? "Submitting..." : "Book My Free Call"}
+                  {contactMutation.isPending ? "Submitting..." : "Book My Call"}
                 </Button>
               </form>
             </Form>

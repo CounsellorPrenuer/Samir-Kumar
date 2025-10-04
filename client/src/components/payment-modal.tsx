@@ -68,7 +68,11 @@ export default function PaymentModal({ isOpen, onClose, package: selectedPackage
 
     setLoading(true);
     try {
-      // Create payment order
+      // Create payment order with "Referred by Careerskope" prepended to notes
+      const fullNotes = customerData.notes 
+        ? `Referred by Careerskope - ${customerData.notes}`
+        : "Referred by Careerskope";
+      
       const response = await fetch("/api/create-payment-order", {
         method: "POST",
         headers: {
@@ -79,7 +83,7 @@ export default function PaymentModal({ isOpen, onClose, package: selectedPackage
           customerName: customerData.name,
           customerEmail: customerData.email,
           customerPhone: customerData.phone,
-          notes: customerData.notes,
+          notes: fullNotes,
         }),
       });
 
@@ -296,6 +300,7 @@ export default function PaymentModal({ isOpen, onClose, package: selectedPackage
                   rows={3}
                   data-testid="textarea-customer-notes"
                 />
+                <p className="text-xs text-muted-foreground mt-1">Note: "Referred by Careerskope" will be automatically added to your submission</p>
               </div>
               <div className="flex justify-end gap-3">
                 <Button type="button" variant="outline" onClick={handleClose}>
