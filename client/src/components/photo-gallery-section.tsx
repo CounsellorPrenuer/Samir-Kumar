@@ -45,21 +45,19 @@ export default function PhotoGallerySection() {
                 className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
                 data-testid={`gallery-photo-${index}`}
               >
-                <div className="relative bg-gray-200">
-                  <img 
-                    src={photo.imageUrl} 
-                    alt={photo.caption || `Gallery photo ${index + 1}`}
-                    className="w-full h-auto"
-                    loading="lazy"
-                  />
-                  {photo.caption && (
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                      <p className="text-white p-4 text-sm font-medium">
-                        {photo.caption}
-                      </p>
-                    </div>
-                  )}
-                </div>
+                <img 
+                  src={photo.imageUrl} 
+                  alt={photo.caption || `Gallery photo ${index + 1}`}
+                  className="w-full h-auto block"
+                  loading="lazy"
+                />
+                {photo.caption && (
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                    <p className="text-white p-4 text-sm font-medium">
+                      {photo.caption}
+                    </p>
+                  </div>
+                )}
               </div>
             ))}
           </div>
