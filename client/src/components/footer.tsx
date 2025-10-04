@@ -122,15 +122,22 @@ export default function Footer() {
           </div>
         </div>
         
-        <div className="border-t border-gray-700 pt-8 text-center">
-          <p className="text-gray-400 mb-2 flex items-center justify-center">
-            Made with <Heart className="h-4 w-4 text-red-500 mx-1" /> by{" "}
-            <span className="text-blue-400 ml-1">Mentoria</span> | In partnership with Mentoria 
-            for enhanced career guidance services
+        <div className="border-t border-gray-700 pt-8 text-center space-y-3">
+          <div className="text-gray-400">
+            <p className="flex items-center justify-center mb-1">
+              Made with <Heart className="h-4 w-4 text-red-500 mx-1" /> by{" "}
+              <span className="text-blue-400 ml-1">Mentoria</span>
+            </p>
+            <p className="text-sm">
+              In partnership with Mentoria for enhanced career guidance services
+            </p>
+          </div>
+          <p className="text-sm text-gray-500">
+            © 2025 Careerskope. All rights reserved.
           </p>
           <p className="text-sm text-gray-500">
-            © 2025 Careerskope. All rights reserved. |{" "}
-            <button className="hover:text-white transition-colors">Privacy Policy</button> |{" "}
+            <button className="hover:text-white transition-colors">Privacy Policy</button>
+            {" "}<span className="mx-2">|</span>{" "}
             <button className="hover:text-white transition-colors">Terms of Service</button>
           </p>
         </div>
