@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Dialog,
   DialogContent,
@@ -10,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Plus, Trash2, Image as ImageIcon } from "lucide-react";
+import { Plus, Trash2, Image as ImageIcon, Upload } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface PhotoGalleryItem {
@@ -27,6 +28,8 @@ export default function PhotoGalleryManagement() {
   const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [uploadPreview, setUploadPreview] = useState("");
   const [caption, setCaption] = useState("");
   const [displayOrder, setDisplayOrder] = useState(0);
   const { toast } = useToast();
@@ -53,11 +56,36 @@ export default function PhotoGalleryManagement() {
     }
   };
 
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (!file.type.startsWith('image/')) {
+        toast({
+          title: "Error",
+          description: "Please select an image file",
+          variant: "destructive"
+        });
+        return;
+      }
+      
+      setUploadedFile(file);
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setUploadPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const addPhoto = async () => {
-    if (!imageUrl.trim()) {
+    const finalImageUrl = uploadPreview || imageUrl.trim();
+    
+    if (!finalImageUrl) {
       toast({
         title: "Error",
-        description: "Please enter an image URL",
+        description: "Please enter an image URL or upload a file",
         variant: "destructive"
       });
       return;
@@ -68,7 +96,7 @@ export default function PhotoGalleryManagement() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          imageUrl: imageUrl.trim(),
+          imageUrl: finalImageUrl,
           caption: caption.trim() || undefined,
           displayOrder,
           isActive: true
@@ -84,6 +112,8 @@ export default function PhotoGalleryManagement() {
         fetchPhotos();
         setShowAddModal(false);
         setImageUrl("");
+        setUploadedFile(null);
+        setUploadPreview("");
         setCaption("");
         setDisplayOrder(0);
       } else {
@@ -153,19 +183,55 @@ export default function PhotoGalleryManagement() {
               <DialogTitle>Add New Photo</DialogTitle>
             </DialogHeader>
             <div className="space-y-4 py-4">
-              <div>
-                <Label htmlFor="imageUrl">Image URL *</Label>
-                <Input
-                  id="imageUrl"
-                  data-testid="input-image-url"
-                  placeholder="https://example.com/image.jpg"
-                  value={imageUrl}
-                  onChange={(e) => setImageUrl(e.target.value)}
-                />
-                <p className="text-xs text-muted-foreground mt-1">
-                  Paste the URL of the image you want to add
-                </p>
-              </div>
+              <Tabs defaultValue="url" className="w-full">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="url">Image URL</TabsTrigger>
+                  <TabsTrigger value="upload">Upload File</TabsTrigger>
+                </TabsList>
+                <TabsContent value="url" className="space-y-4">
+                  <div>
+                    <Label htmlFor="imageUrl">Image URL *</Label>
+                    <Input
+                      id="imageUrl"
+                      data-testid="input-image-url"
+                      placeholder="https://example.com/image.jpg"
+                      value={imageUrl}
+                      onChange={(e) => setImageUrl(e.target.value)}
+                    />
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Paste the URL of the image you want to add
+                    </p>
+                  </div>
+                </TabsContent>
+                <TabsContent value="upload" className="space-y-4">
+                  <div>
+                    <Label htmlFor="fileUpload">Upload Image *</Label>
+                    <div className="mt-2">
+                      <Input
+                        id="fileUpload"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileUpload}
+                        data-testid="input-file-upload"
+                        className="cursor-pointer"
+                      />
+                    </div>
+                    {uploadPreview && (
+                      <div className="mt-3 aspect-video relative overflow-hidden rounded-md bg-muted">
+                        <img 
+                          src={uploadPreview} 
+                          alt="Preview"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Select an image file from your device
+                    </p>
+                  </div>
+                </TabsContent>
+              </Tabs>
+              
               <div>
                 <Label htmlFor="caption">Caption (Optional)</Label>
                 <Input
@@ -194,6 +260,7 @@ export default function PhotoGalleryManagement() {
                 className="w-full"
                 data-testid="button-submit-photo"
               >
+                <Upload className="h-4 w-4 mr-2" />
                 Add Photo
               </Button>
             </div>

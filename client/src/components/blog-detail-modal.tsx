@@ -57,7 +57,7 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
         ) : (
           <>
             {/* Header Image */}
-            <div className="h-64 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
+            {/* <div className="h-64 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
               <div className="text-gray-400 text-8xl">📚</div>
               <button
                 onClick={onClose}
@@ -66,7 +66,7 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
               >
                 <X className="h-5 w-5" />
               </button>
-            </div>
+            </div> */}
 
             <div className="p-8">
               <DialogHeader className="mb-6">

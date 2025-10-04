@@ -4,10 +4,9 @@ import careerSkopeLogoPath from "@assets/Screenshot 2025-09-27 114759_1758954653
 export default function Footer() {
   const quickLinks = [
     { label: "About", href: "#why-careerskope" },
-    { label: "Packages", href: "#services" },
+    { label: "Packages", href: "#packages" },
     { label: "Contact", href: "#contact" },
     { label: "Success Stories", href: "#testimonials" },
-    { label: "Corporate Services", href: "#workshops" }
   ];
 
   const services = [
