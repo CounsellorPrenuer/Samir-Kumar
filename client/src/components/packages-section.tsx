@@ -19,6 +19,7 @@ export default function PackagesSection() {
   const [loading, setLoading] = useState(true);
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<string>("all");
   const { toast } = useToast();
 
   useEffect(() => {
@@ -93,12 +94,24 @@ export default function PackagesSection() {
     }
   };
 
+  // Filter packages by category
+  const filteredPackages = activeFilter === "all" 
+    ? packages 
+    : packages.filter(pkg => pkg.category === activeFilter);
+
   // Sort packages - popular first, then by price
-  const sortedPackages = [...packages].sort((a, b) => {
+  const sortedPackages = [...filteredPackages].sort((a, b) => {
     if (a.isPopular && !b.isPopular) return -1;
     if (!a.isPopular && b.isPopular) return 1;
     return parseFloat(a.price) - parseFloat(b.price);
   });
+
+  const filters = [
+    { id: "all", label: "All Packages", icon: Star },
+    { id: "students", label: "Students", icon: GraduationCap },
+    { id: "graduates", label: "Graduates", icon: Users },
+    { id: "professionals", label: "Professionals", icon: Briefcase },
+  ];
 
   if (loading) {
     return (
@@ -117,51 +130,57 @@ export default function PackagesSection() {
     <>
       <section
         id="packages"
-        className="scroll-mt-20 py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden"
+        className="scroll-mt-20 py-20 bg-muted"
       >
-        {/* Background decoration */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-pink-400 to-orange-400 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-20">
-            <div className="mb-6">
-              <span className="inline-flex items-center modern-card px-6 py-3 rounded-full text-gray-700 text-sm font-medium">
-                <Crown className="mr-2 h-4 w-4 text-yellow-500" />
-                Premium Career Guidance
-              </span>
-            </div>
-            <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
               Our Packages
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Choose the package that best fits your career development needs and unlock your potential
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Choose the package that best fits your career development needs
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
+            {filters.map((filter) => (
+              <button
+                key={filter.id}
+                onClick={() => setActiveFilter(filter.id)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-300 ${
+                  activeFilter === filter.id
+                    ? "bg-gradient-to-r from-blue-600 to-red-600 text-white shadow-lg"
+                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:shadow-md"
+                }`}
+                data-testid={`filter-${filter.id}`}
+              >
+                <filter.icon className="h-4 w-4" />
+                {filter.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {sortedPackages.map((pkg) => (
               <div
                 key={pkg.id}
-                className={`group enhanced-card ${pkg.isPopular ? "ring-2 ring-purple-400" : ""} rounded-2xl p-8 cursor-pointer relative`}
+                className={`group bg-card p-6 rounded-xl hover-lift ${pkg.isPopular ? "ring-2 ring-purple-400" : ""} cursor-pointer relative`}
                 data-testid={`package-${pkg.name.toLowerCase().replace(/\s+/g, "-")}`}
               >
                 {pkg.isPopular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                    <span className="bg-gradient-to-r from-yellow-400 to-orange-400 text-white px-6 py-2 rounded-full text-sm font-bold flex items-center gap-2 shadow-lg">
-                      <Crown className="h-4 w-4" />
-                      Most Popular
-                      <Sparkles className="h-4 w-4" />
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+                    <span className="bg-gradient-to-r from-yellow-400 to-orange-400 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
+                      <Crown className="h-3 w-3" />
+                      Popular
                     </span>
                   </div>
                 )}
 
                 {/* Category Tag */}
-                <div className="mb-6">
+                <div className="mb-4">
                   <span
-                    className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold shadow-lg ${getCategoryColor(pkg.category)}`}
+                    className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold ${getCategoryColor(pkg.category)}`}
                   >
                     {getCategoryIcon(pkg.category)}
                     {getCategoryDisplayName(pkg.category)}
@@ -169,18 +188,22 @@ export default function PackagesSection() {
                 </div>
 
                 {/* Package Icon */}
-                <div className="mb-6 flex justify-center">
-                  <div className="service-icon">
-                    <Zap className="h-8 w-8 text-white" />
+                <div className="mb-4 flex justify-center">
+                  <div className={`w-12 h-12 bg-gradient-to-r ${
+                    pkg.isPopular
+                      ? "from-purple-500 to-pink-500"
+                      : "from-blue-500 to-cyan-500"
+                  } rounded-full flex items-center justify-center`}>
+                    <Zap className="h-6 w-6 text-white" />
                   </div>
                 </div>
 
                 <div className="text-center">
-                  <h4 className="text-2xl font-bold mb-3 text-gray-800">{pkg.name}</h4>
-                  <p className="text-gray-600 mb-6 leading-relaxed">{pkg.description}</p>
-                  <div className="mb-8">
+                  <h4 className="text-xl font-semibold mb-2">{pkg.name}</h4>
+                  <p className="text-muted-foreground text-sm mb-4">{pkg.description}</p>
+                  <div className="mb-4">
                     <span
-                      className={`text-4xl font-bold ${
+                      className={`text-2xl font-bold ${
                         pkg.isPopular
                           ? "bg-gradient-to-r from-purple-600 to-pink-600"
                           : "bg-gradient-to-r from-blue-600 to-cyan-600"
@@ -190,27 +213,27 @@ export default function PackagesSection() {
                     </span>
                   </div>
 
-                  <ul className="text-left space-y-4 mb-8">
+                  <ul className="text-left space-y-2 mb-4">
                     {pkg.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-start group">
-                        <div className="bg-green-100 rounded-full p-1 mr-3 mt-0.5 group-hover:bg-green-200 transition-colors">
+                      <li key={featureIndex} className="flex items-start">
+                        <div className="bg-green-100 rounded-full p-0.5 mr-2 mt-0.5">
                           <Check className="h-3 w-3 text-green-600" />
                         </div>
-                        <span className="text-gray-700 group-hover:text-gray-900 transition-colors">{feature}</span>
+                        <span className="text-muted-foreground text-sm">{feature}</span>
                       </li>
                     ))}
                   </ul>
 
                   <button
                     onClick={() => handlePackageSelect(pkg)}
-                    className={`w-full vibrant-button btn-interactive text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 ${
+                    className={`w-full text-white py-2 rounded-lg font-semibold text-sm transition-all duration-300 hover:shadow-lg ${
                       pkg.isPopular
                         ? "bg-gradient-to-r from-purple-600 to-pink-600"
                         : "bg-gradient-to-r from-blue-600 to-cyan-600"
                     }`}
                     data-testid={`button-choose-${pkg.name.toLowerCase().replace(/\s+/g, "-")}`}
                   >
-                    Choose {pkg.name}
+                    Choose Package
                   </button>
                 </div>
               </div>
