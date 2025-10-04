@@ -234,7 +234,7 @@ export default function ContactSection() {
             </div>
             
             <div className="bg-gradient-to-r from-blue-600 to-red-600 p-6 rounded-xl text-white">
-              <h4 className="text-xl font-semibold mb-4">Why Choose a Free Call?</h4>
+              <h4 className="text-xl font-semibold mb-4">Why Schedule a Call?</h4>
               <ul className="space-y-2">
                 {benefits.map((benefit, index) => (
                   <li key={index} className="flex items-center">

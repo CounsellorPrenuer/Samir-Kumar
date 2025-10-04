@@ -217,11 +217,11 @@ export default function PhotoGalleryManagement() {
                       />
                     </div>
                     {uploadPreview && (
-                      <div className="mt-3 aspect-video relative overflow-hidden rounded-md bg-muted">
+                      <div className="mt-3 relative overflow-hidden rounded-md bg-muted">
                         <img 
                           src={uploadPreview} 
                           alt="Preview"
-                          className="w-full h-full object-cover"
+                          className="w-full h-auto"
                         />
                       </div>
                     )}
@@ -280,11 +280,11 @@ export default function PhotoGalleryManagement() {
           photos.map((photo) => (
             <Card key={photo.id} className="hover:shadow-md transition-shadow">
               <CardContent className="p-4">
-                <div className="aspect-video relative mb-3 overflow-hidden rounded-md bg-muted">
+                <div className="relative mb-3 overflow-hidden rounded-md bg-muted">
                   <img 
                     src={photo.imageUrl} 
                     alt={photo.caption || "Gallery photo"}
-                    className="w-full h-full object-cover"
+                    className="w-full h-auto"
                     data-testid={`img-photo-${photo.id}`}
                   />
                 </div>

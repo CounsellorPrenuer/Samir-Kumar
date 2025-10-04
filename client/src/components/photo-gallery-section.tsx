@@ -45,11 +45,11 @@ export default function PhotoGallerySection() {
                 className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
                 data-testid={`gallery-photo-${index}`}
               >
-                <div className="aspect-square relative bg-gray-200">
+                <div className="relative bg-gray-200">
                   <img 
                     src={photo.imageUrl} 
                     alt={photo.caption || `Gallery photo ${index + 1}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-auto"
                     loading="lazy"
                   />
                   {photo.caption && (

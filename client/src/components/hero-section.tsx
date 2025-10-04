@@ -101,7 +101,7 @@ export default function HeroSection() {
                 data-testid="button-free-call"
               >
                 <Phone className="mr-2 h-5 w-5" />
-                Free Career Clarity Call
+                  Career Clarity Call
               </button>
             </div>
 
