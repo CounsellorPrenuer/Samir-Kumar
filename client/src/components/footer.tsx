@@ -136,11 +136,11 @@ export default function Footer() {
             <p className="text-sm text-gray-500">
               © 2025 Careerskope. All rights reserved.
             </p>
-            <p className="text-sm text-gray-500">
+            {/* <p className="text-sm text-gray-500">
               <button className="hover:text-white transition-colors">Privacy Policy</button>
               {" "}<span className="mx-2">|</span>{" "}
               <button className="hover:text-white transition-colors">Terms of Service</button>
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
