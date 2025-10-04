@@ -10,7 +10,9 @@ export default function FounderSection() {
 
 He works towards empowering professionals to align their innate strengths with tailored opportunities, ensuring sustained career growth, fulfilment, and success. Widely regarded for his insightful guidance and strategic foresight, Samir is a trusted mentor who shapes the futures of both individuals and organisations, empowering them to achieve their highest potential.`;
 
-  const truncatedText = `With over 30 years of distinguished expertise in career counselling, sales, marketing, and business development, Samir Kumar is the founder of Careerskope, a Mentoria Gold Career Counsellor, and a leading authority in guiding individuals and organisations toward transformative career decisions...`;
+  // --- THIS IS THE UPDATED LINE ---
+  // The text below will now be visible by default.
+  const truncatedText = `With over 30 years of distinguished expertise in career counselling, sales, marketing, and business development, Samir Kumar is the founder of Careerskope, a Mentoria Gold Career Counsellor, and a leading authority in guiding individuals and organisations toward transformative career decisions. Samir's approach integrates psychometric assessments with bespoke career strategies, enabling his clients to navigate career transitions with precision, clarity, and confidence...`;
 
   return (
     <section id="leadership" className="scroll-mt-20 py-20 bg-muted">
@@ -20,7 +22,7 @@ He works towards empowering professionals to align their innate strengths with t
             Leadership @ Careerskope
           </h2>
         </div>
-        
+
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden max-w-5xl mx-auto">
           <div className="md:flex">
             {/* Image Section */}
@@ -41,7 +43,7 @@ He works towards empowering professionals to align their innate strengths with t
                 </button>
               </div>
             </div>
-            
+
             {/* Content Section */}
             <div className="md:w-3/4 p-6 md:p-8">
               <div className="flex items-center mb-4">
@@ -51,7 +53,7 @@ He works towards empowering professionals to align their innate strengths with t
                   <p className="text-blue-600 font-semibold text-sm">Founder & Career Strategist</p>
                 </div>
               </div>
-              
+
               <div className="text-muted-foreground leading-relaxed text-sm">
                 <p className="whitespace-pre-line">
                   {isExpanded ? fullText : truncatedText}
