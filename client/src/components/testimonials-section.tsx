@@ -79,19 +79,13 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section id="testimonials" ref={sectionRef} className="scroll-mt-20 py-24 bg-gradient-to-b from-white to-purple-50 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-10 right-10 w-80 h-80 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 left-10 w-64 h-64 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full blur-3xl"></div>
-      </div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-6">
+    <section id="testimonials" ref={sectionRef} className="scroll-mt-20 py-20 bg-muted">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
             Success Stories
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Hear from professionals who transformed their careers with Careerskope
           </p>
         </div>
@@ -125,16 +119,16 @@ export default function TestimonialsSection() {
         ) : testimonials.length > 0 ? (
           <div className="relative max-w-6xl mx-auto">
             {/* Control Panel */}
-            <div className="flex justify-center items-center mb-12 space-x-4">
+            <div className="flex justify-center items-center mb-8 space-x-4">
               {/* Indicator Dots */}
-              <div className="flex space-x-3">
+              <div className="flex space-x-2">
                 {testimonials.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`w-4 h-4 rounded-full transition-all duration-300 transform hover:scale-125 ${
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
                       index === currentIndex
-                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg scale-125'
+                        ? 'bg-gradient-to-r from-blue-500 to-red-500 scale-110'
                         : 'bg-gray-300 hover:bg-gray-400'
                     }`}
                     data-testid={`indicator-${index}`}
@@ -157,28 +151,28 @@ export default function TestimonialsSection() {
                 {testimonials.map((testimonial, index) => (
                   <div 
                     key={testimonial.id} 
-                    className="w-full flex-shrink-0 p-6"
+                    className="w-full flex-shrink-0 p-4"
                     data-testid={`testimonial-${index}`}
                   >
-                    <div className="enhanced-card p-8 rounded-2xl h-full relative overflow-hidden">
+                    <div className="bg-card p-6 rounded-xl h-full relative">
                       {/* Quote decoration */}
-                      <div className="absolute top-4 right-4 opacity-10">
-                        <Quote className="h-16 w-16 text-purple-500" />
+                      <div className="absolute top-2 right-2 opacity-10">
+                        <Quote className="h-12 w-12 text-blue-500" />
                       </div>
                       
                       <div className="relative z-10">
-                        <div className="flex items-center mb-8">
-                          <div className={`w-16 h-16 bg-gradient-to-r ${testimonial.gradient} rounded-full flex items-center justify-center text-white font-bold mr-4 text-2xl shadow-lg`}>
+                        <div className="flex items-center mb-4">
+                          <div className={`w-12 h-12 bg-gradient-to-r ${testimonial.gradient} rounded-full flex items-center justify-center text-white font-bold mr-3 text-lg`}>
                             {testimonial.initial}
                           </div>
                           <div>
-                            <div className="font-bold text-xl text-gray-800">{testimonial.name}</div>
-                            <div className="text-gray-600 font-medium">{testimonial.role}</div>
+                            <div className="font-bold text-lg">{testimonial.name}</div>
+                            <div className="text-muted-foreground text-sm">{testimonial.role}</div>
                           </div>
                         </div>
                         
-                        <div className="mb-8">
-                          <p className="text-gray-700 text-lg leading-relaxed font-medium">
+                        <div className="mb-4">
+                          <p className="text-muted-foreground leading-relaxed text-sm">
                             "{testimonial.quote}"
                           </p>
                         </div>
@@ -186,11 +180,11 @@ export default function TestimonialsSection() {
                         <div className="flex items-center justify-between">
                           <div className="flex text-yellow-400">
                             {[...Array(5)].map((_, i) => (
-                              <Star key={i} className="h-6 w-6 fill-current drop-shadow-sm" />
+                              <Star key={i} className="h-4 w-4 fill-current" />
                             ))}
                           </div>
-                          <div className="service-icon p-2">
-                            <Award className="h-5 w-5 text-white" />
+                          <div className={`w-8 h-8 bg-gradient-to-r ${testimonial.gradient} rounded-full flex items-center justify-center`}>
+                            <Award className="h-4 w-4 text-white" />
                           </div>
                         </div>
                       </div>
@@ -202,19 +196,19 @@ export default function TestimonialsSection() {
             
             <button 
               onClick={prevTestimonial}
-              className="absolute -left-6 top-1/2 transform -translate-y-1/2 modern-card w-16 h-16 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-80 hover:opacity-100 min-h-[44px] min-w-[44px] backdrop-blur-lg"
+              className="absolute -left-4 top-1/2 transform -translate-y-1/2 bg-card w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-80 hover:opacity-100 rounded-full shadow-lg"
               data-testid="button-prev-testimonial"
               aria-label="Previous testimonial"
             >
-              <ChevronLeft className="h-6 w-6 text-gray-700" />
+              <ChevronLeft className="h-5 w-5" />
             </button>
             <button 
               onClick={nextTestimonial}
-              className="absolute -right-6 top-1/2 transform -translate-y-1/2 modern-card w-16 h-16 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-80 hover:opacity-100 min-h-[44px] min-w-[44px] backdrop-blur-lg"
+              className="absolute -right-4 top-1/2 transform -translate-y-1/2 bg-card w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-80 hover:opacity-100 rounded-full shadow-lg"
               data-testid="button-next-testimonial"
               aria-label="Next testimonial"
             >
-              <ChevronRight className="h-6 w-6 text-gray-700" />
+              <ChevronRight className="h-5 w-5" />
             </button>
           </div>
         ) : (

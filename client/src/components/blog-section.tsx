@@ -70,47 +70,47 @@ export default function BlogSection() {
 
         
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-muted rounded-xl overflow-hidden animate-pulse">
-                <div className="h-48 bg-gray-200"></div>
-                <div className="p-6">
-                  <div className="bg-gray-200 rounded h-4 w-20 mb-2"></div>
-                  <div className="bg-gray-200 rounded h-6 w-full mb-3"></div>
-                  <div className="bg-gray-200 rounded h-4 w-full mb-2"></div>
-                  <div className="bg-gray-200 rounded h-4 w-3/4 mb-4"></div>
-                  <div className="flex items-center justify-between">
-                    <div className="bg-gray-200 rounded h-4 w-16"></div>
-                    <div className="bg-gray-200 rounded h-4 w-20"></div>
-                  </div>
+              <div key={i} className="bg-card p-6 rounded-xl animate-pulse text-center">
+                <div className="mb-4 flex justify-center">
+                  <div className="bg-gray-200 rounded-full h-12 w-12"></div>
+                </div>
+                <div className="bg-gray-200 rounded h-3 w-16 mb-2 mx-auto"></div>
+                <div className="bg-gray-200 rounded h-5 w-full mb-3"></div>
+                <div className="bg-gray-200 rounded h-4 w-full mb-2"></div>
+                <div className="bg-gray-200 rounded h-4 w-3/4 mb-4 mx-auto"></div>
+                <div className="flex items-center justify-between">
+                  <div className="bg-gray-200 rounded h-3 w-12"></div>
+                  <div className="bg-gray-200 rounded h-3 w-16"></div>
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {displayedArticles.map((article) => {
               const styles = getArticleStyles(article.category);
               return (
                 <article 
                   key={article.id}
-                  className="bg-muted rounded-xl overflow-hidden hover-lift animate-fade-in"
+                  className="bg-card p-6 rounded-xl hover-lift text-center"
                   data-testid={`blog-card-${article.category}`}
                 >
-                  <div className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                    <div className="text-gray-400 text-6xl">📚</div>
+                  <div className="mb-4 flex justify-center">
+                    <div className="text-4xl">📚</div>
                   </div>
-                  <div className="p-6">
-                    <div className={`text-sm font-medium mb-2 capitalize ${styles.color}`}>
+                  <div>
+                    <div className={`text-xs font-semibold mb-2 capitalize ${styles.color}`}>
                       {article.category}
                     </div>
                     <h3 className="text-xl font-semibold mb-3">{article.title}</h3>
                     <p className="text-muted-foreground text-sm mb-4">{article.description}</p>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">{article.readTime}</span>
+                      <span className="text-xs text-muted-foreground">{article.readTime}</span>
                       <button 
                         onClick={() => handleReadMore(article)}
-                        className={`font-medium ${styles.color} ${styles.hoverColor} transition-colors duration-200`} 
+                        className={`font-semibold text-sm ${styles.color} ${styles.hoverColor} transition-colors duration-200`} 
                         data-testid={`button-read-more-${article.id}`}
                       >
                         Read More
