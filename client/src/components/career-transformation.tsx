@@ -24,7 +24,7 @@ export default function CareerTransformation() {
       <div className="absolute inset-0 bg-black/20"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center text-white">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 gradient-text-vibrant animate-fade-in-up">
             Transforming Potential into Performance
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
