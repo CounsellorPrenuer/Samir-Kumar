@@ -1,5 +1,5 @@
 import { Compass, Phone } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import careerCounseling from "@assets/stock_images/professional_career__5b346d1f.jpg";
 import careerSuccess from "@assets/stock_images/young_professional_c_daf83086.jpg";
 import studentPlanning from "@assets/stock_images/diverse_students_pla_376617c1.jpg";
@@ -7,6 +7,17 @@ import teamCollaboration from "@assets/stock_images/business_team_collab_a04ec0d
 
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Memoize particles to prevent re-randomization on every render
+  const particles = useMemo(() => 
+    Array.from({ length: 30 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 5,
+      duration: 10 + Math.random() * 10
+    })), 
+  []);
 
   const slides = [
     {
@@ -46,6 +57,24 @@ export default function HeroSection() {
     }
   };
 
+  // Memoize particles render to prevent re-creation
+  const particlesLayer = useMemo(() => (
+    <div className="absolute inset-0 z-[1] particles-bg">
+      {particles.map((particle) => (
+        <div
+          key={particle.id}
+          className="particle"
+          style={{
+            left: `${particle.left}%`,
+            top: `${particle.top}%`,
+            animationDelay: `${particle.delay}s`,
+            animationDuration: `${particle.duration}s`
+          }}
+        />
+      ))}
+    </div>
+  ), [particles]);
+
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden mt-16">
       {/* Background Image Carousel with Ken Burns Effect */}
@@ -69,21 +98,8 @@ export default function HeroSection() {
         ))}
       </div>
 
-      {/* Floating Particles */}
-      <div className="particles-bg">
-        {[...Array(30)].map((_, i) => (
-          <div
-            key={i}
-            className="particle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${10 + Math.random() * 10}s`
-            }}
-          />
-        ))}
-      </div>
+      {/* Floating Particles - Memoized to prevent re-render */}
+      {particlesLayer}
 
       {/* Content Overlay */}
       <div className="relative z-10 w-full pt-20 pb-16">
