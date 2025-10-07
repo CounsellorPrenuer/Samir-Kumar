@@ -68,18 +68,10 @@ export default function ContactSection() {
   ];
 
   return (
-    <section id="contact" className="scroll-mt-20 py-20 bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-gray-900 relative overflow-hidden">
-      {/* Floating Background Orbs */}
-      <div className="absolute inset-0 opacity-25 pointer-events-none">
-        <div className="absolute top-20 right-10 w-80 h-80 bg-indigo-400 rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 left-10 w-80 h-80 bg-cyan-400 rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{ animationDelay: '1.5s' }}></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16 section-fade-in">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Get In <span className="gradient-text">Touch</span>
-          </h2>
+    <section id="contact" className="scroll-mt-20 py-20 bg-muted">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Get In Touch</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Ready to transform your career? Let's start with a conversation.
           </p>
@@ -87,7 +79,7 @@ export default function ContactSection() {
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="enhanced-card p-8 rounded-2xl">
+          <div className="bg-card p-8 rounded-xl">
             <h3 className="text-2xl font-semibold mb-6">Book Your Call</h3>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -193,14 +185,12 @@ export default function ContactSection() {
                 
                 <Button 
                   type="submit" 
-                  className="w-full gradient-button"
+                  className="w-full bg-gradient-to-r from-blue-600 to-red-600 hover:from-blue-700 hover:to-red-700"
                   disabled={contactMutation.isPending}
                   data-testid="button-submit-contact"
                 >
-                  <span className="relative z-10 flex items-center justify-center">
-                    <Calendar className="mr-2 h-5 w-5" />
-                    {contactMutation.isPending ? "Submitting..." : "Book My Call"}
-                  </span>
+                  <Calendar className="mr-2 h-5 w-5" />
+                  {contactMutation.isPending ? "Submitting..." : "Book My Call"}
                 </Button>
               </form>
             </Form>
@@ -208,7 +198,7 @@ export default function ContactSection() {
           
           {/* Contact Information */}
           <div className="space-y-8">
-            <div className="enhanced-card p-8 rounded-2xl">
+            <div className="bg-card p-6 rounded-xl">
               <h4 className="text-xl font-semibold mb-4">Contact Information</h4>
               <div className="space-y-4">
                 <div className="flex items-center">
@@ -243,7 +233,7 @@ export default function ContactSection() {
               </div>
             </div>
             
-            <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 p-8 rounded-2xl text-white shadow-2xl shadow-purple-500/30">
+            <div className="bg-gradient-to-r from-blue-600 to-red-600 p-6 rounded-xl text-white">
               <h4 className="text-xl font-semibold mb-4">Why Schedule a Call?</h4>
               <ul className="space-y-2">
                 {benefits.map((benefit, index) => (

@@ -43,8 +43,8 @@ export default function Navigation() {
   return (
     <>
       <ScrollProgressBar />
-      <nav className="fixed top-0 w-full z-50 bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl border-b border-white/20 dark:border-gray-700/20 shadow-lg transition-all duration-300 hover:shadow-xl glass-nav">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="fixed top-0 w-full z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 shadow-sm transition-all duration-300 hover:shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <div className="flex items-center">
@@ -73,10 +73,10 @@ export default function Navigation() {
                   e.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className={`nav-link-premium transition-all duration-300 text-sm font-semibold whitespace-nowrap px-4 xl:px-5 py-2.5 rounded-lg relative ${
+                className={`nav-link transition-all duration-200 text-sm font-medium whitespace-nowrap px-3 xl:px-4 py-2 rounded-lg relative ${
                   activeSection === link.href
-                    ? 'text-blue-600 dark:text-blue-400'
-                    : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+                    ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/30 dark:text-blue-400'
+                    : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800'
                 }`}
                 aria-current={activeSection === link.href ? 'page' : undefined}
                 data-testid={`nav-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
