@@ -83,6 +83,11 @@
     font-feature-settings: "kern" 1, "liga" 1;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
+    scroll-behavior: smooth;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
   
   /* Animated Rainbow Background */
@@ -178,6 +183,81 @@
 }
 
 @layer components {
+  /* Gradient Text Effect */
+  .gradient-text {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #fcd34d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 3s ease infinite;
+    background-size: 200% 200%;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Gradient Buttons */
+  .gradient-button {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+  }
+
+  .gradient-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .gradient-button:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .gradient-button:hover {
+    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.6), 0 0 20px rgba(139, 92, 246, 0.4);
+  }
+
+  /* Glass Button */
+  .glass-button {
+    backdrop-filter: blur(16px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    transition: all 0.5s;
+  }
+
+  .glass-button:hover::after {
+    left: 100%;
+  }
+
+  /* Glassmorphic Navigation */
+  .glass-nav {
+    backdrop-filter: blur(20px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.72);
+  }
+
   .gradient-bg {
       background: var(--gradient-hero);
       position: relative;
@@ -206,23 +286,41 @@
   }
 
   .enhanced-card {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 100%);
-    backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     box-shadow: 
-      0 12px 40px rgba(0, 0, 0, 0.15),
-      0 2px 16px rgba(0, 0, 0, 0.1),
-      0 1px 0px rgba(255, 255, 255, 0.5) inset;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      0 20px 60px rgba(0, 0, 0, 0.12),
+      0 8px 24px rgba(0, 0, 0, 0.08),
+      0 1px 0px rgba(255, 255, 255, 0.6) inset;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .enhanced-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+    transition: left 0.6s;
+  }
+
+  .enhanced-card:hover::before {
+    left: 100%;
   }
 
   .enhanced-card:hover {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.85) 100%);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.9) 100%);
     box-shadow: 
-      0 20px 50px rgba(0, 0, 0, 0.2),
-      0 4px 20px rgba(0, 0, 0, 0.15),
-      0 1px 0px rgba(255, 255, 255, 0.6) inset;
-    transform: translateY(-2px) scale(1.02);
+      0 30px 80px rgba(59, 130, 246, 0.2),
+      0 12px 40px rgba(0, 0, 0, 0.15),
+      0 1px 0px rgba(255, 255, 255, 0.8) inset;
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(59, 130, 246, 0.3);
   }
 
   .vibrant-button {
@@ -284,6 +382,36 @@
 
   .nav-link:hover::after {
     width: 100%;
+  }
+
+  /* Premium Navigation Link with Animated Underline */
+  .nav-link-premium {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-link-premium::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+    background-size: 200% 100%;
+    animation: gradient-move 2s linear infinite;
+    transform: translateX(-50%);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 2px;
+  }
+
+  .nav-link-premium:hover::before {
+    width: 100%;
+  }
+
+  @keyframes gradient-move {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
   }
 
   .pricing-card {
@@ -405,14 +533,28 @@
     animation-delay: 0.5s;
   }
 
+  /* Section Fade In on Scroll */
+  .section-fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .section-fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   /* Hover and interaction effects */
   .hover-lift {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
   }
 
   .hover-lift:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-12px);
+    box-shadow: 
+      0 25px 50px rgba(0, 0, 0, 0.15),
+      0 10px 20px rgba(59, 130, 246, 0.1);
   }
 
   .hover-tilt {
