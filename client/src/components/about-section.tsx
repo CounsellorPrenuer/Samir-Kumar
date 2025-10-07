@@ -130,9 +130,7 @@ export default function AboutSection() {
           </div>
         </div>
 
-      </div>
-      {/* Psychometric Assessment Section - content moved to Why CS section */}
-   
+      </div>   
     </section>
   );
 }
