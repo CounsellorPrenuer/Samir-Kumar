@@ -69,6 +69,22 @@ export default function HeroSection() {
         ))}
       </div>
 
+      {/* Floating Particles */}
+      <div className="particles-bg">
+        {[...Array(30)].map((_, i) => (
+          <div
+            key={i}
+            className="particle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${10 + Math.random() * 10}s`
+            }}
+          />
+        ))}
+      </div>
+
       {/* Content Overlay */}
       <div className="relative z-10 w-full pt-20 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
