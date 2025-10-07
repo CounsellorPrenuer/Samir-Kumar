@@ -91,9 +91,9 @@ export default function HeroSection() {
               alt={slide.title}
               className="w-full h-full object-cover animate-ken-burns"
             />
-            {/* Vibrant Gradient Overlay for readability */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-purple-900/70 to-pink-900/60"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/40"></div>
+            {/* Lighter Gradient Overlay for better readability */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/60 via-purple-900/50 to-pink-900/40"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/30"></div>
           </div>
         ))}
       </div>
@@ -102,7 +102,7 @@ export default function HeroSection() {
       {particlesLayer}
 
       {/* Content Overlay */}
-      <div className="relative z-10 w-full pt-20 pb-16">
+      <div className="relative z-20 w-full pt-20 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <div className="mb-6 animate-fade-in">
