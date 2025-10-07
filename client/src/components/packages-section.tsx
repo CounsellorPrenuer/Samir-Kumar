@@ -134,8 +134,10 @@ export default function PackagesSection() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
-              Our Packages
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                Our Packages
+              </span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Choose the package that best fits your career development needs
@@ -148,10 +150,10 @@ export default function PackagesSection() {
               <button
                 key={filter.id}
                 onClick={() => setActiveFilter(filter.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-300 ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-300 transform ${
                   activeFilter === filter.id
-                    ? "bg-gradient-to-r from-blue-600 to-red-600 text-white shadow-lg"
-                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:shadow-md"
+                    ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-purple-500/50 scale-105"
+                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:shadow-md hover:scale-105"
                 }`}
                 data-testid={`filter-${filter.id}`}
               >
@@ -165,13 +167,17 @@ export default function PackagesSection() {
             {sortedPackages.map((pkg) => (
               <div
                 key={pkg.id}
-                className={`group bg-card p-6 rounded-xl hover-lift ${pkg.isPopular ? "ring-2 ring-purple-400" : ""} cursor-pointer relative`}
+                className={`group bg-card p-6 rounded-xl hover-lift ${
+                  pkg.isPopular 
+                    ? "ring-2 ring-purple-400 shadow-xl shadow-purple-500/30 animate-pulse-glow" 
+                    : "hover:shadow-xl hover:shadow-blue-500/20"
+                } cursor-pointer relative transition-all duration-300`}
                 data-testid={`package-${pkg.name.toLowerCase().replace(/\s+/g, "-")}`}
               >
                 {pkg.isPopular && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                    <span className="bg-gradient-to-r from-yellow-400 to-orange-400 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
-                      <Crown className="h-3 w-3" />
+                    <span className="bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg shadow-yellow-500/50 animate-pulse">
+                      <Crown className="h-3 w-3 animate-float" />
                       Popular
                     </span>
                   </div>
@@ -193,8 +199,10 @@ export default function PackagesSection() {
                     pkg.isPopular
                       ? "from-purple-500 to-pink-500"
                       : "from-blue-500 to-cyan-500"
-                  } rounded-full flex items-center justify-center`}>
-                    <Zap className="h-6 w-6 text-white" />
+                  } rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg ${
+                    pkg.isPopular ? "shadow-purple-500/50" : "shadow-blue-500/50"
+                  }`}>
+                    <Zap className="h-6 w-6 text-white group-hover:animate-pulse" />
                   </div>
                 </div>
 

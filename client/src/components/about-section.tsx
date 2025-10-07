@@ -67,7 +67,7 @@ export default function AboutSection() {
             return (
               <div 
                 key={index}
-                className={`group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 hover:rotate-1 cursor-pointer border border-transparent hover:border-gray-200 dark:hover:border-gray-600 ${cardsInView ? 'animate-fade-in' : 'opacity-0 translate-y-8'}`}
+                className={`group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-500 transform hover:-translate-y-3 hover:scale-105 cursor-pointer border-2 border-transparent hover:border-purple-400 ${cardsInView ? 'animate-fade-in' : 'opacity-0 translate-y-8'}`}
                 style={{ animationDelay: `${index * 150}ms` }}
                 data-testid={`transformation-${transform.from.toLowerCase()}`}
               >

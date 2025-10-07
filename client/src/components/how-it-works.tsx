@@ -44,8 +44,10 @@ export default function HowItWorks() {
     <section id="how-it-works" className="scroll-mt-20 py-12 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
-            How Careerskope Helps You
+          <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500 bg-clip-text text-transparent">
+              How Careerskope Helps You
+            </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Our comprehensive approach to career development

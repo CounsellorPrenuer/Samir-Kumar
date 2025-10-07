@@ -71,7 +71,11 @@ export default function ContactSection() {
     <section id="contact" className="scroll-mt-20 py-12 bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Get In Touch</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+              Get In Touch
+            </span>
+          </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Ready to transform your career? Let's start with a conversation.
           </p>
