@@ -79,7 +79,7 @@ export default function HeroSection() {
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight animate-slide-up" data-testid="hero-title">
-              Unlock Your <span className="text-yellow-300">Career Potential</span>
+              Unlock Your <span className="gradient-text-vibrant">Career Potential</span>
             </h1>
 
             <p className="text-xl text-white/95 mb-8 leading-relaxed animate-slide-up" style={{ animationDelay: '0.1s' }} data-testid="hero-description">
@@ -89,35 +89,35 @@ export default function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-slide-up" style={{ animationDelay: '0.2s' }}>
               <button  
                 onClick={scrollToContact}
-                className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg flex items-center justify-center hover:bg-yellow-300 hover:text-blue-700 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+                className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg flex items-center justify-center hover:bg-yellow-300 hover:text-blue-700 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shimmer"
                 data-testid="button-discover-path"
               >
-                <Compass className="mr-2 h-5 w-5" />
+                <Compass className="mr-2 h-5 w-5 icon-bounce" />
                 Discover Your Path
               </button>
               <button  
                 onClick={scrollToContact}
-                className="border-2 border-white/80 backdrop-blur-sm bg-white/10 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 flex items-center justify-center transform hover:scale-105"
+                className="border-2 border-white/80 backdrop-blur-sm bg-white/10 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 flex items-center justify-center transform hover:scale-105 glass-card"
                 data-testid="button-free-call"
               >
-                <Phone className="mr-2 h-5 w-5" />
+                <Phone className="mr-2 h-5 w-5 icon-bounce" />
                   Career Clarity Call
               </button>
             </div>
 
             {/* Enhanced Stats */}
             <div className="grid grid-cols-3 gap-4 sm:gap-6 max-w-lg animate-slide-up" style={{ animationDelay: '0.3s' }}>
-              <div className="text-center bg-white/15 backdrop-blur-md rounded-lg p-4 border border-white/30 hover:bg-white/25 transition-all">
-                <div className="text-2xl sm:text-3xl font-bold text-yellow-300">76</div>
-                <div className="text-xs sm:text-sm text-white/90">Success Stories</div>
+              <div className="text-center glass-card rounded-lg p-4 hover:bg-white/25 transition-all hover:scale-105 cursor-pointer">
+                <div className="text-2xl sm:text-3xl font-bold gradient-text-vibrant">76</div>
+                <div className="text-xs sm:text-sm text-white/90 font-medium">Success Stories</div>
               </div>
-              <div className="text-center bg-white/15 backdrop-blur-md rounded-lg p-4 border border-white/30 hover:bg-white/25 transition-all">
-                <div className="text-2xl sm:text-3xl font-bold text-yellow-300">4.8★</div>
-                <div className="text-xs sm:text-sm text-white/90">Client Rating</div>
+              <div className="text-center glass-card rounded-lg p-4 hover:bg-white/25 transition-all hover:scale-105 cursor-pointer">
+                <div className="text-2xl sm:text-3xl font-bold gradient-text-vibrant">4.8★</div>
+                <div className="text-xs sm:text-sm text-white/90 font-medium">Client Rating</div>
               </div>
-              <div className="text-center bg-white/15 backdrop-blur-md rounded-lg p-4 border border-white/30 hover:bg-white/25 transition-all">
-                <div className="text-2xl sm:text-3xl font-bold text-yellow-300">92%</div>
-                <div className="text-xs sm:text-sm text-white/90">Satisfaction</div>
+              <div className="text-center glass-card rounded-lg p-4 hover:bg-white/25 transition-all hover:scale-105 cursor-pointer">
+                <div className="text-2xl sm:text-3xl font-bold gradient-text-vibrant">92%</div>
+                <div className="text-xs sm:text-sm text-white/90 font-medium">Satisfaction</div>
               </div>
             </div>
           </div>
