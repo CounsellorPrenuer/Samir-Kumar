@@ -115,7 +115,7 @@ export default function PackagesSection() {
 
   if (loading) {
     return (
-      <section id="packages" className="scroll-mt-20 py-20 bg-card">
+      <section id="packages" className="scroll-mt-20 py-12 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
@@ -130,7 +130,7 @@ export default function PackagesSection() {
     <>
       <section
         id="packages"
-        className="scroll-mt-20 py-20 bg-muted"
+        className="scroll-mt-20 py-12 bg-muted"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">

@@ -31,7 +31,7 @@ export default function AboutSection() {
   ];
 
   return (
-    <section id="about" className="scroll-mt-20 py-20 bg-gradient-to-br from-blue-50 via-green-50 to-red-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
+    <section id="about" className="scroll-mt-20 py-12 bg-gradient-to-br from-blue-50 via-green-50 to-red-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
       {/* Sparkle Background Effect */}
       <div className="absolute inset-0 sparkle-container pointer-events-none">
         {[...Array(40)].map((_, i) => (

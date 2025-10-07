@@ -9,7 +9,7 @@ export default function PhotoGallerySection() {
 
   if (isLoading) {
     return (
-      <section id="gallery" className="scroll-mt-20 py-20 bg-gray-50">
+      <section id="gallery" className="scroll-mt-20 py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
@@ -21,7 +21,7 @@ export default function PhotoGallerySection() {
   }
 
   return (
-    <section id="gallery" className="scroll-mt-20 py-20 bg-gray-50">
+    <section id="gallery" className="scroll-mt-20 py-12 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
