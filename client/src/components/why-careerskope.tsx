@@ -44,13 +44,14 @@ export default function WhyCareerskope() {
           {features.map((feature, index) => (
             <div 
               key={index}
-              className="bg-card p-6 rounded-xl hover-lift"
+              className="glass-strong p-6 rounded-xl card-pop hover-gradient-border animate-fade-in-up"
+              style={{ animationDelay: `${index * 0.1}s` }}
               data-testid={`feature-card-${feature.title.toLowerCase().replace(/\s+/g, '-')}`}
             >
-              <div className={`w-12 h-12 bg-gradient-to-r ${feature.gradient} rounded-lg flex items-center justify-center mb-4`}>
-                <feature.icon className="text-white h-6 w-6" />
+              <div className={`w-12 h-12 bg-gradient-to-r ${feature.gradient} rounded-lg flex items-center justify-center mb-4 hover-glow`}>
+                <feature.icon className="text-white h-6 w-6 icon-bounce" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+              <h3 className="text-xl font-semibold mb-3 gradient-text-bright">{feature.title}</h3>
               <p className="text-muted-foreground">{feature.description}</p>
             </div>
           ))}

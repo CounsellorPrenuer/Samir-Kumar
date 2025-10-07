@@ -44,13 +44,14 @@ export default function FourPillars() {
           {pillars.map((pillar, index) => (
             <div 
               key={index}
-              className="bg-card p-6 rounded-xl text-center hover-lift"
+              className="glass-strong p-6 rounded-xl text-center card-pop hover-gradient-border animate-fade-in-up"
+              style={{ animationDelay: `${index * 0.1}s` }}
               data-testid={`pillar-card-${pillar.title.toLowerCase().replace(/\s+/g, '-')}`}
             >
-              <div className={`w-16 h-16 bg-gradient-to-r ${pillar.gradient} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                <pillar.icon className="text-white h-8 w-8" />
+              <div className={`w-16 h-16 bg-gradient-to-r ${pillar.gradient} rounded-full flex items-center justify-center mx-auto mb-4 hover-glow`}>
+                <pillar.icon className="text-white h-8 w-8 icon-bounce" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">{pillar.title}</h3>
+              <h3 className="text-xl font-semibold mb-3 gradient-text-bright">{pillar.title}</h3>
               <p className="text-muted-foreground">{pillar.description}</p>
             </div>
           ))}

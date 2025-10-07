@@ -31,11 +31,12 @@ export default function CareerTransformation() {
             {transformations.map((item, index) => (
               <div 
                 key={index}
-                className="glass-effect p-6 rounded-xl"
+                className="glass-strong p-6 rounded-xl card-pop animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.15}s` }}
                 data-testid={`transformation-card-${item.title.toLowerCase().replace(/\s+/g, '-')}`}
               >
-                <item.icon className="h-8 w-8 text-white mb-4 mx-auto" />
-                <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                <item.icon className="h-8 w-8 text-white mb-4 mx-auto icon-bounce hover-glow" />
+                <h3 className="text-xl font-semibold mb-3 text-white gradient-text-vibrant">{item.title}</h3>
                 <p className="text-white/90">{item.description}</p>
               </div>
             ))}

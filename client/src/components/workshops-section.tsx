@@ -38,13 +38,14 @@ export default function WorkshopsSection() {
           {services.map((service, index) => (
             <div 
               key={index}
-              className="bg-card p-6 rounded-xl hover-lift text-center"
+              className="glass-strong p-6 rounded-xl card-pop hover-gradient-border text-center animate-fade-in-up"
+              style={{ animationDelay: `${index * 0.15}s` }}
               data-testid={`workshop-card-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
             >
-              <div className={`w-16 h-16 bg-gradient-to-r ${service.gradient} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                <service.icon className="text-white h-8 w-8" />
+              <div className={`w-16 h-16 bg-gradient-to-r ${service.gradient} rounded-full flex items-center justify-center mx-auto mb-4 hover-glow`}>
+                <service.icon className="text-white h-8 w-8 icon-bounce" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
+              <h3 className="text-xl font-semibold mb-3 gradient-text-bright">{service.title}</h3>
               <p className="text-muted-foreground">{service.description}</p>
             </div>
           ))}

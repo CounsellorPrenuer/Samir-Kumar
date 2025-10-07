@@ -56,13 +56,14 @@ export default function HowItWorks() {
           {services.map((service, index) => (
             <div 
               key={index}
-              className="text-center group"
+              className="text-center group glass-card p-6 rounded-xl card-pop animate-fade-in-up"
+              style={{ animationDelay: `${index * 0.15}s` }}
               data-testid={`service-card-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
             >
-              <div className={`w-20 h-20 bg-gradient-to-r ${service.gradient} rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                <service.icon className="text-white h-8 w-8" />
+              <div className={`w-20 h-20 bg-gradient-to-r ${service.gradient} rounded-full flex items-center justify-center mx-auto mb-6 hover-glow hover:scale-110 transition-transform duration-300`}>
+                <service.icon className="text-white h-8 w-8 icon-bounce" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
+              <h3 className="text-xl font-semibold mb-3 gradient-text-bright">{service.title}</h3>
               <p className="text-muted-foreground">{service.description}</p>
             </div>
           ))}
