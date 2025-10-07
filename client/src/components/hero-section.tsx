@@ -48,22 +48,23 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden mt-16">
-      {/* Background Image Carousel */}
+      {/* Background Image Carousel with Ken Burns Effect */}
       <div className="absolute inset-0 z-0">
         {slides.map((slide, index) => (
           <div
             key={index}
             className={`absolute inset-0 transition-all duration-1000 ${
-              index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+              index === currentSlide ? 'opacity-100' : 'opacity-0'
             }`}
           >
             <img  
               src={slide.image}  
               alt={slide.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover animate-ken-burns"
             />
-            {/* Dark Overlay for readability */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
+            {/* Vibrant Gradient Overlay for readability */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-purple-900/70 to-pink-900/60"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/40"></div>
           </div>
         ))}
       </div>
@@ -79,7 +80,7 @@ export default function HeroSection() {
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight animate-slide-up" data-testid="hero-title">
-              Unlock Your <span className="text-yellow-300">Career Potential</span>
+              Unlock Your <span className="gradient-text font-extrabold">Career Potential</span>
             </h1>
 
             <p className="text-xl text-white/95 mb-8 leading-relaxed animate-slide-up" style={{ animationDelay: '0.1s' }} data-testid="hero-description">
@@ -89,7 +90,7 @@ export default function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-slide-up" style={{ animationDelay: '0.2s' }}>
               <button  
                 onClick={scrollToContact}
-                className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg flex items-center justify-center hover:bg-yellow-300 hover:text-blue-700 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+                className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-8 py-4 rounded-lg font-semibold text-lg flex items-center justify-center hover:from-yellow-500 hover:to-orange-600 transition-all duration-300 transform hover:scale-110 glow-effect"
                 data-testid="button-discover-path"
               >
                 <Compass className="mr-2 h-5 w-5" />
@@ -97,7 +98,7 @@ export default function HeroSection() {
               </button>
               <button  
                 onClick={scrollToContact}
-                className="border-2 border-white/80 backdrop-blur-sm bg-white/10 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 flex items-center justify-center transform hover:scale-105"
+                className="border-2 border-white/80 backdrop-blur-sm bg-white/10 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-600 hover:border-transparent transition-all duration-300 flex items-center justify-center transform hover:scale-110"
                 data-testid="button-free-call"
               >
                 <Phone className="mr-2 h-5 w-5" />
@@ -105,19 +106,19 @@ export default function HeroSection() {
               </button>
             </div>
 
-            {/* Enhanced Stats */}
+            {/* Enhanced Stats with Glow */}
             <div className="grid grid-cols-3 gap-4 sm:gap-6 max-w-lg animate-slide-up" style={{ animationDelay: '0.3s' }}>
-              <div className="text-center bg-white/15 backdrop-blur-md rounded-lg p-4 border border-white/30 hover:bg-white/25 transition-all">
-                <div className="text-2xl sm:text-3xl font-bold text-yellow-300">76</div>
-                <div className="text-xs sm:text-sm text-white/90">Success Stories</div>
+              <div className="text-center bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md rounded-lg p-4 border border-white/40 hover:bg-white/30 transition-all hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/50">
+                <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">76</div>
+                <div className="text-xs sm:text-sm text-white/90 font-medium">Success Stories</div>
               </div>
-              <div className="text-center bg-white/15 backdrop-blur-md rounded-lg p-4 border border-white/30 hover:bg-white/25 transition-all">
-                <div className="text-2xl sm:text-3xl font-bold text-yellow-300">4.8★</div>
-                <div className="text-xs sm:text-sm text-white/90">Client Rating</div>
+              <div className="text-center bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md rounded-lg p-4 border border-white/40 hover:bg-white/30 transition-all hover:scale-105 hover:shadow-2xl hover:shadow-pink-500/50">
+                <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-pink-300 to-purple-400 bg-clip-text text-transparent">4.8★</div>
+                <div className="text-xs sm:text-sm text-white/90 font-medium">Client Rating</div>
               </div>
-              <div className="text-center bg-white/15 backdrop-blur-md rounded-lg p-4 border border-white/30 hover:bg-white/25 transition-all">
-                <div className="text-2xl sm:text-3xl font-bold text-yellow-300">92%</div>
-                <div className="text-xs sm:text-sm text-white/90">Satisfaction</div>
+              <div className="text-center bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md rounded-lg p-4 border border-white/40 hover:bg-white/30 transition-all hover:scale-105 hover:shadow-2xl hover:shadow-green-500/50">
+                <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-green-300 to-cyan-400 bg-clip-text text-transparent">92%</div>
+                <div className="text-xs sm:text-sm text-white/90 font-medium">Satisfaction</div>
               </div>
             </div>
           </div>
