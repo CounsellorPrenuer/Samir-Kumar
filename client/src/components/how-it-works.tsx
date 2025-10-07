@@ -44,7 +44,7 @@ export default function HowItWorks() {
     <section id="how-it-works" className="scroll-mt-20 py-12 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold gradient-text mb-4 animate-fade-in-up">
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
             How Careerskope Helps You
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -56,14 +56,13 @@ export default function HowItWorks() {
           {services.map((service, index) => (
             <div 
               key={index}
-              className="text-center group glass-card p-6 rounded-xl card-pop animate-fade-in-up"
-              style={{ animationDelay: `${index * 0.15}s` }}
+              className="text-center group"
               data-testid={`service-card-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
             >
-              <div className={`w-20 h-20 bg-gradient-to-r ${service.gradient} rounded-full flex items-center justify-center mx-auto mb-6 hover-glow hover:scale-110 transition-transform duration-300`}>
-                <service.icon className="text-white h-8 w-8 icon-bounce" />
+              <div className={`w-20 h-20 bg-gradient-to-r ${service.gradient} rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                <service.icon className="text-white h-8 w-8" />
               </div>
-              <h3 className="text-xl font-semibold mb-3 gradient-text-bright">{service.title}</h3>
+              <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
               <p className="text-muted-foreground">{service.description}</p>
             </div>
           ))}

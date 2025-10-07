@@ -134,10 +134,10 @@ export default function PackagesSection() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold gradient-text mb-4 animate-fade-in-up">
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
               Our Packages
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Choose the package that best fits your career development needs
             </p>
           </div>
@@ -148,14 +148,14 @@ export default function PackagesSection() {
               <button
                 key={filter.id}
                 onClick={() => setActiveFilter(filter.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-300 hover:scale-105 ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-300 ${
                   activeFilter === filter.id
-                    ? "bg-gradient-to-r from-blue-600 to-red-600 text-white shadow-lg btn-glow"
-                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:shadow-md glass-card"
+                    ? "bg-gradient-to-r from-blue-600 to-red-600 text-white shadow-lg"
+                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:shadow-md"
                 }`}
                 data-testid={`filter-${filter.id}`}
               >
-                <filter.icon className="h-4 w-4 icon-bounce" />
+                <filter.icon className="h-4 w-4" />
                 {filter.label}
               </button>
             ))}
@@ -165,7 +165,7 @@ export default function PackagesSection() {
             {sortedPackages.map((pkg) => (
               <div
                 key={pkg.id}
-                className={`group glass-card p-6 rounded-xl card-pop ${pkg.isPopular ? "hover-gradient-border" : ""} cursor-pointer relative animate-fade-in-up`}
+                className={`group bg-card p-6 rounded-xl hover-lift ${pkg.isPopular ? "ring-2 ring-purple-400" : ""} cursor-pointer relative`}
                 data-testid={`package-${pkg.name.toLowerCase().replace(/\s+/g, "-")}`}
               >
                 {pkg.isPopular && (
@@ -193,13 +193,13 @@ export default function PackagesSection() {
                     pkg.isPopular
                       ? "from-purple-500 to-pink-500"
                       : "from-blue-500 to-cyan-500"
-                  } rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 hover-glow`}>
-                    <Zap className="h-6 w-6 text-white animate-pulse" />
+                  } rounded-full flex items-center justify-center`}>
+                    <Zap className="h-6 w-6 text-white" />
                   </div>
                 </div>
 
                 <div className="text-center">
-                  <h4 className="text-xl font-semibold mb-2 gradient-text-bright">{pkg.name}</h4>
+                  <h4 className="text-xl font-semibold mb-2">{pkg.name}</h4>
                   <p className="text-muted-foreground text-sm mb-4">{pkg.description}</p>
                   <div className="mb-4">
                     <span
@@ -207,7 +207,7 @@ export default function PackagesSection() {
                         pkg.isPopular
                           ? "bg-gradient-to-r from-purple-600 to-pink-600"
                           : "bg-gradient-to-r from-blue-600 to-cyan-600"
-                      } bg-clip-text text-transparent animate-pulse`}
+                      } bg-clip-text text-transparent`}
                     >
                       {formatPrice(pkg.price)}
                     </span>
@@ -226,7 +226,7 @@ export default function PackagesSection() {
 
                   <button
                     onClick={() => handlePackageSelect(pkg)}
-                    className={`w-full text-white py-2 rounded-lg font-semibold text-sm transition-all duration-300 hover:scale-105 btn-glow shimmer ${
+                    className={`w-full text-white py-2 rounded-lg font-semibold text-sm transition-all duration-300 hover:shadow-lg ${
                       pkg.isPopular
                         ? "bg-gradient-to-r from-purple-600 to-pink-600"
                         : "bg-gradient-to-r from-blue-600 to-cyan-600"

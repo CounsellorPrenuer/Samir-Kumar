@@ -52,8 +52,8 @@ export default function AboutSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 animate-fade-in-up">
-            About <span className="gradient-text-vibrant">CareerSkope</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            About <span className="bg-gradient-to-r from-blue-600 via-green-600 to-red-600 bg-clip-text text-transparent">CareerSkope</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Empowering you to choose careers

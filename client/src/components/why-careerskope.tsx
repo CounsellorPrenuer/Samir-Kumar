@@ -32,7 +32,7 @@ export default function WhyCareerskope() {
     <section id="why-careerskope" className="scroll-mt-20 py-12 bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold gradient-text mb-4 animate-fade-in-up">
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
             Why Choose Careerskope?
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -44,14 +44,13 @@ export default function WhyCareerskope() {
           {features.map((feature, index) => (
             <div 
               key={index}
-              className="glass-strong p-6 rounded-xl card-pop hover-gradient-border animate-fade-in-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="bg-card p-6 rounded-xl hover-lift"
               data-testid={`feature-card-${feature.title.toLowerCase().replace(/\s+/g, '-')}`}
             >
-              <div className={`w-12 h-12 bg-gradient-to-r ${feature.gradient} rounded-lg flex items-center justify-center mb-4 hover-glow`}>
-                <feature.icon className="text-white h-6 w-6 icon-bounce" />
+              <div className={`w-12 h-12 bg-gradient-to-r ${feature.gradient} rounded-lg flex items-center justify-center mb-4`}>
+                <feature.icon className="text-white h-6 w-6" />
               </div>
-              <h3 className="text-xl font-semibold mb-3 gradient-text-bright">{feature.title}</h3>
+              <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
               <p className="text-muted-foreground">{feature.description}</p>
             </div>
           ))}

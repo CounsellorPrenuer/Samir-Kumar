@@ -32,7 +32,7 @@ export default function FourPillars() {
     <section className="py-12 bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold gradient-text mb-4 animate-fade-in-up">
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
             Our Unique Approach
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -44,14 +44,13 @@ export default function FourPillars() {
           {pillars.map((pillar, index) => (
             <div 
               key={index}
-              className="glass-strong p-6 rounded-xl text-center card-pop hover-gradient-border animate-fade-in-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="bg-card p-6 rounded-xl text-center hover-lift"
               data-testid={`pillar-card-${pillar.title.toLowerCase().replace(/\s+/g, '-')}`}
             >
-              <div className={`w-16 h-16 bg-gradient-to-r ${pillar.gradient} rounded-full flex items-center justify-center mx-auto mb-4 hover-glow`}>
-                <pillar.icon className="text-white h-8 w-8 icon-bounce" />
+              <div className={`w-16 h-16 bg-gradient-to-r ${pillar.gradient} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                <pillar.icon className="text-white h-8 w-8" />
               </div>
-              <h3 className="text-xl font-semibold mb-3 gradient-text-bright">{pillar.title}</h3>
+              <h3 className="text-xl font-semibold mb-3">{pillar.title}</h3>
               <p className="text-muted-foreground">{pillar.description}</p>
             </div>
           ))}

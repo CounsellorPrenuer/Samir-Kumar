@@ -62,8 +62,8 @@ export default function BlogSection() {
     <section id="blog" className="scroll-mt-20 py-12 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold gradient-text mb-4 animate-fade-in-up">Latest Resources</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Latest Resources</h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Stay updated with career planning, admissions, and industry trends
           </p>
         </div>
@@ -94,17 +94,17 @@ export default function BlogSection() {
               return (
                 <article 
                   key={article.id}
-                  className="glass-strong p-6 rounded-xl card-pop hover-gradient-border text-center animate-fade-in-up"
+                  className="bg-card p-6 rounded-xl hover-lift text-center"
                   data-testid={`blog-card-${article.category}`}
                 >
                   <div className="mb-4 flex justify-center">
-                    <div className="text-4xl animate-bounce icon-bounce">📚</div>
+                    <div className="text-4xl">📚</div>
                   </div>
                   <div>
                     <div className={`text-xs font-semibold mb-2 capitalize ${styles.color}`}>
                       {article.category}
                     </div>
-                    <h3 className="text-xl font-semibold mb-3 gradient-text-bright">{article.title}</h3>
+                    <h3 className="text-xl font-semibold mb-3">{article.title}</h3>
                     <p className="text-muted-foreground text-sm mb-4">{article.description}</p>
                     <div className="flex items-center justify-between">
                       <span className="text-xs text-muted-foreground">{article.readTime}</span>
@@ -127,7 +127,7 @@ export default function BlogSection() {
           <div className="text-center mt-12">
             <button 
               onClick={handleViewAllArticles}
-              className="bg-gradient-to-r from-blue-600 to-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-red-700 transition-all duration-300 transform hover:scale-105 btn-glow shimmer" 
+              className="bg-gradient-to-r from-blue-600 to-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-red-700 transition-all duration-300 transform hover:scale-105" 
               data-testid="button-view-all-articles"
             >
               View All Articles ({filteredArticles.length - 3} more)

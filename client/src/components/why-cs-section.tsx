@@ -7,7 +7,7 @@ export default function WhyCSSection() {
     <section id="why-cs" className="scroll-mt-20 py-12 bg-gradient-to-br from-blue-50 to-indigo-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold gradient-text mb-4 animate-fade-in-up">
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
             Why Careerskope?
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">

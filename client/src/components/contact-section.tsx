@@ -71,16 +71,16 @@ export default function ContactSection() {
     <section id="contact" className="scroll-mt-20 py-12 bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold gradient-text mb-4 animate-fade-in-up">Get In Touch</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Get In Touch</h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Ready to transform your career? Let's start with a conversation.
           </p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="glass-strong p-8 rounded-xl card-pop animate-fade-in-up">
-            <h3 className="text-2xl font-semibold mb-6 gradient-text-bright">Book Your Call</h3>
+          <div className="bg-card p-8 rounded-xl">
+            <h3 className="text-2xl font-semibold mb-6">Book Your Call</h3>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
@@ -185,11 +185,11 @@ export default function ContactSection() {
                 
                 <Button 
                   type="submit" 
-                  className="w-full bg-gradient-to-r from-blue-600 to-red-600 hover:from-blue-700 hover:to-red-700 btn-glow shimmer hover:scale-105 transition-transform"
+                  className="w-full bg-gradient-to-r from-blue-600 to-red-600 hover:from-blue-700 hover:to-red-700"
                   disabled={contactMutation.isPending}
                   data-testid="button-submit-contact"
                 >
-                  <Calendar className="mr-2 h-5 w-5 icon-bounce" />
+                  <Calendar className="mr-2 h-5 w-5" />
                   {contactMutation.isPending ? "Submitting..." : "Book My Call"}
                 </Button>
               </form>
@@ -198,12 +198,12 @@ export default function ContactSection() {
           
           {/* Contact Information */}
           <div className="space-y-8">
-            <div className="glass-strong p-6 rounded-xl card-pop animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-              <h4 className="text-xl font-semibold mb-4 gradient-text-bright">Contact Information</h4>
+            <div className="bg-card p-6 rounded-xl">
+              <h4 className="text-xl font-semibold mb-4">Contact Information</h4>
               <div className="space-y-4">
                 <div className="flex items-center">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4 hover-glow transition-transform hover:scale-110">
-                    <Phone className="h-5 w-5 text-blue-600 icon-bounce" />
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                    <Phone className="h-5 w-5 text-blue-600" />
                   </div>
                   <div>
                     <div className="font-medium">Phone</div>
@@ -212,8 +212,8 @@ export default function ContactSection() {
                 </div>
                 
                 <div className="flex items-center">
-                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4 hover-glow transition-transform hover:scale-110">
-                    <Mail className="h-5 w-5 text-green-600 icon-bounce" />
+                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                    <Mail className="h-5 w-5 text-green-600" />
                   </div>
                   <div>
                     <div className="font-medium">Email</div>
@@ -222,8 +222,8 @@ export default function ContactSection() {
                 </div>
                 
                 <div className="flex items-center">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4 hover-glow transition-transform hover:scale-110">
-                    <Linkedin className="h-5 w-5 text-blue-600 icon-bounce" />
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                    <Linkedin className="h-5 w-5 text-blue-600" />
                   </div>
                   <div>
                     <div className="font-medium">LinkedIn</div>
@@ -233,7 +233,7 @@ export default function ContactSection() {
               </div>
             </div>
             
-            <div className="bg-gradient-to-r from-blue-600 to-red-600 p-6 rounded-xl text-white glass-card card-pop animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <div className="bg-gradient-to-r from-blue-600 to-red-600 p-6 rounded-xl text-white">
               <h4 className="text-xl font-semibold mb-4">Why Schedule a Call?</h4>
               <ul className="space-y-2">
                 {benefits.map((benefit, index) => (

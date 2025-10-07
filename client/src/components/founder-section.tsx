@@ -55,7 +55,7 @@ export default function FounderSection() {
     <section id="leadership" className="scroll-mt-20 py-12 bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold gradient-text mb-4 animate-fade-in-up">
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
             Leadership @ Careerskope
           </h2>
         </div>
