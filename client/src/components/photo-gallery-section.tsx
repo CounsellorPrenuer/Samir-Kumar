@@ -24,10 +24,10 @@ export default function PhotoGallerySection() {
     <section id="gallery" className="scroll-mt-20 py-12 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold gradient-text mb-4 animate-fade-in-up">
             Photo Gallery
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
             Glimpses from our journey of transforming careers and lives
           </p>
         </div>
@@ -42,7 +42,8 @@ export default function PhotoGallerySection() {
             {photos.map((photo, index) => (
               <div 
                 key={photo.id} 
-                className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+                className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 card-pop hover-glow animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.05}s` }}
                 data-testid={`gallery-photo-${index}`}
               >
                 <img 

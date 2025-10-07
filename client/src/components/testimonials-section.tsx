@@ -82,10 +82,10 @@ export default function TestimonialsSection() {
     <section id="testimonials" ref={sectionRef} className="scroll-mt-20 py-12 bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold gradient-text mb-4 animate-fade-in-up">
             Success Stories
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
             Hear from professionals who transformed their careers with Careerskope
           </p>
         </div>
@@ -154,19 +154,19 @@ export default function TestimonialsSection() {
                     className="w-full flex-shrink-0 p-4"
                     data-testid={`testimonial-${index}`}
                   >
-                    <div className="bg-card p-6 rounded-xl h-full relative">
+                    <div className="glass-strong p-6 rounded-xl h-full relative card-pop">
                       {/* Quote decoration */}
-                      <div className="absolute top-2 right-2 opacity-10">
+                      <div className="absolute top-2 right-2 opacity-10 animate-pulse">
                         <Quote className="h-12 w-12 text-blue-500" />
                       </div>
                       
                       <div className="relative z-10">
                         <div className="flex items-center mb-4">
-                          <div className={`w-12 h-12 bg-gradient-to-r ${testimonial.gradient} rounded-full flex items-center justify-center text-white font-bold mr-3 text-lg`}>
+                          <div className={`w-12 h-12 bg-gradient-to-r ${testimonial.gradient} rounded-full flex items-center justify-center text-white font-bold mr-3 text-lg hover-glow transition-transform hover:scale-110`}>
                             {testimonial.initial}
                           </div>
                           <div>
-                            <div className="font-bold text-lg">{testimonial.name}</div>
+                            <div className="font-bold text-lg gradient-text-bright">{testimonial.name}</div>
                             <div className="text-muted-foreground text-sm">{testimonial.role}</div>
                           </div>
                         </div>
