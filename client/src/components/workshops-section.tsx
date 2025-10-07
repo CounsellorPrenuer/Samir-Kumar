@@ -1,6 +1,8 @@
 import { Users, GraduationCap, Presentation } from "lucide-react";
+import { useInView } from "@/hooks/use-in-view";
 
 export default function WorkshopsSection() {
+  const { ref: cardsRef, isInView: cardsInView } = useInView({ threshold: 0.1 });
   const services = [
     {
       icon: Presentation,
@@ -36,15 +38,18 @@ export default function WorkshopsSection() {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <div 
               key={index}
-              className="bg-card p-6 rounded-xl hover-lift text-center"
+              className={`bg-card p-6 rounded-xl hover-lift text-center border-2 border-transparent hover:border-green-300 hover:shadow-xl hover:shadow-green-500/20 transition-all duration-300 ${
+                cardsInView ? 'animate-slide-up' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ animationDelay: `${index * 150}ms` }}
               data-testid={`workshop-card-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
             >
-              <div className={`w-16 h-16 bg-gradient-to-r ${service.gradient} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                <service.icon className="text-white h-8 w-8" />
+              <div className={`w-16 h-16 bg-gradient-to-r ${service.gradient} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                <service.icon className="text-white h-8 w-8 group-hover:animate-pulse" />
               </div>
               <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
               <p className="text-muted-foreground">{service.description}</p>

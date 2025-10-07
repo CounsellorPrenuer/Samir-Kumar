@@ -2,12 +2,14 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { BlogArticle } from "@shared/schema";
 import BlogDetailModal from "./blog-detail-modal";
+import { useInView } from "@/hooks/use-in-view";
 
 export default function BlogSection() {
   const [activeFilter, setActiveFilter] = useState("all");
   const [showAll, setShowAll] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState<BlogArticle | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const { ref: cardsRef, isInView: cardsInView } = useInView({ threshold: 0.1 });
 
   const filters = [
     { key: "all", label: "All Articles" },
@@ -92,13 +94,16 @@ export default function BlogSection() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {displayedArticles.map((article) => {
+          <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {displayedArticles.map((article, index) => {
               const styles = getArticleStyles(article.category);
               return (
                 <article 
                   key={article.id}
-                  className="bg-card p-6 rounded-xl hover-lift text-center"
+                  className={`bg-card p-6 rounded-xl hover-lift text-center border-2 border-transparent hover:border-purple-300 hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300 ${
+                    cardsInView ? 'animate-slide-up' : 'opacity-0 translate-y-8'
+                  }`}
+                  style={{ animationDelay: `${index * 100}ms` }}
                   data-testid={`blog-card-${article.category}`}
                 >
                   <div className="mb-4 flex justify-center">
