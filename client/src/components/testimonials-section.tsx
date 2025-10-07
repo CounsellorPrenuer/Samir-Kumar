@@ -79,11 +79,17 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section id="testimonials" ref={sectionRef} className="scroll-mt-20 py-20 bg-muted">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
-            Success Stories
+    <section id="testimonials" ref={sectionRef} className="scroll-mt-20 py-20 bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-900 relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <div className="absolute top-40 right-20 w-64 h-64 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>
+        <div className="absolute bottom-32 left-10 w-64 h-64 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-16 section-fade-in">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <span className="gradient-text">Success Stories</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Hear from professionals who transformed their careers with Careerskope
@@ -154,7 +160,7 @@ export default function TestimonialsSection() {
                     className="w-full flex-shrink-0 p-4"
                     data-testid={`testimonial-${index}`}
                   >
-                    <div className="bg-card p-6 rounded-xl h-full relative">
+                    <div className="enhanced-card p-8 rounded-2xl h-full relative">
                       {/* Quote decoration */}
                       <div className="absolute top-2 right-2 opacity-10">
                         <Quote className="h-12 w-12 text-blue-500" />

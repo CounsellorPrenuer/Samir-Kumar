@@ -32,8 +32,13 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-black text-white py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white py-16 relative overflow-hidden">
+      {/* Background Effect */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-blue-600 rounded-full mix-blend-screen filter blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-600 rounded-full mix-blend-screen filter blur-3xl"></div>
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Mentoria Partnership Section */}
         <div className="text-center mb-12 pb-8 border-b border-gray-700">
           <h3 className="text-2xl font-bold text-white mb-4">Powered by Mentoria's Career Discovery Platform</h3>
@@ -51,8 +56,8 @@ export default function Footer() {
             ))}
           </div>
           
-          <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300" data-testid="button-explore-mentoria">
-            Explore Mentoria's Platform
+          <button className="gradient-button text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105" data-testid="button-explore-mentoria">
+            <span className="relative z-10">Explore Mentoria's Platform</span>
           </button>
         </div>
         

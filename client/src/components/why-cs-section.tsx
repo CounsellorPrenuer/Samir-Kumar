@@ -4,11 +4,16 @@ import counsellingFramework2 from "@assets/WhatsApp Image 2025-09-30 at 11.56.28
 
 export default function WhyCSSection() {
   return (
-    <section id="why-cs" className="scroll-mt-20 py-20 bg-gradient-to-br from-blue-50 to-indigo-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
-            Why Careerskope?
+    <section id="why-cs" className="scroll-mt-20 py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-indigo-900/20 dark:to-gray-900 relative overflow-hidden">
+      {/* Floating Background Orbs */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <div className="absolute top-10 left-20 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>
+        <div className="absolute bottom-40 right-10 w-72 h-72 bg-indigo-400 rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-16 section-fade-in">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            Why <span className="gradient-text">Careerskope</span>?
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Comprehensive career guidance with proven frameworks and personalized approach
@@ -224,10 +229,10 @@ export default function WhyCSSection() {
               contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
           }}
-          className="bg-gradient-to-r from-blue-600 via-green-600 to-red-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+          className="gradient-button text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 transform hover:scale-105"
           data-testid="button-start-assessment"
         >
-          Start Your Career Assessment
+          <span className="relative z-10">Start Your Career Assessment</span>
         </button>
       </div>
     </section>

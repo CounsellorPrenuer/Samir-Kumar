@@ -130,12 +130,18 @@ export default function PackagesSection() {
     <>
       <section
         id="packages"
-        className="scroll-mt-20 py-20 bg-muted"
+        className="scroll-mt-20 py-20 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-900 relative overflow-hidden"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
-              Our Packages
+        {/* Background Decoration */}
+        <div className="absolute inset-0 opacity-30 pointer-events-none">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>
+          <div className="absolute bottom-20 right-10 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16 section-fade-in">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+              Our <span className="gradient-text">Premium Packages</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Choose the package that best fits your career development needs
@@ -162,11 +168,12 @@ export default function PackagesSection() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {sortedPackages.map((pkg) => (
+            {sortedPackages.map((pkg, index) => (
               <div
                 key={pkg.id}
-                className={`group bg-card p-6 rounded-xl hover-lift ${pkg.isPopular ? "ring-2 ring-purple-400" : ""} cursor-pointer relative`}
+                className={`group enhanced-card p-8 rounded-2xl cursor-pointer relative ${pkg.isPopular ? "ring-2 ring-purple-500 shadow-2xl shadow-purple-500/30" : ""}`}
                 data-testid={`package-${pkg.name.toLowerCase().replace(/\s+/g, "-")}`}
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 {pkg.isPopular && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
@@ -226,14 +233,14 @@ export default function PackagesSection() {
 
                   <button
                     onClick={() => handlePackageSelect(pkg)}
-                    className={`w-full text-white py-2 rounded-lg font-semibold text-sm transition-all duration-300 hover:shadow-lg ${
+                    className={`w-full gradient-button text-white py-3 rounded-xl font-semibold text-sm transition-all duration-300 group-hover:scale-105 ${
                       pkg.isPopular
                         ? "bg-gradient-to-r from-purple-600 to-pink-600"
                         : "bg-gradient-to-r from-blue-600 to-cyan-600"
                     }`}
                     data-testid={`button-choose-${pkg.name.toLowerCase().replace(/\s+/g, "-")}`}
                   >
-                    Choose Package
+                    <span className="relative z-10">Choose Package</span>
                   </button>
                 </div>
               </div>
