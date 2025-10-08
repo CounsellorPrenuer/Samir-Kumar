@@ -9,7 +9,8 @@ import FounderSection from "@/components/founder-section";
 import PhotoGallerySection from "@/components/photo-gallery-section";
 import ContactSection from "@/components/contact-section";
 import Footer from "@/components/footer";
-import HeroSection from "@/components/hero-section"
+import HeroSection from "@/components/hero-section";
+import ScrollToTop from "@/components/scroll-to-top";
 
 export default function Home() {
   return (
@@ -45,6 +46,9 @@ export default function Home() {
       <ContactSection />
       
       <Footer />
+      
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
     </div>
   );
 }

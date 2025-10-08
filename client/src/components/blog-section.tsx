@@ -2,14 +2,12 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { BlogArticle } from "@shared/schema";
 import BlogDetailModal from "./blog-detail-modal";
-import { useInView } from "@/hooks/use-in-view";
 
 export default function BlogSection() {
   const [activeFilter, setActiveFilter] = useState("all");
   const [showAll, setShowAll] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState<BlogArticle | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const { ref: cardsRef, isInView: cardsInView } = useInView({ threshold: 0.1 });
 
   const filters = [
     { key: "all", label: "All Articles" },
@@ -42,7 +40,7 @@ export default function BlogSection() {
   };
 
   const filteredArticles = Array.isArray(articles) ? articles : [];
-  
+
   // Show only first 3 articles unless "showAll" is true
   const displayedArticles = showAll ? filteredArticles : filteredArticles.slice(0, 3);
 
@@ -74,7 +72,7 @@ export default function BlogSection() {
           </p>
         </div>
 
-        
+
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[1, 2, 3].map((i) => (
@@ -94,16 +92,13 @@ export default function BlogSection() {
             ))}
           </div>
         ) : (
-          <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {displayedArticles.map((article, index) => {
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {displayedArticles.map((article) => {
               const styles = getArticleStyles(article.category);
               return (
                 <article 
                   key={article.id}
-                  className={`bg-card p-6 rounded-xl hover-lift text-center border-2 border-transparent hover:border-purple-300 hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300 ${
-                    cardsInView ? 'animate-slide-up' : 'opacity-0 translate-y-8'
-                  }`}
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="bg-card p-6 rounded-xl hover-lift text-center border-2 border-transparent hover:border-purple-300 hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300"
                   data-testid={`blog-card-${article.category}`}
                 >
                   <div className="mb-4 flex justify-center">
@@ -131,7 +126,7 @@ export default function BlogSection() {
             })}
           </div>
         )}
-        
+
         {!showAll && filteredArticles.length > 3 && (
           <div className="text-center mt-12">
             <button 
