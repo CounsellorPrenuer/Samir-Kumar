@@ -107,7 +107,7 @@ export default function PackagesSection() {
   });
 
   const filters = [
-    { id: "all", label: "All Packages", icon: Star },
+    { id: "all", label: "All solutions", icon: Star },
     { id: "students", label: "Students", icon: GraduationCap },
     { id: "graduates", label: "Graduates", icon: Users },
     { id: "professionals", label: "Professionals", icon: Briefcase },
@@ -136,11 +136,11 @@ export default function PackagesSection() {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Our Packages
+                Our Solutions
               </span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Choose the package that best fits your career development needs
+              Choose the solution that best fits your career development needs
             </p>
           </div>
 
@@ -241,7 +241,7 @@ export default function PackagesSection() {
                     }`}
                     data-testid={`button-choose-${pkg.name.toLowerCase().replace(/\s+/g, "-")}`}
                   >
-                    Choose Package
+                    Choose Solution
                   </button>
                 </div>
               </div>

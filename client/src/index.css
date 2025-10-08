@@ -159,7 +159,8 @@
   p {
     font-size: clamp(1rem, 2vw, 1.125rem);
     line-height: 1.7;
-    text-align: left;
+    text-align: justify;
+    text-justify: inter-word;
     max-width: 65ch;
     color: hsl(215.4, 30%, 25%);
     font-weight: 400;

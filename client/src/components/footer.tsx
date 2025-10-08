@@ -4,7 +4,7 @@ import careerSkopeLogoPath from "@assets/Screenshot 2025-09-27 114759_1758954653
 export default function Footer() {
   const quickLinks = [
     { label: "About", href: "#why-careerskope" },
-    { label: "Packages", href: "#packages" },
+    { label: "Solutions", href: "#packages" },
     { label: "Contact", href: "#contact" },
     { label: "Success Stories", href: "#testimonials" },
   ];
@@ -35,7 +35,7 @@ export default function Footer() {
     <footer className="bg-black text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mentoria Partnership Section */}
-        <div className="text-center mb-12 pb-8 border-b border-gray-700">
+        {/* <div className="text-center mb-12 pb-8 border-b border-gray-700">
           <h3 className="text-2xl font-bold text-white mb-4">Powered by Mentoria's Career Discovery Platform</h3>
           <p className="text-gray-300 max-w-4xl mx-auto mb-6">
             Every Careerskope plan includes lifetime access to Mentoria: India's most trusted platform 
@@ -55,7 +55,7 @@ export default function Footer() {
             Explore Mentoria's Platform
           </button>
         </div>
-        
+         */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Company Info */}
           <div className="md:col-span-2">
@@ -123,9 +123,9 @@ export default function Footer() {
         
         <div className="border-t border-gray-700 pt-8">
           <div className="flex items-center justify-between mb-3">
-            <div className="text-sm text-gray-400">
+            {/* <div className="text-sm text-gray-400">
               In partnership with Mentoria for enhanced career guidance services
-            </div>
+            </div> */}
             <div className="text-gray-400 flex items-center">
               Made with <Heart className="h-4 w-4 text-red-500 mx-1" /> by{" "}
               <span className="text-blue-400 ml-1">Mentoria</span>

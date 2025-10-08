@@ -148,7 +148,7 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
                 <div className="mt-12 p-6 bg-gradient-to-r from-blue-50 to-green-50 rounded-xl border border-blue-200">
                   <h3 className="text-xl font-semibold mb-3 text-blue-900">Ready to Advance Your Career?</h3>
                   <p className="text-blue-800 mb-4">
-                    Get personalized career guidance from our experts. Explore our packages and take the first step towards your dream career.
+                    Get personalized career guidance from our experts. Explore our solutions and take the first step towards your dream career.
                   </p>
                   <button
                     onClick={() => {
@@ -159,7 +159,7 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
                     className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-green-700 transition-all duration-300"
                     data-testid="button-explore-packages"
                   >
-                    Explore Our Packages
+                    Explore Our Solutions
                   </button>
                 </div>
               </div>

@@ -128,14 +128,6 @@ export default function HeroSection() {
                 <Compass className="mr-2 h-5 w-5" />
                 Discover Your Path
               </button>
-              <button  
-                onClick={scrollToContact}
-                className="border-2 border-white/80 backdrop-blur-sm bg-white/10 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-600 hover:border-transparent transition-all duration-300 flex items-center justify-center transform hover:scale-110"
-                data-testid="button-free-call"
-              >
-                <Phone className="mr-2 h-5 w-5" />
-                  Career Clarity Call
-              </button>
             </div>
 
             {/* Enhanced Stats with Glow */}

@@ -133,7 +133,7 @@ export default function AdminDashboard() {
             </TabsTrigger>
             <TabsTrigger value="packages" className="flex items-center gap-2">
               <Package className="h-4 w-4" />
-              Packages
+              Solutions
             </TabsTrigger>
             <TabsTrigger value="payments" className="flex items-center gap-2">
               <CreditCard className="h-4 w-4" />

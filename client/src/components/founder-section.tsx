@@ -75,12 +75,12 @@ export default function FounderSection() {
                 aspectRatio="1/1"
                 data-testid="founder-image"
               />
-              <div className="p-4 bg-white dark:bg-gray-800">
+              {/* <div className="p-4 bg-white dark:bg-gray-800">
                 <button className="w-full bg-gradient-to-r from-blue-600 to-red-600 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-700 hover:to-red-700 transition-all duration-300 flex items-center justify-center min-h-[44px] min-w-[44px] text-sm" data-testid="button-connect-linkedin">
                   <Linkedin className="mr-2 h-4 w-4" />
                   Connect on LinkedIn
                 </button>
-              </div>
+              </div> */}
             </div>
 
             {/* Content Section */}

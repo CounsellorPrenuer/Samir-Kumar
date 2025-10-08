@@ -64,11 +64,11 @@ export default function BlogSection() {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent">
-              Latest Resources
+              Resources
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Stay updated with career planning, admissions, and industry trends
+          Stay updated with Industry trends, Career development insights, and inputs on personal growth
           </p>
         </div>
 
