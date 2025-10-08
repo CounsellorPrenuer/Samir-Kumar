@@ -8,6 +8,7 @@ import {
   insertUserSchema,
   insertAdminUserSchema,
   insertPackageSchema,
+  insertCustomizePlanSchema,
   insertPaymentSchema,
   updateContactStatusSchema
 } from "@shared/schema";
@@ -728,6 +729,59 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(packages);
     } catch (error) {
       res.status(500).json({ success: false, message: "Failed to fetch packages" });
+    }
+  });
+
+  // Customize Plans routes
+  app.get("/api/customize-plans", async (req, res) => {
+    try {
+      const plans = await storage.getActiveCustomizePlans();
+      res.json(plans);
+    } catch (error) {
+      res.status(500).json({ success: false, message: "Failed to fetch customize plans" });
+    }
+  });
+
+  app.get("/api/admin/customize-plans", requireAdmin, async (req, res) => {
+    try {
+      const plans = await storage.getCustomizePlans();
+      res.json(plans);
+    } catch (error) {
+      res.status(500).json({ success: false, message: "Failed to fetch customize plans" });
+    }
+  });
+
+  app.post("/api/admin/customize-plans", requireAdmin, async (req, res) => {
+    try {
+      const validatedData = insertCustomizePlanSchema.parse(req.body);
+      const plan = await storage.createCustomizePlan(validatedData);
+      res.json({ success: true, plan });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ success: false, message: "Invalid data", errors: error.errors });
+      } else {
+        res.status(500).json({ success: false, message: "Failed to create customize plan" });
+      }
+    }
+  });
+
+  app.put("/api/admin/customize-plans/:id", requireAdmin, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const plan = await storage.updateCustomizePlan(id, req.body);
+      res.json({ success: true, plan });
+    } catch (error) {
+      res.status(500).json({ success: false, message: "Failed to update customize plan" });
+    }
+  });
+
+  app.delete("/api/admin/customize-plans/:id", requireAdmin, async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.deleteCustomizePlan(id);
+      res.json({ success: true, message: "Customize plan deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ success: false, message: "Failed to delete customize plan" });
     }
   });
 

@@ -4,6 +4,7 @@ import {
   blogArticles,
   testimonials,
   packages,
+  customizePlans,
   payments,
   adminUsers,
   photoGallery,
@@ -17,6 +18,8 @@ import {
   type InsertTestimonial,
   type Package,
   type InsertPackage,
+  type CustomizePlan,
+  type InsertCustomizePlan,
   type Payment,
   type InsertPayment,
   type AdminUser,
@@ -70,6 +73,14 @@ export interface IStorage {
   archivePackage(id: string): Promise<Package>;
   deletePackage(id: string): Promise<void>;
   hasPaymentsForPackage(id: string): Promise<boolean>;
+  
+  // Customize Plans
+  getCustomizePlans(): Promise<CustomizePlan[]>;
+  getActiveCustomizePlans(): Promise<CustomizePlan[]>;
+  getCustomizePlan(id: string): Promise<CustomizePlan | undefined>;
+  createCustomizePlan(plan: InsertCustomizePlan): Promise<CustomizePlan>;
+  updateCustomizePlan(id: string, plan: Partial<InsertCustomizePlan>): Promise<CustomizePlan>;
+  deleteCustomizePlan(id: string): Promise<void>;
   
   // Payments
   getPayments(): Promise<Payment[]>;
@@ -298,6 +309,43 @@ export class DatabaseStorage implements IStorage {
       .from(payments)
       .where(eq(payments.packageId, id));
     return result[0]?.count > 0;
+  }
+
+  // Customize Plans operations
+  async getCustomizePlans(): Promise<CustomizePlan[]> {
+    return await db.select().from(customizePlans).orderBy(customizePlans.displayOrder);
+  }
+
+  async getActiveCustomizePlans(): Promise<CustomizePlan[]> {
+    return await db.select().from(customizePlans)
+      .where(eq(customizePlans.isActive, true))
+      .orderBy(customizePlans.displayOrder);
+  }
+
+  async getCustomizePlan(id: string): Promise<CustomizePlan | undefined> {
+    const [plan] = await db.select().from(customizePlans).where(eq(customizePlans.id, id));
+    return plan || undefined;
+  }
+
+  async createCustomizePlan(plan: InsertCustomizePlan): Promise<CustomizePlan> {
+    const [newPlan] = await db
+      .insert(customizePlans)
+      .values(plan)
+      .returning();
+    return newPlan;
+  }
+
+  async updateCustomizePlan(id: string, plan: Partial<InsertCustomizePlan>): Promise<CustomizePlan> {
+    const [updatedPlan] = await db
+      .update(customizePlans)
+      .set(plan)
+      .where(eq(customizePlans.id, id))
+      .returning();
+    return updatedPlan;
+  }
+
+  async deleteCustomizePlan(id: string): Promise<void> {
+    await db.delete(customizePlans).where(eq(customizePlans.id, id));
   }
 
   // Payments operations

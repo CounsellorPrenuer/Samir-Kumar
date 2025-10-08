@@ -52,15 +52,29 @@ export const packages = pgTable("packages", {
   description: text("description").notNull(),
   price: numeric("price", { precision: 10, scale: 2 }).notNull(),
   features: text("features").array().notNull(),
-  category: text("category").notNull(), // students, graduates, professionals
+  category: text("category").notNull(), // 8-9-students, 10-12-students, college-graduates, working-professionals
   isPopular: boolean("is_popular").default(false).notNull(),
   isActive: boolean("is_active").default(true).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const customizePlans = pgTable("customize_plans", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  price: numeric("price", { precision: 10, scale: 2 }).notNull(),
+  priceType: text("price_type").default("one-time").notNull(), // one-time, monthly, per-interaction
+  duration: text("duration"), // e.g., "1 hour", "per month", etc.
+  isActive: boolean("is_active").default(true).notNull(),
+  displayOrder: integer("display_order").default(0).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const payments = pgTable("payments", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   packageId: varchar("package_id").references(() => packages.id),
+  customizePlanId: varchar("customize_plan_id").references(() => customizePlans.id),
+  planType: text("plan_type").default("package"), // "package" or "customize"
   customerName: text("customer_name").notNull(),
   customerEmail: text("customer_email").notNull(),
   customerPhone: text("customer_phone").notNull(),
@@ -126,6 +140,11 @@ export const insertPackageSchema = createInsertSchema(packages).omit({
   createdAt: true,
 });
 
+export const insertCustomizePlanSchema = createInsertSchema(customizePlans).omit({
+  id: true,
+  createdAt: true,
+});
+
 export const insertPaymentSchema = createInsertSchema(payments).omit({
   id: true,
   createdAt: true,
@@ -159,6 +178,8 @@ export type InsertTestimonial = z.infer<typeof insertTestimonialSchema>;
 export type Testimonial = typeof testimonials.$inferSelect;
 export type InsertPackage = z.infer<typeof insertPackageSchema>;
 export type Package = typeof packages.$inferSelect;
+export type InsertCustomizePlan = z.infer<typeof insertCustomizePlanSchema>;
+export type CustomizePlan = typeof customizePlans.$inferSelect;
 export type InsertPayment = z.infer<typeof insertPaymentSchema>;
 export type Payment = typeof payments.$inferSelect;
 export type InsertAdminUser = z.infer<typeof insertAdminUserSchema>;

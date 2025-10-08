@@ -2,7 +2,7 @@ import Navigation from "@/components/navigation";
 import AboutSection from "@/components/about-section";
 import WhyCSSection from "@/components/why-cs-section";
 import CareerTransformation from "@/components/career-transformation";
-import PackagesSection from "@/components/packages-section";
+import PackagesSectionTabs from "@/components/packages-section-tabs";
 import TestimonialsSection from "@/components/testimonials-section";
 import BlogSection from "@/components/blog-section";
 import FounderSection from "@/components/founder-section";
@@ -28,7 +28,7 @@ export default function Home() {
       <CareerTransformation />
       
       {/* Section 4: Our Career Solutions / Packages */}
-      <PackagesSection />
+      <PackagesSectionTabs />
       
       {/* Section 5: Success Stories */}
       <TestimonialsSection />
