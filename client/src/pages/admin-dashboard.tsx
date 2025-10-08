@@ -22,6 +22,7 @@ import BlogManagement from "@/components/admin/blog-management";
 import PackagesManagement from "@/components/admin/packages-management";
 import PaymentsManagement from "@/components/admin/payments-management";
 import PhotoGalleryManagement from "@/components/admin/photo-gallery-management";
+import CustomizePlansManagement from "@/components/admin/customize-plans-management";
 import DashboardOverview from "@/components/admin/dashboard-overview";
 import { useToast } from "@/hooks/use-toast";
 
@@ -114,7 +115,7 @@ export default function AdminDashboard() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-7">
+          <TabsList className="grid w-full grid-cols-8">
             <TabsTrigger value="overview" className="flex items-center gap-2">
               <BarChart3 className="h-4 w-4" />
               Overview
@@ -142,6 +143,10 @@ export default function AdminDashboard() {
             <TabsTrigger value="gallery" className="flex items-center gap-2">
               <Image className="h-4 w-4" />
               Gallery
+            </TabsTrigger>
+            <TabsTrigger value="customize-plans" className="flex items-center gap-2">
+              <Package className="h-4 w-4" />
+              Customize
             </TabsTrigger>
           </TabsList>
 
@@ -171,6 +176,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="gallery" className="space-y-6">
             <PhotoGalleryManagement />
+          </TabsContent>
+
+          <TabsContent value="customize-plans" className="space-y-6">
+            <CustomizePlansManagement />
           </TabsContent>
         </Tabs>
       </main>

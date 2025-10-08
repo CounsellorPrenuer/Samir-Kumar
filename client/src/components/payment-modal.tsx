@@ -32,6 +32,8 @@ interface PaymentModalProps {
 }
 
 export default function PaymentModal({ isOpen, onClose, package: selectedPackage }: PaymentModalProps) {
+  // Determine if this is a customize plan (category === "customize")
+  const isCustomizePlan = selectedPackage?.category === "customize";
   const [step, setStep] = useState<'details' | 'payment' | 'success'>('details');
   const [loading, setLoading] = useState(false);
   const [customerData, setCustomerData] = useState({
@@ -79,7 +81,10 @@ export default function PaymentModal({ isOpen, onClose, package: selectedPackage
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          packageId: selectedPackage.id,
+          ...(isCustomizePlan 
+            ? { customizePlanId: selectedPackage.id, planType: "customize" }
+            : { packageId: selectedPackage.id, planType: "package" }
+          ),
           customerName: customerData.name,
           customerEmail: customerData.email,
           customerPhone: customerData.phone,

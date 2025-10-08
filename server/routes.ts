@@ -317,28 +317,61 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Create Razorpay Order
   app.post("/api/create-payment-order", async (req, res) => {
     try {
-      const { packageId, customerName, customerEmail, customerPhone, notes } = req.body;
+      const { packageId, customizePlanId, planType, customerName, customerEmail, customerPhone, notes } = req.body;
       
-      // Get package details
-      const selectedPackage = await storage.getPackage(packageId);
+      let itemDetails;
+      let itemPrice;
+      let itemName;
       
-      if (!selectedPackage) {
-        return res.status(404).json({
-          success: false,
-          message: "Package not found"
-        });
-      }
+      // Handle both packages and customize plans
+      if (planType === "customize" || customizePlanId) {
+        // Get customize plan details
+        const selectedPlan = await storage.getCustomizePlan(customizePlanId);
+        
+        if (!selectedPlan) {
+          return res.status(404).json({
+            success: false,
+            message: "Customize plan not found"
+          });
+        }
 
-      // Prevent payment for archived packages
-      if (!selectedPackage.isActive) {
-        return res.status(400).json({
-          success: false,
-          message: "This package is no longer available for purchase"
-        });
+        // Prevent payment for inactive plans
+        if (!selectedPlan.isActive) {
+          return res.status(400).json({
+            success: false,
+            message: "This plan is no longer available for purchase"
+          });
+        }
+        
+        itemDetails = selectedPlan;
+        itemPrice = selectedPlan.price;
+        itemName = selectedPlan.name;
+      } else {
+        // Get package details
+        const selectedPackage = await storage.getPackage(packageId);
+        
+        if (!selectedPackage) {
+          return res.status(404).json({
+            success: false,
+            message: "Package not found"
+          });
+        }
+
+        // Prevent payment for archived packages
+        if (!selectedPackage.isActive) {
+          return res.status(400).json({
+            success: false,
+            message: "This package is no longer available for purchase"
+          });
+        }
+        
+        itemDetails = selectedPackage;
+        itemPrice = selectedPackage.price;
+        itemName = selectedPackage.name;
       }
 
       // Create Razorpay order
-      const amount = Math.round(parseFloat(selectedPackage.price) * 100); // Amount in paise
+      const amount = Math.round(parseFloat(itemPrice) * 100); // Amount in paise
       const currency = "INR";
       
       const razorpayOrder = await razorpay.orders.create({
@@ -346,7 +379,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         currency,
         receipt: `receipt_${Date.now()}`,
         notes: {
-          packageId,
+          ...(customizePlanId ? { customizePlanId, planType: "customize" } : { packageId, planType: "package" }),
           customerName,
           customerEmail,
           customerPhone,
@@ -357,11 +390,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Store payment record in database
       const paymentData = {
         razorpayOrderId: razorpayOrder.id,
-        packageId,
+        ...(customizePlanId ? { customizePlanId, planType: "customize" as const } : { packageId, planType: "package" as const }),
         customerName,
         customerEmail,
         customerPhone,
-        amount: selectedPackage.price,
+        amount: itemPrice,
         status: "pending" as const,
         paymentMethod: "card" as const,
         notes: notes || ""
