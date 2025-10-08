@@ -135,9 +135,19 @@ export const insertTestimonialSchema = createInsertSchema(testimonials).omit({
   createdAt: true,
 });
 
+// Define valid package categories
+export const packageCategoryEnum = z.enum([
+  "8-9-students",
+  "10-12-students", 
+  "college-graduates",
+  "working-professionals"
+]);
+
 export const insertPackageSchema = createInsertSchema(packages).omit({
   id: true,
   createdAt: true,
+}).extend({
+  category: packageCategoryEnum,
 });
 
 export const insertCustomizePlanSchema = createInsertSchema(customizePlans).omit({

@@ -36,10 +36,21 @@ interface PackageType {
 }
 
 const categoryOptions = [
-  { value: "students", label: "Students" },
-  { value: "graduates", label: "Graduates" },
-  { value: "professionals", label: "Professionals" },
+  { value: "8-9-students", label: "8-9 Students" },
+  { value: "10-12-students", label: "10-12 Students" },
+  { value: "college-graduates", label: "College Graduates" },
+  { value: "working-professionals", label: "Working Professionals" },
 ];
+
+// Map legacy category values to new ones
+const migrateCategoryValue = (oldCategory: string): string => {
+  const categoryMap: Record<string, string> = {
+    "students": "8-9-students",
+    "graduates": "college-graduates", 
+    "professionals": "working-professionals"
+  };
+  return categoryMap[oldCategory] || oldCategory;
+};
 
 export default function PackagesManagement() {
   const [packages, setPackages] = useState<PackageType[]>([]);
@@ -306,7 +317,7 @@ function PackageForm({
     name: pkg?.name || "",
     description: pkg?.description || "",
     price: pkg?.price || "",
-    category: pkg?.category || "students",
+    category: pkg?.category ? migrateCategoryValue(pkg.category) : "8-9-students",
     isPopular: pkg?.isPopular || false,
     isActive: pkg?.isActive ?? true,
     features: pkg?.features || [""],
