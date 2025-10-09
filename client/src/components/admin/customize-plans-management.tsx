@@ -219,59 +219,61 @@ export default function CustomizePlansManagement() {
               No customize plans found. Add your first plan!
             </p>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Order</TableHead>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Description</TableHead>
-                  <TableHead>Price</TableHead>
-                  <TableHead>Duration</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {plans
-                  .sort((a, b) => a.displayOrder - b.displayOrder)
-                  .map((plan) => (
-                    <TableRow key={plan.id} data-testid={`row-customize-plan-${plan.id}`}>
-                      <TableCell>{plan.displayOrder}</TableCell>
-                      <TableCell className="font-medium">{plan.name}</TableCell>
-                      <TableCell className="max-w-md truncate">
-                        {plan.description}
-                      </TableCell>
-                      <TableCell>{formatPrice(plan.price, plan.priceType)}</TableCell>
-                      <TableCell>{plan.duration || "-"}</TableCell>
-                      <TableCell>
-                        <Badge variant={plan.isActive ? "default" : "secondary"}>
-                          {plan.isActive ? "Active" : "Inactive"}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex gap-2">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleOpenDialog(plan)}
-                            data-testid={`button-edit-customize-plan-${plan.id}`}
-                          >
-                            <Pencil className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleDelete(plan.id)}
-                            data-testid={`button-delete-customize-plan-${plan.id}`}
-                          >
-                            <Trash2 className="h-4 w-4 text-red-600" />
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
+            <div className="overflow-x-auto -mx-6 px-6">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="whitespace-nowrap">Order</TableHead>
+                    <TableHead className="whitespace-nowrap">Name</TableHead>
+                    <TableHead className="whitespace-nowrap">Description</TableHead>
+                    <TableHead className="whitespace-nowrap">Price</TableHead>
+                    <TableHead className="whitespace-nowrap">Duration</TableHead>
+                    <TableHead className="whitespace-nowrap">Status</TableHead>
+                    <TableHead className="whitespace-nowrap">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {plans
+                    .sort((a, b) => a.displayOrder - b.displayOrder)
+                    .map((plan) => (
+                      <TableRow key={plan.id} data-testid={`row-customize-plan-${plan.id}`}>
+                        <TableCell className="whitespace-nowrap">{plan.displayOrder}</TableCell>
+                        <TableCell className="font-medium whitespace-nowrap">{plan.name}</TableCell>
+                        <TableCell className="max-w-md truncate">
+                          {plan.description}
+                        </TableCell>
+                        <TableCell className="whitespace-nowrap">{formatPrice(plan.price, plan.priceType)}</TableCell>
+                        <TableCell className="whitespace-nowrap">{plan.duration || "-"}</TableCell>
+                        <TableCell className="whitespace-nowrap">
+                          <Badge variant={plan.isActive ? "default" : "secondary"}>
+                            {plan.isActive ? "Active" : "Inactive"}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="whitespace-nowrap">
+                          <div className="flex gap-2">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleOpenDialog(plan)}
+                              data-testid={`button-edit-customize-plan-${plan.id}`}
+                            >
+                              <Pencil className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleDelete(plan.id)}
+                              data-testid={`button-delete-customize-plan-${plan.id}`}
+                            >
+                              <Trash2 className="h-4 w-4 text-red-600" />
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </div>
           )}
         </CardContent>
       </Card>

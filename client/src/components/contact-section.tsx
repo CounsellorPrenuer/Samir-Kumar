@@ -71,20 +71,20 @@ export default function ContactSection() {
     <section id="contact" className="scroll-mt-20 py-12 bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
               Get In Touch
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
             Ready to transform your career? Let's start with a conversation.
           </p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="bg-card p-8 rounded-xl">
-            <h3 className="text-2xl font-semibold mb-6">Book Your Call</h3>
+          <div className="bg-card p-4 sm:p-8 rounded-xl">
+            <h3 className="text-xl sm:text-2xl font-semibold mb-6">Book Your Call</h3>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField

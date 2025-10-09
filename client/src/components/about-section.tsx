@@ -52,10 +52,10 @@ export default function AboutSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
             About <span className="bg-gradient-to-r from-blue-600 via-green-600 to-red-600 bg-clip-text text-transparent">CareerSkope</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
             Empowering you to choose careers
           </p>
         </div>
@@ -88,10 +88,10 @@ export default function AboutSection() {
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
           <div className="space-y-6">
-            <h3 className="text-3xl font-bold text-foreground">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
               Bridging the Gap to Your Ideal Career
             </h3>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
               At CareerSkope, we bridge this gap and make you a better, well-informed, and knowledgeable individual. 
               You will be enabled to pursue a career that suits you, a career choice that can lead to overall happiness, 
               spiritual uplifting, and prosperity.
