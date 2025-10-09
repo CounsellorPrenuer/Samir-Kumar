@@ -89,13 +89,13 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <LayoutDashboard className="h-8 w-8 text-blue-600 mr-3" />
-              <h1 className="text-xl font-semibold text-gray-900 dark:text-white">
+              <LayoutDashboard className="h-6 sm:h-8 w-6 sm:w-8 text-blue-600 mr-2 sm:mr-3" />
+              <h1 className="text-base sm:text-xl font-semibold text-gray-900 dark:text-white">
                 Careerskope Admin
               </h1>
             </div>
-            <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600 dark:text-gray-300">
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <span className="hidden sm:inline text-sm text-gray-600 dark:text-gray-300">
                 Welcome, {admin.username}
               </span>
               <Button 
@@ -104,8 +104,8 @@ export default function AdminDashboard() {
                 onClick={handleLogout}
                 data-testid="button-logout"
               >
-                <LogOut className="h-4 w-4 mr-2" />
-                Logout
+                <LogOut className="h-4 w-4 sm:mr-2" />
+                <span className="hidden sm:inline">Logout</span>
               </Button>
             </div>
           </div>
@@ -115,38 +115,38 @@ export default function AdminDashboard() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-8">
-            <TabsTrigger value="overview" className="flex items-center gap-2">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-2">
+            <TabsTrigger value="overview" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
               <BarChart3 className="h-4 w-4" />
-              Overview
+              <span className="hidden sm:inline">Overview</span>
             </TabsTrigger>
-            <TabsTrigger value="contacts" className="flex items-center gap-2">
+            <TabsTrigger value="contacts" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
               <MessageSquare className="h-4 w-4" />
-              Contacts
+              <span className="hidden sm:inline">Contacts</span>
             </TabsTrigger>
-            <TabsTrigger value="testimonials" className="flex items-center gap-2">
+            <TabsTrigger value="testimonials" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
               <Users className="h-4 w-4" />
-              Testimonials
+              <span className="hidden sm:inline">Testimonials</span>
             </TabsTrigger>
-            <TabsTrigger value="blog" className="flex items-center gap-2">
+            <TabsTrigger value="blog" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
               <FileText className="h-4 w-4" />
-              Blog
+              <span className="hidden sm:inline">Blog</span>
             </TabsTrigger>
-            <TabsTrigger value="packages" className="flex items-center gap-2">
+            <TabsTrigger value="packages" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
               <Package className="h-4 w-4" />
-              Solutions
+              <span className="hidden sm:inline">Solutions</span>
             </TabsTrigger>
-            <TabsTrigger value="payments" className="flex items-center gap-2">
+            <TabsTrigger value="payments" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
               <CreditCard className="h-4 w-4" />
-              Payments
+              <span className="hidden sm:inline">Payments</span>
             </TabsTrigger>
-            <TabsTrigger value="gallery" className="flex items-center gap-2">
+            <TabsTrigger value="gallery" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
               <Image className="h-4 w-4" />
-              Gallery
+              <span className="hidden sm:inline">Gallery</span>
             </TabsTrigger>
-            <TabsTrigger value="customize-plans" className="flex items-center gap-2">
+            <TabsTrigger value="customize-plans" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
               <Package className="h-4 w-4" />
-              Customize
+              <span className="hidden sm:inline">Customize</span>
             </TabsTrigger>
           </TabsList>
 

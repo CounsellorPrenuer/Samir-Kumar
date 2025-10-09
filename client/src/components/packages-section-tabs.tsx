@@ -96,29 +96,31 @@ export default function PackagesSectionTabs() {
           <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-2 mb-8 h-auto p-1">
             <TabsTrigger 
               value="normal-plans" 
-              className="text-base font-semibold py-3 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white"
+              className="text-sm sm:text-base font-semibold py-3 px-2 sm:px-4 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white"
               data-testid="tab-normal-plans"
             >
-              Careerskope's Plans
+              <span className="hidden sm:inline">Careerskope's Plans</span>
+              <span className="sm:hidden">Our Plans</span>
             </TabsTrigger>
             <TabsTrigger 
               value="customize-plan" 
-              className="text-base font-semibold py-3 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white"
+              className="text-sm sm:text-base font-semibold py-3 px-2 sm:px-4 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white"
               data-testid="tab-customize-plan"
             >
-              Customise Your Plan
+              <span className="hidden sm:inline">Customise Your Plan</span>
+              <span className="sm:hidden">Customise</span>
             </TabsTrigger>
           </TabsList>
 
           {/* Normal Plans Tab */}
           <TabsContent value="normal-plans" className="mt-8">
             {/* Category Pills */}
-            <div className="flex flex-wrap justify-center gap-3 mb-8">
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8">
               {categories.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`px-6 py-3 rounded-full font-semibold text-sm transition-all ${
+                  className={`px-3 sm:px-6 py-2 sm:py-3 rounded-full font-semibold text-xs sm:text-sm transition-all ${
                     activeCategory === cat.id
                       ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105"
                       : "bg-white text-gray-700 border-2 border-gray-200 hover:border-blue-600"
