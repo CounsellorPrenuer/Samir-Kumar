@@ -40,11 +40,36 @@ export default function ContactSection() {
     mutationFn: async (data: ContactFormData) => {
       return await apiRequest("POST", "/api/contact", data);
     },
-    onSuccess: () => {
+    onSuccess: (_, data) => {
       toast({
         title: "Success!",
         description: "Thank you for your interest! We will contact you soon.",
       });
+      
+      // Create mailto link with prefilled values
+      const receiverEmail = "samir.kumar@gnosiscs.com";
+      const subject = `New Contact Form Submission from ${data.name}`;
+      const categoryLabels: Record<string, string> = {
+        student: "School Student",
+        graduate: "College Graduate",
+        professional: "Working Professional",
+        parent: "Parent",
+        corporate: "Corporate"
+      };
+      
+      const body = `
+Name: ${data.name}
+Email: ${data.email}
+Phone: ${data.phone}
+Category: ${categoryLabels[data.category] || data.category}
+${data.message ? `\nMessage:\n${data.message}` : ''}
+      `.trim();
+      
+      const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(receiverEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+      // Open Gmail in new tab
+      window.open(mailtoLink, '_blank');
+      
       form.reset();
     },
     onError: (error) => {
