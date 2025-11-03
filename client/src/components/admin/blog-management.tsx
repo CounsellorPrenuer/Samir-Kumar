@@ -29,6 +29,7 @@ interface BlogArticle {
   category: string;
   readTime: string;
   content?: string;
+  imageUrl?: string;
   published: string;
   createdAt: string;
 }
@@ -202,7 +203,19 @@ export default function BlogManagement() {
           articles.map((article) => (
             <Card key={article.id} className="hover:shadow-md transition-shadow">
               <CardContent className="p-6">
-                <div className="flex justify-between items-start">
+                <div className="flex gap-4">
+                  {article.imageUrl && (
+                    <div className="w-32 h-32 flex-shrink-0">
+                      <img 
+                        src={article.imageUrl} 
+                        alt={article.title}
+                        className="w-full h-full object-cover rounded-lg"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.display = 'none';
+                        }}
+                      />
+                    </div>
+                  )}
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-3">
                       <h3 className="font-semibold text-lg">{article.title}</h3>
@@ -222,7 +235,7 @@ export default function BlogManagement() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex gap-2 ml-4">
+                  <div className="flex gap-2">
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button 
@@ -278,6 +291,7 @@ function BlogForm({
     category: article?.category || "students",
     readTime: article?.readTime || "",
     content: article?.content || "",
+    imageUrl: article?.imageUrl || "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -340,6 +354,32 @@ function BlogForm({
             data-testid="input-read-time"
           />
         </div>
+      </div>
+
+      <div>
+        <Label htmlFor="image-url">Featured Image URL (Optional)</Label>
+        <Input
+          id="image-url"
+          value={formData.imageUrl}
+          onChange={(e) => setFormData(prev => ({ ...prev, imageUrl: e.target.value }))}
+          placeholder="e.g., /@fs/home/runner/workspace/attached_assets/stock_images/..."
+          data-testid="input-image-url"
+        />
+        <p className="text-xs text-muted-foreground mt-1">
+          Upload images to attached_assets folder and use path: /@fs/home/runner/workspace/attached_assets/...
+        </p>
+        {formData.imageUrl && (
+          <div className="mt-2">
+            <img 
+              src={formData.imageUrl} 
+              alt="Preview" 
+              className="w-full max-w-md h-48 object-cover rounded-lg border"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23ddd' width='400' height='300'/%3E%3Ctext fill='%23999' x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle'%3EImage not found%3C/text%3E%3C/svg%3E";
+              }}
+            />
+          </div>
+        )}
       </div>
 
       <div>

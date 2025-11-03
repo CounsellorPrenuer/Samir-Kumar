@@ -57,16 +57,41 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
         ) : (
           <>
             {/* Header Image */}
-            {/* <div className="h-64 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
-              <div className="text-gray-400 text-8xl">📚</div>
-              <button
-                onClick={onClose}
-                className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white transition-colors"
-                data-testid="button-close-blog-modal"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div> */}
+            {article.imageUrl ? (
+              <div className="h-64 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
+                <img 
+                  src={article.imageUrl} 
+                  alt={article.title}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    target.nextElementSibling?.classList.remove('hidden');
+                  }}
+                />
+                <div className="hidden h-64 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                  <div className="text-gray-400 text-8xl">📚</div>
+                </div>
+                <button
+                  onClick={onClose}
+                  className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white transition-colors"
+                  data-testid="button-close-blog-modal"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+            ) : (
+              <div className="h-64 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
+                <div className="text-gray-400 text-8xl">📚</div>
+                <button
+                  onClick={onClose}
+                  className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white transition-colors"
+                  data-testid="button-close-blog-modal"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+            )}
 
             <div className="p-8">
               <DialogHeader className="mb-6">

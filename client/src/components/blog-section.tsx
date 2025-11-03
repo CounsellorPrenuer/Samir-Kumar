@@ -98,18 +98,36 @@ export default function BlogSection() {
               return (
                 <article 
                   key={article.id}
-                  className="bg-card p-6 rounded-xl hover-lift text-center border-2 border-transparent hover:border-purple-300 hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300"
+                  className="bg-card rounded-xl hover-lift text-center border-2 border-transparent hover:border-purple-300 hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300 overflow-hidden"
                   data-testid={`blog-card-${article.category}`}
                 >
-                  <div className="mb-4 flex justify-center">
-                    <div className="text-4xl">📚</div>
-                  </div>
-                  <div>
+                  {article.imageUrl ? (
+                    <div className="w-full h-48 overflow-hidden">
+                      <img 
+                        src={article.imageUrl} 
+                        alt={article.title}
+                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                          target.nextElementSibling?.classList.remove('hidden');
+                        }}
+                      />
+                      <div className="hidden mb-4 flex justify-center items-center h-48">
+                        <div className="text-4xl">📚</div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="mb-4 flex justify-center items-center h-48">
+                      <div className="text-4xl">📚</div>
+                    </div>
+                  )}
+                  <div className="p-6">
                     <div className={`text-xs font-semibold mb-2 capitalize ${styles.color}`}>
                       {article.category}
                     </div>
                     <h3 className="text-xl font-semibold mb-3">{article.title}</h3>
-                    <p className="text-muted-foreground text-sm mb-4">{article.description}</p>
+                    <p className="text-muted-foreground text-sm mb-4 line-clamp-3">{article.description}</p>
                     <div className="flex items-center justify-between">
                       <span className="text-xs text-muted-foreground">{article.readTime}</span>
                       <button 
