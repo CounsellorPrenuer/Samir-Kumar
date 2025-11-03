@@ -1,0 +1,95 @@
+Hello! I need you to perform a series of significant updates to my website based on specific client feedback. Please analyze my existing code (HTML, CSS, and JS) and apply the following changes across the entire project.
+
+Here is the list of tasks:
+
+1. Adjust Section Layout and Width
+
+    Task: Modify the global CSS. Find the main content sections or containers (e.g., elements with class .container, or direct <section> tags).
+
+    Change: Apply a max-width to these containers (e.g., max-width: 1200px; or max-width: 80vw;) and center them using margin: 0 auto;. This will reduce the width on large screens, making the content appear more elegant and focused.
+
+2. Standardize Paragraph Text Alignment
+
+    Task: In the global CSS file, create or modify the rule for all paragraph tags (<p>).
+
+    Change: Set the text alignment to text-align: left;. This will ensure all body text is consistently left-aligned for maximum readability, as requested.
+
+3. Improve Text Contrast and Sharpness
+
+    Task: In the global CSS file, find the style rule for the main body text (e.g., body, p).
+
+    Change: The client feels the text is "feeble or dull." Change the color property to a darker shade. If it's currently a light gray (like #777), update it to a much darker one (like #333 or #212529) to improve contrast against the background.
+
+4. Add Images to Key Sections
+
+    Task: Generate three high-quality, professional images.
+
+    Placement:
+
+        Image 1: Find the HTML section titled "Advanced psychometric" and insert a relevant image (e.g., an abstract image representing "mind," "analytics," or "personal growth").
+
+        Image 2: Find the HTML section titled "Professional development" and insert a relevant image (e.g., a modern office, a person climbing stairs, a graph).
+
+        Image 3: Find the HTML section titled "Ready to transform" and insert a relevant image (e.g., a 'before and after' concept, a butterfly, a sunrise).
+
+    Note: Ensure all new images are responsive (e.g., max-width: 100%;).
+
+5. Update "Our Career Solution" Section
+
+    Task: Find the HTML for the "Our Career Solution" section.
+
+    Change: Add a new sub-section or content block to "introduce a package." This new block should include:
+
+        A small, relevant generated image.
+
+        A new heading (e.g., <h3>Featured Package</h3>).
+
+        A short paragraph of descriptive placeholder text (e.g., "Discover our comprehensive solution designed for...").
+
+6. Enhance "Success Stories" (Testimonials)
+
+    Task: Find the HTML for the "Success Stories" section.
+
+    Change: Add 2-3 new testimonial blocks. You can duplicate the existing testimonial HTML structure.
+
+    Content:
+
+        Use placeholder text for the new testimonials (e.g., "Lorem ipsum dolor sit amet...").
+
+        Generate 2-3 professional-looking, "authentic" placeholder avatar images (e.g., simple head-and-shoulders silhouettes or generic faces) and add them to these new testimonials.
+
+7. Update Resources/Blogs Layout
+
+    Task: Modify the HTML/CSS for the blog list page and the individual blog post template.
+
+    Change: Update the design to include a "featured image" or "graphic" for every article. Add a placeholder <img> tag to the template so an image can be easily added to each post.
+
+8. Expand Photo Gallery
+
+    Task: Find the HTML for the "Photo gallery."
+
+    Change: Add 3-4 new placeholder images to the gallery. You can generate these or use stock images that fit the theme of the website (e.g., students, professionals, office environments).
+
+9, 10, & 11. Implement SEO & Marketing Review (Crucial Task) This is a combined task to review and optimize the site's code and content for marketing and SEO, with a specific focus on "Faridabad."
+
+    A. Technical SEO (Code):
+
+        Title Tag: Update the homepage's <title> tag to be: [Client's Business Name] | Expert Career Guidance in Faridabad.
+
+        Meta Description: Write a new <meta name="description"> for the homepage (around 150 characters) that includes the keywords "career guidance" and "Faridabad" naturally.
+
+        Alt Text: Scan all <img> tags on the website. Add descriptive alt text to any images that are missing it.
+
+        Heading Structure: Review the homepage to ensure it has a logical heading structure (a single <h1>, followed by <h2>, <h3>, etc.).
+
+    B. Local SEO (Content):
+
+        Homepage Copy: Find the main introduction or "About" text on the homepage. Modify a sentence to naturally include the local keyword. (e.g., "We provide premier career guidance services for students and professionals in Faridabad.").
+
+        Footer/Contact: Ensure the business address (if available) includes "Faridabad."
+
+    C. Marketing Review (Content):
+
+        Calls-to-Action (CTAs): Find 1-2 key buttons (e.g., "Learn More," "Contact Us"). Suggest and implement stronger, more impactful text (e.g., "Start Your Career Path," "Get Your Free Consultation").
+
+        Headlines: Review the main headline (<h1>) on the homepage. Ensure it clearly states the value proposition (e.g., "Transform Your Future with Expert Career Guidance").

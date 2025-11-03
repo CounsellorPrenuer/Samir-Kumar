@@ -1,6 +1,8 @@
 import { Target, Brain, Lightbulb, TrendingUp, Users, CheckCircle2, ArrowRight } from "lucide-react";
 import counsellingFramework1 from "@assets/WhatsApp Image 2025-10-01 at 14.09.57_1759310947676.jpeg";
 import counsellingFramework2 from "@assets/WhatsApp Image 2025-09-30 at 11.56.28_1759303602861.jpeg";
+import psychometricImage from "@assets/stock_images/psychometric_assessm_4c3a43f7.jpg";
+import professionalDevImage from "@assets/stock_images/professional_develop_1997d031.jpg";
 
 export default function WhyCSSection() {
   return (
@@ -119,8 +121,16 @@ export default function WhyCSSection() {
                 Advanced Psychometric <span className="bg-gradient-to-r from-blue-600 via-green-600 to-red-600 bg-clip-text text-transparent">Career Assessment</span>
               </h3>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-2 space-y-6">
+                  <div className="aspect-video rounded-2xl overflow-hidden shadow-lg mb-6">
+                    <img 
+                      src={psychometricImage} 
+                      alt="Advanced Psychometric Career Assessment" 
+                      className="w-full h-full object-cover"
+                      data-testid="img-psychometric-assessment"
+                    />
+                  </div>
                   <p className="text-lg text-muted-foreground leading-relaxed">
                     The psychometric assessment administered by Careerskope is the most advanced and accurate online career test 
                     that will help you make informed career decisions. It is one of the highest rated career assessment platforms in India.
@@ -162,16 +172,16 @@ export default function WhyCSSection() {
         {/* Subsection 5: Professional Development */}
         <div className="mb-20" data-testid="subsection-professional-development">
           <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-            <div className="flex items-start gap-6">
-              <div className="flex-shrink-0">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
-                  <Users className="h-8 w-8 text-white" />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+              <div>
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Users className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
+                    Professional Development
+                  </h3>
                 </div>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                  Professional Development
-                </h3>
                 <p className="text-lg text-gray-600 mb-6">
                   Beyond career selection, we offer comprehensive professional development programs to help you excel in your chosen field. Our training covers both technical and soft skills essential for career success.
                 </p>
@@ -204,6 +214,14 @@ export default function WhyCSSection() {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="rounded-2xl overflow-hidden shadow-lg">
+                <img 
+                  src={professionalDevImage} 
+                  alt="Professional Development Training" 
+                  className="w-full h-full object-cover"
+                  data-testid="img-professional-development"
+                />
               </div>
             </div>
           </div>

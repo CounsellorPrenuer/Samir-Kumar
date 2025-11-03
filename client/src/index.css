@@ -15,7 +15,7 @@
   --secondary: hsl(210, 40%, 96%);
   --secondary-foreground: hsl(222.2, 100%, 10%);
   --muted: hsl(210, 40%, 96%);
-  --muted-foreground: hsl(215.4, 30%, 35%);
+  --muted-foreground: hsl(215.4, 30%, 28%);
   --accent: hsl(210, 40%, 96%);
   --accent-foreground: hsl(222.2, 100%, 10%);
   --destructive: hsl(0, 84.2%, 60.2%);
@@ -159,11 +159,11 @@
   p {
     font-size: clamp(1rem, 2vw, 1.125rem);
     line-height: 1.7;
-    text-align: justify;
-    text-justify: inter-word;
+    text-align: left;
     max-width: 65ch;
-    color: hsl(215.4, 30%, 25%);
+    color: hsl(215.4, 30%, 18%);
     font-weight: 400;
+    font-optical-sizing: auto;
   }
 
   /* Respect reduced motion preferences */
@@ -180,6 +180,13 @@
 }
 
 @layer components {
+  /* Elegant section width constraint */
+  .section-elegant {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
   .gradient-bg {
       background: var(--gradient-hero);
       position: relative;

@@ -1,4 +1,5 @@
 import { Brain, Map, ArrowLeftRight } from "lucide-react";
+import transformationImage from "@assets/stock_images/transformation_caree_bd957270.jpg";
 
 export default function CareerTransformation() {
   const transformations = [
@@ -21,11 +22,18 @@ export default function CareerTransformation() {
 
   return (
     <section id="transform" className="scroll-mt-20 py-12 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 relative overflow-hidden">
-      <div className="absolute inset-0 bg-white/10"></div>
+      <div className="absolute inset-0 opacity-20">
+        <img 
+          src={transformationImage} 
+          alt="Career Transformation" 
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/80 via-purple-500/80 to-pink-500/80"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center text-white">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            Transforming Potential into Performance
+            Ready to Transform Your Career?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
             {transformations.map((item, index) => (
