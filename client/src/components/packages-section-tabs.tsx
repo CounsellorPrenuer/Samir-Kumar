@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 import PaymentModal from "./payment-modal";
+import packageIntroImage from "@assets/stock_images/career_guidance_pack_d0d92496.jpg";
 
 interface Package {
   id: string;
@@ -89,6 +90,34 @@ export default function PackagesSectionTabs() {
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Choose from our comprehensive packages or customize your own plan
           </p>
+        </div>
+
+        {/* Featured Package Introduction */}
+        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 mb-12 border border-gray-100">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="order-2 md:order-1">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
+                Comprehensive Career Guidance in <span className="text-blue-600">Faridabad</span>
+              </h3>
+              <p className="text-lg text-muted-foreground mb-4">
+                Our expert career counsellors in Faridabad provide personalized guidance tailored to your unique strengths, 
+                interests, and aspirations. Whether you're a student exploring career options or a professional seeking 
+                advancement, we have the perfect solution for you.
+              </p>
+              <p className="text-base text-muted-foreground">
+                Each package includes psychometric assessments, one-on-one counselling sessions, and comprehensive career 
+                reports designed to help you make informed decisions about your future.
+              </p>
+            </div>
+            <div className="order-1 md:order-2 rounded-xl overflow-hidden shadow-lg">
+              <img 
+                src={packageIntroImage} 
+                alt="Career Guidance Services in Faridabad" 
+                className="w-full h-full object-cover"
+                data-testid="img-package-intro"
+              />
+            </div>
+          </div>
         </div>
 
         {/* Tabs */}

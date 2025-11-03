@@ -30,6 +30,7 @@ export const blogArticles = pgTable("blog_articles", {
   category: text("category").notNull(), // students, graduates, professionals
   readTime: text("read_time").notNull(),
   content: text("content"), // full article content (optional for now)
+  imageUrl: text("image_url"), // featured image for article
   published: timestamp("published").defaultNow().notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
@@ -41,6 +42,7 @@ export const testimonials = pgTable("testimonials", {
   quote: text("quote").notNull(),
   initial: text("initial").notNull(),
   gradient: text("gradient").notNull(), // CSS gradient class
+  imageUrl: text("image_url"), // profile/avatar image
   featured: timestamp("featured"), // when testimonial was featured (for ordering)
   isActive: boolean("is_active").default(true).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),

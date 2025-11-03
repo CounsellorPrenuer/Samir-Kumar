@@ -112,11 +112,11 @@ export default function HeroSection() {
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight animate-slide-up" data-testid="hero-title">
-              Unlock Your <span className="gradient-text font-extrabold">Career Potential</span>
+              Transform Your Future with Expert <span className="gradient-text font-extrabold">Career Guidance</span>
             </h1>
 
             <p className="text-xl text-white/95 mb-8 leading-relaxed animate-slide-up" style={{ animationDelay: '0.1s' }} data-testid="hero-description">
-              Expert career guidance, personalized coaching, and proven strategies to help students and professionals achieve their dream careers.
+              Premier career counselling and guidance services in Faridabad. Personalized psychometric assessments, expert coaching, and proven strategies to help students, graduates, and professionals achieve their dream careers.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-slide-up" style={{ animationDelay: '0.2s' }}>
@@ -126,7 +126,7 @@ export default function HeroSection() {
                 data-testid="button-discover-path"
               >
                 <Compass className="mr-2 h-5 w-5" />
-                Discover Your Path
+                Start Your Career Journey
               </button>
             </div>
 
