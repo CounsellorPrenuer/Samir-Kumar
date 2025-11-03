@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 import PaymentModal from "./payment-modal";
-import packageIntroImage from "@assets/stock_images/career_guidance_pack_d0d92496.jpg";
+import packageIntroImage from "@assets/stock_images/career_counselor_mee_55ef8d9e.jpg";
 
 interface Package {
   id: string;
