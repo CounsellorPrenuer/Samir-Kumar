@@ -164,9 +164,19 @@ export default function TestimonialsSection() {
                       
                       <div className="relative z-10">
                         <div className="flex items-center mb-4">
-                          <div className={`w-12 h-12 bg-gradient-to-r ${testimonial.gradient} rounded-full flex items-center justify-center text-white font-bold mr-3 text-lg`}>
-                            {testimonial.initial}
-                          </div>
+                          {testimonial.imageUrl ? (
+                            <div className="w-12 h-12 rounded-full overflow-hidden mr-3 ring-2 ring-blue-500/30">
+                              <img 
+                                src={testimonial.imageUrl} 
+                                alt={testimonial.name}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          ) : (
+                            <div className={`w-12 h-12 bg-gradient-to-r ${testimonial.gradient} rounded-full flex items-center justify-center text-white font-bold mr-3 text-lg`}>
+                              {testimonial.initial}
+                            </div>
+                          )}
                           <div>
                             <div className="font-bold text-lg">{testimonial.name}</div>
                             <div className="text-muted-foreground text-sm">{testimonial.role}</div>
