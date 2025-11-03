@@ -362,11 +362,11 @@ function BlogForm({
           id="image-url"
           value={formData.imageUrl}
           onChange={(e) => setFormData(prev => ({ ...prev, imageUrl: e.target.value }))}
-          placeholder="e.g., /@fs/home/runner/workspace/attached_assets/stock_images/..."
+          placeholder="e.g., https://example.com/image.jpg or /@fs/home/runner/workspace/attached_assets/..."
           data-testid="input-image-url"
         />
         <p className="text-xs text-muted-foreground mt-1">
-          Upload images to attached_assets folder and use path: /@fs/home/runner/workspace/attached_assets/...
+          Enter any image URL from the internet or upload to attached_assets folder and use: /@fs/home/runner/workspace/attached_assets/...
         </p>
         {formData.imageUrl && (
           <div className="mt-2">
