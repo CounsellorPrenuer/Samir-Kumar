@@ -124,52 +124,116 @@ export default function WhyCSSection() {
                 <div className="flex justify-center">
                   <div className="w-full max-w-md">
                     <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 p-8 shadow-lg" data-testid="img-psychometric-assessment">
-                      <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                        {/* Brain Icon */}
-                        <path d="M200 80C170 80 145 105 145 135C145 145 140 150 135 150C115 150 100 165 100 185C100 205 115 220 135 220C140 220 145 215 145 215C145 245 170 270 200 270C230 270 255 245 255 215C255 215 260 220 265 220C285 220 300 205 300 185C300 165 285 150 265 150C260 150 255 145 255 135C255 105 230 80 200 80Z" fill="url(#brain-gradient)" stroke="#1E40AF" strokeWidth="2"/>
-                        
-                        {/* Central Processing Lines */}
-                        <circle cx="200" cy="175" r="45" fill="white" opacity="0.9"/>
-                        <path d="M180 165 L195 180 L220 155" stroke="#059669" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-                        
-                        {/* Left Chart Bars */}
-                        <g transform="translate(60, 240)">
-                          <rect x="0" y="20" width="15" height="40" rx="2" fill="#3B82F6"/>
-                          <rect x="20" y="10" width="15" height="50" rx="2" fill="#10B981"/>
-                          <rect x="40" y="25" width="15" height="35" rx="2" fill="#EF4444"/>
-                          <line x1="0" y1="65" x2="55" y2="65" stroke="#94A3B8" strokeWidth="2"/>
-                        </g>
-                        
-                        {/* Right Pie Chart */}
-                        <g transform="translate(290, 260)">
-                          <circle cx="35" cy="35" r="30" fill="#E0E7FF"/>
-                          <path d="M35 5 A30 30 0 0 1 60 40 L35 35 Z" fill="#3B82F6"/>
-                          <path d="M60 40 A30 30 0 0 1 30 63 L35 35 Z" fill="#10B981"/>
-                          <path d="M30 63 A30 30 0 0 1 35 5 L35 35 Z" fill="#EF4444"/>
-                        </g>
-                        
-                        {/* Connecting Nodes */}
-                        <circle cx="145" cy="175" r="8" fill="#3B82F6"/>
-                        <circle cx="255" cy="175" r="8" fill="#10B981"/>
-                        <circle cx="200" cy="120" r="8" fill="#EF4444"/>
-                        <circle cx="200" cy="230" r="8" fill="#F59E0B"/>
-                        
-                        {/* Connection Lines */}
-                        <line x1="145" y1="175" x2="100" y2="250" stroke="#3B82F6" strokeWidth="2" opacity="0.5" strokeDasharray="5,5"/>
-                        <line x1="255" y1="175" x2="315" y2="250" stroke="#10B981" strokeWidth="2" opacity="0.5" strokeDasharray="5,5"/>
-                        
-                        {/* AI Sparkles */}
-                        <path d="M90 100 L93 107 L100 110 L93 113 L90 120 L87 113 L80 110 L87 107 Z" fill="#F59E0B"/>
-                        <path d="M310 100 L313 107 L320 110 L313 113 L310 120 L307 113 L300 110 L307 107 Z" fill="#F59E0B"/>
-                        <path d="M200 50 L203 57 L210 60 L203 63 L200 70 L197 63 L190 60 L197 57 Z" fill="#F59E0B"/>
-                        
+                      <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
                         <defs>
-                          <linearGradient id="brain-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.3"/>
-                            <stop offset="50%" stopColor="#10B981" stopOpacity="0.3"/>
-                            <stop offset="100%" stopColor="#EF4444" stopOpacity="0.3"/>
+                          <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#3B82F6"/>
+                            <stop offset="100%" stopColor="#1E40AF"/>
+                          </linearGradient>
+                          <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#10B981"/>
+                            <stop offset="100%" stopColor="#059669"/>
+                          </linearGradient>
+                          <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#EF4444"/>
+                            <stop offset="100%" stopColor="#DC2626"/>
                           </linearGradient>
                         </defs>
+                        
+                        {/* Person Taking Test */}
+                        <g transform="translate(80, 100)">
+                          <circle cx="0" cy="0" r="25" fill="#1E40AF"/>
+                          <path d="M 0 25 L 0 65" stroke="#1E40AF" strokeWidth="8" strokeLinecap="round"/>
+                          <path d="M 0 40 L -25 65" stroke="#1E40AF" strokeWidth="7" strokeLinecap="round"/>
+                          <path d="M 0 40 L 25 65" stroke="#1E40AF" strokeWidth="7" strokeLinecap="round"/>
+                          <path d="M 0 65 L -15 95" stroke="#1E40AF" strokeWidth="7" strokeLinecap="round"/>
+                          <path d="M 0 65 L 15 95" stroke="#1E40AF" strokeWidth="7" strokeLinecap="round"/>
+                          
+                          {/* Computer/Test Screen */}
+                          <rect x="30" y="30" width="70" height="50" rx="4" fill="white" stroke="#3B82F6" strokeWidth="3"/>
+                          <rect x="38" y="38" width="18" height="3" rx="1" fill="#3B82F6"/>
+                          <rect x="38" y="45" width="25" height="3" rx="1" fill="#10B981"/>
+                          <rect x="38" y="52" width="20" height="3" rx="1" fill="#EF4444"/>
+                          <rect x="38" y="59" width="22" height="3" rx="1" fill="#F59E0B"/>
+                          <circle cx="70" cy="45" r="2" fill="#3B82F6"/>
+                          <circle cx="77" cy="45" r="2" fill="#10B981"/>
+                          <circle cx="84" cy="45" r="2" fill="#EF4444"/>
+                        </g>
+                        
+                        {/* Arrow to AI Processing */}
+                        <path d="M 180 150 L 220 150" stroke="#6366F1" strokeWidth="3" strokeDasharray="5 3"/>
+                        <path d="M 220 150 L 215 145 M 220 150 L 215 155" stroke="#6366F1" strokeWidth="3"/>
+                        
+                        {/* AI Processing Center */}
+                        <g transform="translate(300, 150)">
+                          <circle cx="0" cy="0" r="50" fill="url(#blueGrad)" opacity="0.1"/>
+                          <circle cx="0" cy="0" r="40" fill="white" stroke="#6366F1" strokeWidth="3"/>
+                          
+                          {/* AI Brain */}
+                          <path d="M -15 -10 Q -10 -20 0 -20 Q 10 -20 15 -10 Q 20 -5 20 5 Q 20 15 10 20 Q 0 25 -10 20 Q -20 15 -20 5 Q -20 -5 -15 -10" 
+                                fill="#6366F1" opacity="0.3"/>
+                          
+                          {/* AI Icon */}
+                          <text x="0" y="8" fontSize="24" fontWeight="bold" fill="#6366F1" textAnchor="middle">AI</text>
+                          
+                          {/* Processing particles */}
+                          <circle cx="-25" cy="-15" r="3" fill="#F59E0B">
+                            <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
+                          </circle>
+                          <circle cx="25" cy="15" r="3" fill="#F59E0B">
+                            <animate attributeName="opacity" values="0.3;1;0.3" dur="1.5s" repeatCount="indefinite"/>
+                          </circle>
+                        </g>
+                        
+                        {/* Three Analysis Dimensions */}
+                        <g transform="translate(250, 280)">
+                          {/* Interests */}
+                          <g transform="translate(-100, 0)">
+                            <circle cx="0" cy="0" r="35" fill="url(#blueGrad)" opacity="0.9"/>
+                            <path d="M -10 -5 L -5 5 L 5 -10" stroke="white" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M 0 -15 L 0 -8" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+                            <text x="0" y="55" fontSize="14" fontWeight="bold" fill="#1E40AF" textAnchor="middle">Interests</text>
+                          </g>
+                          
+                          {/* Personality */}
+                          <g transform="translate(0, 0)">
+                            <circle cx="0" cy="0" r="35" fill="url(#greenGrad)" opacity="0.9"/>
+                            <circle cx="0" cy="-5" r="8" fill="white"/>
+                            <path d="M 0 3 L 0 15" stroke="white" strokeWidth="4" strokeLinecap="round"/>
+                            <path d="M 0 10 L -8 20" stroke="white" strokeWidth="4" strokeLinecap="round"/>
+                            <path d="M 0 10 L 8 20" stroke="white" strokeWidth="4" strokeLinecap="round"/>
+                            <text x="0" y="55" fontSize="14" fontWeight="bold" fill="#059669" textAnchor="middle">Personality</text>
+                          </g>
+                          
+                          {/* Abilities */}
+                          <g transform="translate(100, 0)">
+                            <circle cx="0" cy="0" r="35" fill="url(#redGrad)" opacity="0.9"/>
+                            <path d="M 0 -15 L -5 -5 L -12 -7 L 0 8 L 12 -7 L 5 -5 Z" fill="white"/>
+                            <text x="0" y="55" fontSize="14" fontWeight="bold" fill="#DC2626" textAnchor="middle">Abilities</text>
+                          </g>
+                        </g>
+                        
+                        {/* Arrows from AI to dimensions */}
+                        <path d="M 300 190 L 170 260" stroke="#3B82F6" strokeWidth="2" opacity="0.6" strokeDasharray="4 2"/>
+                        <path d="M 300 190 L 250 260" stroke="#10B981" strokeWidth="2" opacity="0.6" strokeDasharray="4 2"/>
+                        <path d="M 300 190 L 330 260" stroke="#EF4444" strokeWidth="2" opacity="0.6" strokeDasharray="4 2"/>
+                        
+                        {/* Comprehensive Report */}
+                        <g transform="translate(250, 420)">
+                          <rect x="-60" y="-40" width="120" height="60" rx="6" fill="white" stroke="#6366F1" strokeWidth="3"/>
+                          <rect x="-50" y="-30" width="100" height="4" rx="1" fill="#3B82F6"/>
+                          <rect x="-50" y="-22" width="80" height="3" rx="1" fill="#94A3B8"/>
+                          <rect x="-50" y="-15" width="90" height="3" rx="1" fill="#94A3B8"/>
+                          <rect x="-50" y="-8" width="70" height="3" rx="1" fill="#94A3B8"/>
+                          <rect x="-50" y="-1" width="85" height="3" rx="1" fill="#94A3B8"/>
+                          <rect x="-50" y="6" width="60" height="3" rx="1" fill="#94A3B8"/>
+                          <text x="0" y="40" fontSize="14" fontWeight="bold" fill="#1E40AF" textAnchor="middle">10+ Page Report</text>
+                        </g>
+                        
+                        {/* Arrows from dimensions to report */}
+                        <path d="M 150 315 L 200 380" stroke="#3B82F6" strokeWidth="2" opacity="0.4"/>
+                        <path d="M 250 315 L 250 380" stroke="#10B981" strokeWidth="2" opacity="0.4"/>
+                        <path d="M 350 315 L 300 380" stroke="#EF4444" strokeWidth="2" opacity="0.4"/>
                       </svg>
                     </div>
                   </div>
