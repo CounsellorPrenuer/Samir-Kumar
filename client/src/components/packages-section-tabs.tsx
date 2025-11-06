@@ -65,7 +65,12 @@ export default function PackagesSectionTabs() {
     { id: "working-professionals", label: "WORKING PROFESSIONALS" },
   ];
 
-  const filteredPackages = packages.filter(pkg => pkg.category === activeCategory);
+  const filteredPackages = packages
+    .filter(pkg => pkg.category === activeCategory)
+    .sort((a, b) => {
+      // Sort by price: lower prices (standard) first, higher prices (premium) last
+      return parseFloat(a.price) - parseFloat(b.price);
+    });
 
   const handlePackageSelect = (pkg: Package) => {
     setSelectedPackage(pkg);
@@ -173,15 +178,28 @@ export default function PackagesSectionTabs() {
               </div>
             ) : (
               <div className="flex flex-wrap justify-center gap-6 max-w-7xl mx-auto">
-                {filteredPackages.map((pkg) => (
+                {filteredPackages.map((pkg) => {
+                  const isPremium = pkg.name.toLowerCase().includes('plus+');
+                  return (
                   <div
                     key={pkg.id}
-                    className={`relative bg-white rounded-2xl p-6 border-2 transition-all hover:shadow-xl hover:scale-105 w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] ${
-                      pkg.isPopular ? "border-purple-500 shadow-purple-200" : "border-gray-200"
+                    className={`relative rounded-2xl p-6 border-2 transition-all hover:shadow-xl hover:scale-105 w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] ${
+                      isPremium 
+                        ? "bg-gradient-to-br from-purple-50 via-white to-blue-50 border-purple-400 shadow-lg shadow-purple-100" 
+                        : pkg.isPopular 
+                          ? "bg-white border-purple-500 shadow-purple-200" 
+                          : "bg-white border-gray-200"
                     }`}
                     data-testid={`package-card-${pkg.id}`}
                   >
-                    {pkg.isPopular && (
+                    {isPremium && (
+                      <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                        <span className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                          <Sparkles className="h-4 w-4" /> Premium
+                        </span>
+                      </div>
+                    )}
+                    {pkg.isPopular && !isPremium && (
                       <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                         <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
                           <Sparkles className="h-4 w-4" /> Most Popular
@@ -217,7 +235,8 @@ export default function PackagesSectionTabs() {
                       Select Plan
                     </Button>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </TabsContent>
