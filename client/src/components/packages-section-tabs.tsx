@@ -97,10 +97,10 @@ export default function PackagesSectionTabs() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="order-2 md:order-1">
               <h3 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
-                Comprehensive Career Guidance in <span className="text-blue-600">Faridabad</span>
+                Comprehensive Career Guidance in <span className="text-blue-600">Faridabad and Delhi NCR</span>
               </h3>
               <p className="text-lg text-muted-foreground mb-4">
-                Our expert career counsellors in Faridabad provide personalized guidance tailored to your unique strengths, 
+                Our expert career counsellors in Faridabad and Delhi NCR provide personalized guidance tailored to your unique strengths, 
                 interests, and aspirations. Whether you're a student exploring career options or a professional seeking 
                 advancement, we have the perfect solution for you.
               </p>
@@ -112,7 +112,7 @@ export default function PackagesSectionTabs() {
             <div className="order-1 md:order-2 rounded-xl overflow-hidden shadow-lg">
               <img 
                 src={packageIntroImage} 
-                alt="Career Guidance Services in Faridabad" 
+                alt="Career Guidance Services in Faridabad and Delhi NCR" 
                 className="w-full h-full object-cover"
                 data-testid="img-package-intro"
               />

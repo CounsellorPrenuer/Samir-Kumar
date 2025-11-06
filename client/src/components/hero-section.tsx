@@ -116,7 +116,7 @@ export default function HeroSection() {
             </h1>
 
             <p className="text-xl text-white/95 mb-8 leading-relaxed animate-slide-up" style={{ animationDelay: '0.1s' }} data-testid="hero-description">
-              Premier career counselling and guidance services in Faridabad. Personalized psychometric assessments, expert coaching, and proven strategies to help students, graduates, and professionals achieve their dream careers.
+              Premier career counselling and guidance services in Faridabad and Delhi NCR. Personalized psychometric assessments, expert coaching, and proven strategies to help students, graduates, and professionals achieve their dream careers.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-slide-up" style={{ animationDelay: '0.2s' }}>
