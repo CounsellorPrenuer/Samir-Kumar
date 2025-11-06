@@ -5,7 +5,78 @@ import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 import PaymentModal from "./payment-modal";
-import packageIntroImage from "@assets/stock_images/career_counselor_mee_55ef8d9e.jpg";
+
+const CareerGuidanceVector = () => (
+  <svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <defs>
+      <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style={{ stopColor: '#EEF2FF', stopOpacity: 1 }} />
+        <stop offset="100%" style={{ stopColor: '#F3E8FF', stopOpacity: 1 }} />
+      </linearGradient>
+      <linearGradient id="pathGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style={{ stopColor: '#3B82F6', stopOpacity: 1 }} />
+        <stop offset="100%" style={{ stopColor: '#8B5CF6', stopOpacity: 1 }} />
+      </linearGradient>
+      <linearGradient id="pathGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style={{ stopColor: '#10B981', stopOpacity: 1 }} />
+        <stop offset="100%" style={{ stopColor: '#3B82F6', stopOpacity: 1 }} />
+      </linearGradient>
+      <linearGradient id="pathGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style={{ stopColor: '#F59E0B', stopOpacity: 1 }} />
+        <stop offset="100%" style={{ stopColor: '#EF4444', stopOpacity: 1 }} />
+      </linearGradient>
+    </defs>
+    
+    {/* Background */}
+    <rect width="500" height="400" fill="url(#bgGrad)" />
+    
+    {/* Career Path Lines */}
+    <path d="M 50 350 Q 150 280 200 200 T 450 80" fill="none" stroke="url(#pathGrad1)" strokeWidth="4" strokeDasharray="8 4" opacity="0.6" />
+    <path d="M 50 350 Q 120 260 200 220 T 450 120" fill="none" stroke="url(#pathGrad2)" strokeWidth="4" strokeDasharray="8 4" opacity="0.6" />
+    <path d="M 50 350 Q 180 300 200 240 T 450 160" fill="none" stroke="url(#pathGrad3)" strokeWidth="4" strokeDasharray="8 4" opacity="0.6" />
+    
+    {/* Career Destination Icons */}
+    <circle cx="450" cy="80" r="20" fill="#3B82F6" opacity="0.9" />
+    <path d="M 445 75 L 450 80 L 455 75 M 450 70 L 450 85" stroke="white" strokeWidth="2" strokeLinecap="round" />
+    
+    <circle cx="450" cy="120" r="20" fill="#10B981" opacity="0.9" />
+    <rect x="442" y="115" width="16" height="10" fill="white" rx="1" />
+    
+    <circle cx="450" cy="160" r="20" fill="#F59E0B" opacity="0.9" />
+    <circle cx="450" cy="160" r="6" fill="white" />
+    
+    {/* Person at starting point */}
+    <circle cx="50" cy="330" r="15" fill="#8B5CF6" />
+    <circle cx="50" cy="330" r="8" fill="#F3E8FF" />
+    <path d="M 50 345 L 50 370 M 40 355 L 60 355" stroke="#8B5CF6" strokeWidth="3" strokeLinecap="round" />
+    
+    {/* Counselor/Guide figure */}
+    <g transform="translate(220, 180)">
+      <circle cx="0" cy="0" r="25" fill="#6366F1" />
+      <circle cx="0" cy="0" r="12" fill="white" />
+      <path d="M -8 -3 L -3 2 L 8 -8" stroke="#6366F1" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="-35" y="30" width="70" height="50" rx="8" fill="#6366F1" opacity="0.15" />
+      <text x="0" y="62" fontSize="14" fill="#6366F1" textAnchor="middle" fontWeight="bold">Guidance</text>
+    </g>
+    
+    {/* Signpost elements */}
+    <g transform="translate(300, 140)">
+      <rect x="-2" y="0" width="4" height="80" fill="#64748B" />
+      <rect x="-35" y="10" width="70" height="18" rx="3" fill="#3B82F6" />
+      <rect x="-40" y="35" width="65" height="18" rx="3" fill="#10B981" />
+      <rect x="-38" y="60" width="68" height="18" rx="3" fill="#F59E0B" />
+      <text x="0" y="23" fontSize="11" fill="white" textAnchor="middle" fontWeight="600">Career Path A</text>
+      <text x="0" y="48" fontSize="11" fill="white" textAnchor="middle" fontWeight="600">Career Path B</text>
+      <text x="0" y="73" fontSize="11" fill="white" textAnchor="middle" fontWeight="600">Career Path C</text>
+    </g>
+    
+    {/* Floating elements */}
+    <circle cx="100" cy="80" r="8" fill="#3B82F6" opacity="0.3" />
+    <circle cx="380" cy="40" r="6" fill="#8B5CF6" opacity="0.3" />
+    <circle cx="150" cy="120" r="10" fill="#10B981" opacity="0.3" />
+    <circle cx="420" cy="220" r="7" fill="#F59E0B" opacity="0.3" />
+  </svg>
+);
 
 interface Package {
   id: string;
@@ -114,13 +185,8 @@ export default function PackagesSectionTabs() {
                 reports designed to help you make informed decisions about your future.
               </p>
             </div>
-            <div className="order-1 md:order-2 rounded-xl overflow-hidden shadow-lg">
-              <img 
-                src={packageIntroImage} 
-                alt="Career Guidance Services in Faridabad and Delhi NCR" 
-                className="w-full h-full object-cover"
-                data-testid="img-package-intro"
-              />
+            <div className="order-1 md:order-2 rounded-xl overflow-hidden shadow-lg bg-gradient-to-br from-blue-50 to-purple-50" data-testid="img-package-intro">
+              <CareerGuidanceVector />
             </div>
           </div>
         </div>
