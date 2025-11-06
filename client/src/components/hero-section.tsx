@@ -126,7 +126,7 @@ export default function HeroSection() {
                 data-testid="button-discover-path"
               >
                 <Compass className="mr-2 h-5 w-5" />
-                Start Your Career Journey
+                Unlock Your Potential
               </button>
             </div>
 
