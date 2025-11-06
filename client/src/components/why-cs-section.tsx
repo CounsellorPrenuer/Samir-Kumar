@@ -1,7 +1,7 @@
 import { Target, Brain, Lightbulb, TrendingUp, Users, CheckCircle2, ArrowRight } from "lucide-react";
 import counsellingFramework1 from "@assets/WhatsApp Image 2025-10-01 at 14.09.57_1759310947676.jpeg";
 import counsellingFramework2 from "@assets/WhatsApp Image 2025-09-30 at 11.56.28_1759303602861.jpeg";
-import psychometricImage from "@assets/stock_images/professional_taking__b605d34b.jpg";
+import psychometricImage from "@assets/stock_images/psychometric_test_as_877279b8.jpg";
 import professionalDevImage from "@assets/stock_images/professional_develop_1997d031.jpg";
 
 export default function WhyCSSection() {
@@ -121,16 +121,23 @@ export default function WhyCSSection() {
                 Advanced Psychometric <span className="bg-gradient-to-r from-blue-600 via-green-600 to-red-600 bg-clip-text text-transparent">Career Assessment</span>
               </h3>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="lg:col-span-2 space-y-6">
-                  <div className="aspect-video rounded-2xl overflow-hidden shadow-lg mb-6">
-                    <img 
-                      src={psychometricImage} 
-                      alt="Advanced Psychometric Career Assessment" 
-                      className="w-full h-full object-cover"
-                      data-testid="img-psychometric-assessment"
-                    />
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                {/* Image Section - Now smaller and on the left */}
+                <div className="flex justify-center">
+                  <div className="w-full max-w-md">
+                    <div className="aspect-square rounded-2xl overflow-hidden shadow-lg">
+                      <img 
+                        src={psychometricImage} 
+                        alt="Advanced Psychometric Career Assessment" 
+                        className="w-full h-full object-cover"
+                        data-testid="img-psychometric-assessment"
+                      />
+                    </div>
                   </div>
+                </div>
+
+                {/* Content Section - Now on the right */}
+                <div className="space-y-6">
                   <p className="text-lg text-muted-foreground leading-relaxed">
                     The psychometric assessment administered by Careerskope is the most advanced and accurate online career test 
                     that will help you make informed career decisions. It is one of the highest rated career assessment platforms in India.
@@ -139,28 +146,28 @@ export default function WhyCSSection() {
                     Our online career assessment is based on well-proven psychometric theories and Artificial Intelligence (AI). 
                     The multi-dimensional career assessment test includes detailed analysis of interests, personality, and abilities.
                   </p>
-                </div>
-
-                <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6">
-                  <h4 className="text-xl font-bold mb-4 text-center">Assessment Features</h4>
-                  <ul className="space-y-3">
-                    <li className="flex items-center space-x-3">
-                      <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
-                      <span className="text-muted-foreground">Industry benchmark accuracy</span>
-                    </li>
-                    <li className="flex items-center space-x-3">
-                      <div className="w-3 h-3 bg-green-600 rounded-full"></div>
-                      <span className="text-muted-foreground">AI-powered insights</span>
-                    </li>
-                    <li className="flex items-center space-x-3">
-                      <div className="w-3 h-3 bg-red-600 rounded-full"></div>
-                      <span className="text-muted-foreground">Multi-dimensional analysis</span>
-                    </li>
-                    <li className="flex items-center space-x-3">
-                      <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
-                      <span className="text-muted-foreground">10+ page comprehensive report</span>
-                    </li>
-                  </ul>
+                  
+                  <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 mt-6">
+                    <h4 className="text-xl font-bold mb-4 text-center">Assessment Features</h4>
+                    <ul className="space-y-3">
+                      <li className="flex items-center space-x-3">
+                        <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
+                        <span className="text-muted-foreground">Industry benchmark accuracy</span>
+                      </li>
+                      <li className="flex items-center space-x-3">
+                        <div className="w-3 h-3 bg-green-600 rounded-full"></div>
+                        <span className="text-muted-foreground">AI-powered insights</span>
+                      </li>
+                      <li className="flex items-center space-x-3">
+                        <div className="w-3 h-3 bg-red-600 rounded-full"></div>
+                        <span className="text-muted-foreground">Multi-dimensional analysis</span>
+                      </li>
+                      <li className="flex items-center space-x-3">
+                        <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
+                        <span className="text-muted-foreground">10+ page comprehensive report</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
