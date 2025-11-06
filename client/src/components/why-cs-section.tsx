@@ -1,7 +1,6 @@
 import { Target, Brain, Lightbulb, TrendingUp, Users, CheckCircle2, ArrowRight } from "lucide-react";
 import counsellingFramework1 from "@assets/WhatsApp Image 2025-10-01 at 14.09.57_1759310947676.jpeg";
 import counsellingFramework2 from "@assets/WhatsApp Image 2025-09-30 at 11.56.28_1759303602861.jpeg";
-import psychometricImage from "@assets/stock_images/psychometric_test_as_877279b8.jpg";
 import professionalDevImage from "@assets/stock_images/professional_develop_1997d031.jpg";
 
 export default function WhyCSSection() {
@@ -122,16 +121,57 @@ export default function WhyCSSection() {
               </h3>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                {/* Image Section - Now smaller and on the left */}
+                {/* Vector Graphic Section - Now smaller and on the left */}
                 <div className="flex justify-center">
                   <div className="w-full max-w-md">
-                    <div className="aspect-square rounded-2xl overflow-hidden shadow-lg">
-                      <img 
-                        src={psychometricImage} 
-                        alt="Advanced Psychometric Career Assessment" 
-                        className="w-full h-full object-cover"
-                        data-testid="img-psychometric-assessment"
-                      />
+                    <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 p-8 shadow-lg" data-testid="img-psychometric-assessment">
+                      <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                        {/* Brain Icon */}
+                        <path d="M200 80C170 80 145 105 145 135C145 145 140 150 135 150C115 150 100 165 100 185C100 205 115 220 135 220C140 220 145 215 145 215C145 245 170 270 200 270C230 270 255 245 255 215C255 215 260 220 265 220C285 220 300 205 300 185C300 165 285 150 265 150C260 150 255 145 255 135C255 105 230 80 200 80Z" fill="url(#brain-gradient)" stroke="#1E40AF" strokeWidth="2"/>
+                        
+                        {/* Central Processing Lines */}
+                        <circle cx="200" cy="175" r="45" fill="white" opacity="0.9"/>
+                        <path d="M180 165 L195 180 L220 155" stroke="#059669" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                        
+                        {/* Left Chart Bars */}
+                        <g transform="translate(60, 240)">
+                          <rect x="0" y="20" width="15" height="40" rx="2" fill="#3B82F6"/>
+                          <rect x="20" y="10" width="15" height="50" rx="2" fill="#10B981"/>
+                          <rect x="40" y="25" width="15" height="35" rx="2" fill="#EF4444"/>
+                          <line x1="0" y1="65" x2="55" y2="65" stroke="#94A3B8" strokeWidth="2"/>
+                        </g>
+                        
+                        {/* Right Pie Chart */}
+                        <g transform="translate(290, 260)">
+                          <circle cx="35" cy="35" r="30" fill="#E0E7FF"/>
+                          <path d="M35 5 A30 30 0 0 1 60 40 L35 35 Z" fill="#3B82F6"/>
+                          <path d="M60 40 A30 30 0 0 1 30 63 L35 35 Z" fill="#10B981"/>
+                          <path d="M30 63 A30 30 0 0 1 35 5 L35 35 Z" fill="#EF4444"/>
+                        </g>
+                        
+                        {/* Connecting Nodes */}
+                        <circle cx="145" cy="175" r="8" fill="#3B82F6"/>
+                        <circle cx="255" cy="175" r="8" fill="#10B981"/>
+                        <circle cx="200" cy="120" r="8" fill="#EF4444"/>
+                        <circle cx="200" cy="230" r="8" fill="#F59E0B"/>
+                        
+                        {/* Connection Lines */}
+                        <line x1="145" y1="175" x2="100" y2="250" stroke="#3B82F6" strokeWidth="2" opacity="0.5" strokeDasharray="5,5"/>
+                        <line x1="255" y1="175" x2="315" y2="250" stroke="#10B981" strokeWidth="2" opacity="0.5" strokeDasharray="5,5"/>
+                        
+                        {/* AI Sparkles */}
+                        <path d="M90 100 L93 107 L100 110 L93 113 L90 120 L87 113 L80 110 L87 107 Z" fill="#F59E0B"/>
+                        <path d="M310 100 L313 107 L320 110 L313 113 L310 120 L307 113 L300 110 L307 107 Z" fill="#F59E0B"/>
+                        <path d="M200 50 L203 57 L210 60 L203 63 L200 70 L197 63 L190 60 L197 57 Z" fill="#F59E0B"/>
+                        
+                        <defs>
+                          <linearGradient id="brain-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.3"/>
+                            <stop offset="50%" stopColor="#10B981" stopOpacity="0.3"/>
+                            <stop offset="100%" stopColor="#EF4444" stopOpacity="0.3"/>
+                          </linearGradient>
+                        </defs>
+                      </svg>
                     </div>
                   </div>
                 </div>
