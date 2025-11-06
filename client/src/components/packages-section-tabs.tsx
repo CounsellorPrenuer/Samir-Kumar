@@ -172,7 +172,7 @@ export default function PackagesSectionTabs() {
                 <p className="text-muted-foreground">No packages available for this category yet.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto justify-items-center">
                 {filteredPackages.map((pkg) => (
                   <div
                     key={pkg.id}
