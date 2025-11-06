@@ -7,74 +7,113 @@ import { useToast } from "@/hooks/use-toast";
 import PaymentModal from "./payment-modal";
 
 const CareerGuidanceVector = () => (
-  <svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+  <svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
     <defs>
-      <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <linearGradient id="bgGradPkg" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" style={{ stopColor: '#EEF2FF', stopOpacity: 1 }} />
         <stop offset="100%" style={{ stopColor: '#F3E8FF', stopOpacity: 1 }} />
       </linearGradient>
-      <linearGradient id="pathGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <linearGradient id="counselorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" style={{ stopColor: '#3B82F6', stopOpacity: 1 }} />
-        <stop offset="100%" style={{ stopColor: '#8B5CF6', stopOpacity: 1 }} />
+        <stop offset="100%" style={{ stopColor: '#1E40AF', stopOpacity: 1 }} />
       </linearGradient>
-      <linearGradient id="pathGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" style={{ stopColor: '#10B981', stopOpacity: 1 }} />
-        <stop offset="100%" style={{ stopColor: '#3B82F6', stopOpacity: 1 }} />
-      </linearGradient>
-      <linearGradient id="pathGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" style={{ stopColor: '#F59E0B', stopOpacity: 1 }} />
-        <stop offset="100%" style={{ stopColor: '#EF4444', stopOpacity: 1 }} />
+      <linearGradient id="studentGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style={{ stopColor: '#8B5CF6', stopOpacity: 1 }} />
+        <stop offset="100%" style={{ stopColor: '#6366F1', stopOpacity: 1 }} />
       </linearGradient>
     </defs>
     
     {/* Background */}
-    <rect width="500" height="400" fill="url(#bgGrad)" />
+    <rect width="600" height="500" fill="url(#bgGradPkg)" />
     
-    {/* Career Path Lines */}
-    <path d="M 50 350 Q 150 280 200 200 T 450 80" fill="none" stroke="url(#pathGrad1)" strokeWidth="4" strokeDasharray="8 4" opacity="0.6" />
-    <path d="M 50 350 Q 120 260 200 220 T 450 120" fill="none" stroke="url(#pathGrad2)" strokeWidth="4" strokeDasharray="8 4" opacity="0.6" />
-    <path d="M 50 350 Q 180 300 200 240 T 450 160" fill="none" stroke="url(#pathGrad3)" strokeWidth="4" strokeDasharray="8 4" opacity="0.6" />
+    {/* Counseling Session - Desk/Table */}
+    <rect x="150" y="280" width="300" height="15" rx="7" fill="#94A3B8" opacity="0.6"/>
     
-    {/* Career Destination Icons */}
-    <circle cx="450" cy="80" r="20" fill="#3B82F6" opacity="0.9" />
-    <path d="M 445 75 L 450 80 L 455 75 M 450 70 L 450 85" stroke="white" strokeWidth="2" strokeLinecap="round" />
-    
-    <circle cx="450" cy="120" r="20" fill="#10B981" opacity="0.9" />
-    <rect x="442" y="115" width="16" height="10" fill="white" rx="1" />
-    
-    <circle cx="450" cy="160" r="20" fill="#F59E0B" opacity="0.9" />
-    <circle cx="450" cy="160" r="6" fill="white" />
-    
-    {/* Person at starting point */}
-    <circle cx="50" cy="330" r="15" fill="#8B5CF6" />
-    <circle cx="50" cy="330" r="8" fill="#F3E8FF" />
-    <path d="M 50 345 L 50 370 M 40 355 L 60 355" stroke="#8B5CF6" strokeWidth="3" strokeLinecap="round" />
-    
-    {/* Counselor/Guide figure */}
-    <g transform="translate(220, 180)">
-      <circle cx="0" cy="0" r="25" fill="#6366F1" />
-      <circle cx="0" cy="0" r="12" fill="white" />
-      <path d="M -8 -3 L -3 2 L 8 -8" stroke="#6366F1" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-      <rect x="-35" y="30" width="70" height="50" rx="8" fill="#6366F1" opacity="0.15" />
-      <text x="0" y="62" fontSize="14" fill="#6366F1" textAnchor="middle" fontWeight="bold">Guidance</text>
+    {/* Counselor (Left) */}
+    <g transform="translate(200, 200)">
+      {/* Head */}
+      <circle cx="0" cy="0" r="30" fill="url(#counselorGrad)"/>
+      {/* Body */}
+      <path d="M 0 30 L 0 80" stroke="url(#counselorGrad)" strokeWidth="12" strokeLinecap="round"/>
+      {/* Arms - one gesturing */}
+      <path d="M 0 45 L -35 60" stroke="url(#counselorGrad)" strokeWidth="10" strokeLinecap="round"/>
+      <path d="M 0 45 L 30 30" stroke="url(#counselorGrad)" strokeWidth="10" strokeLinecap="round"/>
+      {/* Legs */}
+      <path d="M 0 80 L -15 120" stroke="url(#counselorGrad)" strokeWidth="10" strokeLinecap="round"/>
+      <path d="M 0 80 L 15 120" stroke="url(#counselorGrad)" strokeWidth="10" strokeLinecap="round"/>
     </g>
     
-    {/* Signpost elements */}
-    <g transform="translate(300, 140)">
-      <rect x="-2" y="0" width="4" height="80" fill="#64748B" />
-      <rect x="-35" y="10" width="70" height="18" rx="3" fill="#3B82F6" />
-      <rect x="-40" y="35" width="65" height="18" rx="3" fill="#10B981" />
-      <rect x="-38" y="60" width="68" height="18" rx="3" fill="#F59E0B" />
-      <text x="0" y="23" fontSize="11" fill="white" textAnchor="middle" fontWeight="600">Career Path A</text>
-      <text x="0" y="48" fontSize="11" fill="white" textAnchor="middle" fontWeight="600">Career Path B</text>
-      <text x="0" y="73" fontSize="11" fill="white" textAnchor="middle" fontWeight="600">Career Path C</text>
+    {/* Student/Client (Right) */}
+    <g transform="translate(400, 200)">
+      {/* Head */}
+      <circle cx="0" cy="0" r="30" fill="url(#studentGrad)"/>
+      {/* Body */}
+      <path d="M 0 30 L 0 80" stroke="url(#studentGrad)" strokeWidth="12" strokeLinecap="round"/>
+      {/* Arms */}
+      <path d="M 0 45 L 35 60" stroke="url(#studentGrad)" strokeWidth="10" strokeLinecap="round"/>
+      <path d="M 0 45 L -30 30" stroke="url(#studentGrad)" strokeWidth="10" strokeLinecap="round"/>
+      {/* Legs */}
+      <path d="M 0 80 L -15 120" stroke="url(#studentGrad)" strokeWidth="10" strokeLinecap="round"/>
+      <path d="M 0 80 L 15 120" stroke="url(#studentGrad)" strokeWidth="10" strokeLinecap="round"/>
     </g>
     
-    {/* Floating elements */}
-    <circle cx="100" cy="80" r="8" fill="#3B82F6" opacity="0.3" />
-    <circle cx="380" cy="40" r="6" fill="#8B5CF6" opacity="0.3" />
-    <circle cx="150" cy="120" r="10" fill="#10B981" opacity="0.3" />
-    <circle cx="420" cy="220" r="7" fill="#F59E0B" opacity="0.3" />
+    {/* Assessment Document on Table */}
+    <g transform="translate(280, 250)">
+      <rect x="0" y="0" width="45" height="35" rx="3" fill="white" stroke="#3B82F6" strokeWidth="2"/>
+      <rect x="5" y="5" width="35" height="3" rx="1" fill="#3B82F6"/>
+      <rect x="5" y="12" width="25" height="2" rx="1" fill="#94A3B8"/>
+      <rect x="5" y="17" width="30" height="2" rx="1" fill="#94A3B8"/>
+      <rect x="5" y="22" width="20" height="2" rx="1" fill="#94A3B8"/>
+      <circle cx="35" cy="25" r="3" fill="#10B981"/>
+    </g>
+    
+    {/* Conversation/Communication Lines */}
+    <path d="M 230 200 Q 300 180 370 200" stroke="#6366F1" strokeWidth="2" strokeDasharray="4 2" opacity="0.5"/>
+    <path d="M 230 210 Q 300 230 370 210" stroke="#3B82F6" strokeWidth="2" strokeDasharray="4 2" opacity="0.5"/>
+    
+    {/* Top Elements - Career Options/Insights */}
+    <g transform="translate(100, 80)">
+      <circle cx="0" cy="0" r="35" fill="#3B82F6" opacity="0.2"/>
+      <circle cx="0" cy="0" r="25" fill="white" stroke="#3B82F6" strokeWidth="3"/>
+      <text x="0" y="7" fontSize="16" fontWeight="bold" fill="#3B82F6" textAnchor="middle">📊</text>
+      <text x="0" y="55" fontSize="12" fontWeight="600" fill="#1E40AF" textAnchor="middle">Assessment</text>
+    </g>
+    
+    <g transform="translate(300, 50)">
+      <circle cx="0" cy="0" r="35" fill="#10B981" opacity="0.2"/>
+      <circle cx="0" cy="0" r="25" fill="white" stroke="#10B981" strokeWidth="3"/>
+      <text x="0" y="7" fontSize="16" fontWeight="bold" fill="#10B981" textAnchor="middle">🎯</text>
+      <text x="0" y="55" fontSize="12" fontWeight="600" fill="#059669" textAnchor="middle">Career Plan</text>
+    </g>
+    
+    <g transform="translate(500, 80)">
+      <circle cx="0" cy="0" r="35" fill="#8B5CF6" opacity="0.2"/>
+      <circle cx="0" cy="0" r="25" fill="white" stroke="#8B5CF6" strokeWidth="3"/>
+      <text x="0" y="7" fontSize="16" fontWeight="bold" fill="#8B5CF6" textAnchor="middle">📄</text>
+      <text x="0" y="55" fontSize="12" fontWeight="600" fill="#6D28D9" textAnchor="middle">Report</text>
+    </g>
+    
+    {/* Connection arrows from counseling to elements */}
+    <path d="M 200 170 L 130 100" stroke="#3B82F6" strokeWidth="2" opacity="0.4" strokeDasharray="3 2"/>
+    <path d="M 300 150 L 300 90" stroke="#10B981" strokeWidth="2" opacity="0.4" strokeDasharray="3 2"/>
+    <path d="M 400 170 L 470 100" stroke="#8B5CF6" strokeWidth="2" opacity="0.4" strokeDasharray="3 2"/>
+    
+    {/* Bottom - Success Path */}
+    <g transform="translate(300, 420)">
+      <rect x="-120" y="0" width="240" height="50" rx="25" fill="white" stroke="#10B981" strokeWidth="3"/>
+      <text x="0" y="18" fontSize="14" fontWeight="bold" fill="#059669" textAnchor="middle">Personalized Guidance</text>
+      <text x="0" y="35" fontSize="11" fill="#6B7280" textAnchor="middle">Your Path to Success</text>
+      
+      {/* Success icon */}
+      <circle cx="140" cy="25" r="20" fill="#10B981"/>
+      <path d="M 133 25 L 138 30 L 147 21" stroke="white" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+    </g>
+    
+    {/* Floating sparkle elements */}
+    <circle cx="80" cy="250" r="4" fill="#F59E0B" opacity="0.6"/>
+    <circle cx="520" cy="250" r="4" fill="#F59E0B" opacity="0.6"/>
+    <circle cx="150" cy="140" r="3" fill="#3B82F6" opacity="0.4"/>
+    <circle cx="450" cy="140" r="3" fill="#8B5CF6" opacity="0.4"/>
   </svg>
 );
 
