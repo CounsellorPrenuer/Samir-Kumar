@@ -1,7 +1,6 @@
 import { Target, Brain, Lightbulb, TrendingUp, Users, CheckCircle2, ArrowRight } from "lucide-react";
 import counsellingFramework1 from "@assets/WhatsApp Image 2025-10-01 at 14.09.57_1759310947676.jpeg";
 import counsellingFramework2 from "@assets/WhatsApp Image 2025-09-30 at 11.56.28_1759303602861.jpeg";
-import professionalDevImage from "@assets/stock_images/professional_develop_1997d031.jpg";
 
 export default function WhyCSSection() {
   return (
@@ -262,13 +261,105 @@ export default function WhyCSSection() {
                   </div>
                 </div>
               </div>
-              <div className="rounded-2xl overflow-hidden shadow-lg">
-                <img 
-                  src={professionalDevImage} 
-                  alt="Professional Development Training" 
-                  className="w-full h-full object-cover"
-                  data-testid="img-professional-development"
-                />
+              <div className="rounded-2xl overflow-hidden shadow-lg bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-8" data-testid="img-professional-development">
+                <svg viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                  {/* Background Mountains */}
+                  <path d="M0 400 L100 300 L200 350 L300 250 L400 300 L400 500 L0 500 Z" fill="#E0E7FF" opacity="0.5"/>
+                  
+                  {/* Staircase */}
+                  <g>
+                    {/* Step 1 - Bottom */}
+                    <rect x="50" y="420" width="80" height="20" rx="2" fill="#3B82F6"/>
+                    <rect x="50" y="440" width="80" height="60" rx="2" fill="#60A5FA" opacity="0.8"/>
+                    
+                    {/* Step 2 */}
+                    <rect x="130" y="380" width="80" height="20" rx="2" fill="#3B82F6"/>
+                    <rect x="130" y="400" width="80" height="100" rx="2" fill="#60A5FA" opacity="0.8"/>
+                    
+                    {/* Step 3 */}
+                    <rect x="210" y="340" width="80" height="20" rx="2" fill="#3B82F6"/>
+                    <rect x="210" y="360" width="80" height="140" rx="2" fill="#60A5FA" opacity="0.8"/>
+                    
+                    {/* Step 4 */}
+                    <rect x="290" y="300" width="80" height="20" rx="2" fill="#3B82F6"/>
+                    <rect x="290" y="320" width="80" height="180" rx="2" fill="#60A5FA" opacity="0.8"/>
+                  </g>
+                  
+                  {/* Person climbing */}
+                  <g transform="translate(320, 270)">
+                    {/* Head */}
+                    <circle cx="0" cy="-15" r="12" fill="#1E40AF"/>
+                    
+                    {/* Body */}
+                    <path d="M0 -3 L0 20" stroke="#1E40AF" strokeWidth="6" strokeLinecap="round"/>
+                    
+                    {/* Arms - reaching up */}
+                    <path d="M0 5 L-8 -5" stroke="#1E40AF" strokeWidth="5" strokeLinecap="round"/>
+                    <path d="M0 5 L8 -8" stroke="#1E40AF" strokeWidth="5" strokeLinecap="round"/>
+                    
+                    {/* Legs - climbing pose */}
+                    <path d="M0 20 L-6 35" stroke="#1E40AF" strokeWidth="5" strokeLinecap="round"/>
+                    <path d="M0 20 L8 32" stroke="#1E40AF" strokeWidth="5" strokeLinecap="round"/>
+                    
+                    {/* Motion lines */}
+                    <path d="M-20 0 L-15 0" stroke="#3B82F6" strokeWidth="2" opacity="0.5"/>
+                    <path d="M-20 8 L-12 8" stroke="#3B82F6" strokeWidth="2" opacity="0.5"/>
+                  </g>
+                  
+                  {/* Golden Star at the top */}
+                  <g transform="translate(330, 100)">
+                    {/* Glow effect */}
+                    <circle cx="0" cy="0" r="40" fill="url(#star-glow)" opacity="0.6"/>
+                    <circle cx="0" cy="0" r="30" fill="url(#star-glow)" opacity="0.4"/>
+                    
+                    {/* Star shape */}
+                    <path d="M0 -25 L7 -8 L25 -8 L11 3 L18 20 L0 10 L-18 20 L-11 3 L-25 -8 L-7 -8 Z" 
+                          fill="url(#golden-gradient)" 
+                          stroke="#F59E0B" 
+                          strokeWidth="2"/>
+                    
+                    {/* Inner star detail */}
+                    <path d="M0 -15 L4 -5 L15 -5 L7 2 L11 12 L0 6 L-11 12 L-7 2 L-15 -5 L-4 -5 Z" 
+                          fill="#FEF3C7"/>
+                    
+                    {/* Sparkles */}
+                    <circle cx="-35" cy="-10" r="3" fill="#FBBF24">
+                      <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="35" cy="5" r="3" fill="#FBBF24">
+                      <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="-10" cy="35" r="2" fill="#FBBF24">
+                      <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="25" cy="-30" r="2" fill="#FBBF24">
+                      <animate attributeName="opacity" values="0.5;1;0.5" dur="1.5s" repeatCount="indefinite"/>
+                    </circle>
+                  </g>
+                  
+                  {/* Achievement badges on steps */}
+                  <circle cx="90" cy="410" r="6" fill="#10B981"/>
+                  <circle cx="170" cy="370" r="6" fill="#10B981"/>
+                  <circle cx="250" cy="330" r="6" fill="#10B981"/>
+                  
+                  {/* Progress indicators */}
+                  <text x="70" y="470" fill="#1E40AF" fontSize="12" fontWeight="bold">Start</text>
+                  <text x="300" y="270" fill="#F59E0B" fontSize="14" fontWeight="bold">Success!</text>
+                  
+                  {/* Definitions */}
+                  <defs>
+                    <linearGradient id="golden-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#FCD34D"/>
+                      <stop offset="50%" stopColor="#F59E0B"/>
+                      <stop offset="100%" stopColor="#D97706"/>
+                    </linearGradient>
+                    
+                    <radialGradient id="star-glow">
+                      <stop offset="0%" stopColor="#FCD34D" stopOpacity="0.8"/>
+                      <stop offset="100%" stopColor="#F59E0B" stopOpacity="0"/>
+                    </radialGradient>
+                  </defs>
+                </svg>
               </div>
             </div>
           </div>
