@@ -1,6 +1,6 @@
 import { Target, Brain, Lightbulb, TrendingUp, Users, CheckCircle2, ArrowRight } from "lucide-react";
-import counsellingFramework1 from "@assets/stock_images/career_counseling_se_4ac733f4.jpg";
-import counsellingFramework2 from "@assets/stock_images/career_counseling_se_effd0f3c.jpg";
+import counsellingFramework1 from "@assets/WhatsApp Image 2025-10-01 at 14.09.57_1759310947676.jpeg";
+import counsellingFramework2 from "@assets/WhatsApp Image 2025-09-30 at 11.56.28_1759303602861.jpeg";
 import psychometricImage from "@assets/stock_images/professional_taking__b605d34b.jpg";
 import professionalDevImage from "@assets/stock_images/professional_develop_1997d031.jpg";
 
