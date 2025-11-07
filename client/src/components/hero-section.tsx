@@ -97,18 +97,14 @@ export default function HeroSection() {
           </div>
         ))}
       </div>
-
       {/* Floating Particles - Memoized to prevent re-render */}
       {particlesLayer}
-
       {/* Content Overlay */}
       <div className="relative z-20 w-full pt-20 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <div className="mb-6 animate-fade-in">
-              <span className="inline-block bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium border border-white/30">
-                ✨ Transform Your Career Journey
-              </span>
+              <span className="inline-block bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium border border-white/30">✨ Unlock Your Potential</span>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight animate-slide-up" data-testid="hero-title">
