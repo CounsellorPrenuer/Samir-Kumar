@@ -125,7 +125,7 @@ export default function WhyCSSection() {
                 {/* Image Section - Now on the left */}
                 <div className="flex justify-center">
                   <div className="w-full max-w-md">
-                    <div className="rounded-2xl overflow-hidden shadow-lg min-h-[700px]" data-testid="img-psychometric-assessment">
+                    <div className="rounded-2xl overflow-hidden shadow-lg" data-testid="img-psychometric-assessment">
                       <img 
                         src={psychometricAssessmentImage} 
                         alt="Psychometric Assessment and Career Testing" 
