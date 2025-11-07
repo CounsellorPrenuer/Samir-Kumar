@@ -262,11 +262,11 @@ export default function WhyCSSection() {
                   </div>
                 </div>
               </div>
-              <div className="rounded-2xl overflow-hidden shadow-lg" data-testid="img-professional-development">
+              <div className="rounded-2xl overflow-hidden shadow-lg flex items-center" data-testid="img-professional-development">
                 <img 
                   src={professionalDevelopmentImage} 
                   alt="Professional Development and Career Growth" 
-                  className="w-full h-full object-cover"
+                  className="w-full object-cover"
                 />
               </div>
             </div>
