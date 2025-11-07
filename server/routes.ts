@@ -992,6 +992,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Admin endpoint to reset seed data
+  app.post("/api/admin/reset-seed-data", requireAdmin, async (req, res) => {
+    try {
+      const { seedDatabase } = await import("./seed-data");
+      
+      // Get all existing blogs and testimonials
+      const existingBlogs = await storage.getBlogArticles();
+      const existingTestimonials = await storage.getTestimonials();
+      
+      // Delete all existing blogs
+      for (const blog of existingBlogs) {
+        await storage.deleteBlogArticle(blog.id);
+      }
+      
+      // Delete all existing testimonials
+      for (const testimonial of existingTestimonials) {
+        await storage.deleteTestimonial(testimonial.id);
+      }
+      
+      // Re-seed the database
+      await seedDatabase();
+      
+      res.json({ 
+        success: true, 
+        message: "Seed data reset successfully",
+        details: {
+          blogsDeleted: existingBlogs.length,
+          testimonialsDeleted: existingTestimonials.length
+        }
+      });
+    } catch (error) {
+      console.error("Error resetting seed data:", error);
+      res.status(500).json({ 
+        success: false, 
+        message: "Failed to reset seed data",
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

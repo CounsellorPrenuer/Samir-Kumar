@@ -15,7 +15,8 @@ import {
   Settings,
   BarChart3,
   Image,
-  GraduationCap
+  GraduationCap,
+  RefreshCw
 } from "lucide-react";
 import ContactsManagement from "@/components/admin/contacts-management";
 import TestimonialsManagement from "@/components/admin/testimonials-management";
@@ -32,6 +33,7 @@ export default function AdminDashboard() {
   const [admin, setAdmin] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("overview");
+  const [resetting, setResetting] = useState(false);
   const [, navigate] = useLocation();
   const { toast } = useToast();
 
@@ -66,6 +68,44 @@ export default function AdminDashboard() {
       navigate("/admin/login");
     } catch (error) {
       console.error("Logout error:", error);
+    }
+  };
+
+  const handleResetSeedData = async () => {
+    if (!confirm("This will delete ALL existing testimonials and blog articles and replace them with the default seed data. Are you sure?")) {
+      return;
+    }
+    
+    setResetting(true);
+    try {
+      const response = await fetch("/api/admin/reset-seed-data", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" }
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        toast({
+          title: "Success!",
+          description: `Seed data reset: ${data.details.testimonialsDeleted} testimonials and ${data.details.blogsDeleted} blogs replaced with fresh seed data.`,
+        });
+        window.location.reload();
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: data.message || "Failed to reset seed data",
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to reset seed data. Please try again.",
+      });
+    } finally {
+      setResetting(false);
     }
   };
 
@@ -157,6 +197,35 @@ export default function AdminDashboard() {
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
+            <Card className="border-blue-200 bg-blue-50 dark:bg-blue-950 dark:border-blue-800">
+              <CardHeader>
+                <CardTitle className="text-blue-900 dark:text-blue-100">Database Seed Management</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <p className="text-sm text-blue-800 dark:text-blue-200">
+                  Reset all testimonials and blog articles to the default seed data with proper images. This will delete all existing entries and create fresh ones.
+                </p>
+                <Button 
+                  onClick={handleResetSeedData}
+                  disabled={resetting}
+                  variant="default"
+                  className="bg-blue-600 hover:bg-blue-700"
+                  data-testid="button-reset-seed-data"
+                >
+                  {resetting ? (
+                    <>
+                      <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                      Resetting...
+                    </>
+                  ) : (
+                    <>
+                      <RefreshCw className="mr-2 h-4 w-4" />
+                      Reset Seed Data (8 Testimonials + 3 Blogs)
+                    </>
+                  )}
+                </Button>
+              </CardContent>
+            </Card>
             <DashboardOverview />
           </TabsContent>
 
