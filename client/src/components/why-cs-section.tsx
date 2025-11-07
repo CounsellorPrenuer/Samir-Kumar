@@ -2,7 +2,7 @@ import { Target, Brain, Lightbulb, TrendingUp, Users, CheckCircle2, ArrowRight }
 import counsellingFramework1 from "@assets/WhatsApp Image 2025-10-01 at 14.09.57_1759310947676.jpeg";
 import counsellingFramework2 from "@assets/WhatsApp Image 2025-09-30 at 11.56.28_1759303602861.jpeg";
 import professionalDevelopmentImage from "@assets/stock_images/professional_develop_1997d031.jpg";
-import psychometricAssessmentImage from "@assets/stock_images/professional_busines_24161e8e.jpg";
+import psychometricAssessmentImage from "@assets/stock_images/man_sitting_at_desk__5701d38f.jpg";
 
 export default function WhyCSSection() {
   return (
