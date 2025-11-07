@@ -284,10 +284,10 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
 
               <Button
                 onClick={() => setShowWorkshopModal(true)}
-                className="w-full bg-white text-purple-600 hover:bg-gray-100 font-semibold py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="w-full bg-white text-purple-600 hover:bg-gray-100 font-semibold py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 data-testid="button-book-workshop"
               >
-                BOOK THE AI CAREER NAVIGATOR WORKSHOP
+                BOOK NOW
               </Button>
             </div>
           </div>
