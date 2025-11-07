@@ -129,7 +129,7 @@ export default function WhyCSSection() {
                       <img 
                         src={psychometricAssessmentImage} 
                         alt="Psychometric Assessment and Career Testing" 
-                        className="w-full h-full object-cover"
+                        className="w-full h-auto object-contain"
                       />
                     </div>
                   </div>
