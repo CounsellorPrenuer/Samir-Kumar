@@ -219,7 +219,7 @@ export default function WhyCSSection() {
         {/* Subsection 5: Professional Development */}
         <div className="mb-20" data-testid="subsection-professional-development">
           <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div>
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center flex-shrink-0">
@@ -262,11 +262,11 @@ export default function WhyCSSection() {
                   </div>
                 </div>
               </div>
-              <div className="rounded-2xl overflow-hidden shadow-lg flex items-center" data-testid="img-professional-development">
+              <div className="rounded-2xl overflow-hidden shadow-lg" data-testid="img-professional-development">
                 <img 
                   src={professionalDevelopmentImage} 
                   alt="Professional Development and Career Growth" 
-                  className="w-full object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
             </div>
