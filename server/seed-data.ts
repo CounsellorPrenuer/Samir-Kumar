@@ -80,11 +80,11 @@ export async function seedDatabase() {
     ];
 
     const existingTestimonials = await storage.getTestimonials();
-    const existingNames = new Set(existingTestimonials.map(t => t.name));
+    const existingNames = new Set(existingTestimonials.map(t => t.name.trim().toLowerCase()));
     
     let addedCount = 0;
     for (const testimonial of testimonialData) {
-      if (!existingNames.has(testimonial.name)) {
+      if (!existingNames.has(testimonial.name.trim().toLowerCase())) {
         await storage.createTestimonial(testimonial);
         addedCount++;
       }
@@ -129,11 +129,11 @@ export async function seedDatabase() {
     ];
 
     const existingBlogs = await storage.getBlogArticles();
-    const existingTitles = new Set(existingBlogs.map(b => b.title));
+    const existingTitles = new Set(existingBlogs.map(b => b.title.trim().toLowerCase()));
     
     let addedBlogCount = 0;
     for (const blog of blogData) {
-      if (!existingTitles.has(blog.title)) {
+      if (!existingTitles.has(blog.title.trim().toLowerCase())) {
         await storage.createBlogArticle(blog);
         addedBlogCount++;
       }
