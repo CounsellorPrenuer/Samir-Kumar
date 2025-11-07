@@ -3,6 +3,7 @@ import session from "express-session";
 import path from "path";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { seedDatabase } from "./seed-data";
 
 const app = express();
 
@@ -55,6 +56,8 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  await seedDatabase();
+  
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
