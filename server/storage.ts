@@ -8,6 +8,7 @@ import {
   payments,
   adminUsers,
   photoGallery,
+  workshopBookings,
   type User, 
   type InsertUser, 
   type ContactSubmission, 
@@ -26,6 +27,8 @@ import {
   type InsertAdminUser,
   type PhotoGallery,
   type InsertPhotoGallery,
+  type WorkshopBooking,
+  type InsertWorkshopBooking,
   type UpdateContactStatus
 } from "@shared/schema";
 import { db } from "./db";
@@ -95,6 +98,13 @@ export interface IStorage {
   getActivePhotoGalleryItems(): Promise<PhotoGallery[]>;
   createPhotoGalleryItem(photo: InsertPhotoGallery): Promise<PhotoGallery>;
   deletePhotoGalleryItem(id: string): Promise<void>;
+  
+  // Workshop Bookings
+  getWorkshopBookings(): Promise<WorkshopBooking[]>;
+  getWorkshopBooking(id: string): Promise<WorkshopBooking | undefined>;
+  createWorkshopBooking(booking: InsertWorkshopBooking): Promise<WorkshopBooking>;
+  updateWorkshopBookingStatus(id: string, status: string, adminNotes?: string): Promise<WorkshopBooking>;
+  deleteWorkshopBooking(id: string): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -422,6 +432,37 @@ export class DatabaseStorage implements IStorage {
 
   async deletePhotoGalleryItem(id: string): Promise<void> {
     await db.delete(photoGallery).where(eq(photoGallery.id, id));
+  }
+
+  // Workshop Bookings
+  async getWorkshopBookings(): Promise<WorkshopBooking[]> {
+    return await db.select().from(workshopBookings).orderBy(desc(workshopBookings.createdAt));
+  }
+
+  async getWorkshopBooking(id: string): Promise<WorkshopBooking | undefined> {
+    const [booking] = await db.select().from(workshopBookings).where(eq(workshopBookings.id, id));
+    return booking || undefined;
+  }
+
+  async createWorkshopBooking(booking: InsertWorkshopBooking): Promise<WorkshopBooking> {
+    const [newBooking] = await db
+      .insert(workshopBookings)
+      .values(booking)
+      .returning();
+    return newBooking;
+  }
+
+  async updateWorkshopBookingStatus(id: string, status: string, adminNotes?: string): Promise<WorkshopBooking> {
+    const [updatedBooking] = await db
+      .update(workshopBookings)
+      .set({ status, adminNotes })
+      .where(eq(workshopBookings.id, id))
+      .returning();
+    return updatedBooking;
+  }
+
+  async deleteWorkshopBooking(id: string): Promise<void> {
+    await db.delete(workshopBookings).where(eq(workshopBookings.id, id));
   }
 }
 

@@ -112,6 +112,20 @@ export const photoGallery = pgTable("photo_gallery", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const workshopBookings = pgTable("workshop_bookings", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  schoolName: text("school_name").notNull(),
+  principalName: text("principal_name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  numberOfStudents: integer("number_of_students"),
+  preferredDate: text("preferred_date"),
+  message: text("message"),
+  status: text("status").default("pending").notNull(), // pending, contacted, confirmed, completed, cancelled
+  adminNotes: text("admin_notes"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
@@ -174,6 +188,13 @@ export const insertPhotoGallerySchema = createInsertSchema(photoGallery).omit({
   createdAt: true,
 });
 
+export const insertWorkshopBookingSchema = createInsertSchema(workshopBookings).omit({
+  id: true,
+  createdAt: true,
+  status: true,
+  adminNotes: true,
+});
+
 export const updateContactStatusSchema = z.object({
   status: z.enum(["pending", "responded", "archived"]),
   adminNotes: z.string().optional(),
@@ -198,4 +219,6 @@ export type InsertAdminUser = z.infer<typeof insertAdminUserSchema>;
 export type AdminUser = typeof adminUsers.$inferSelect;
 export type InsertPhotoGallery = z.infer<typeof insertPhotoGallerySchema>;
 export type PhotoGallery = typeof photoGallery.$inferSelect;
+export type InsertWorkshopBooking = z.infer<typeof insertWorkshopBookingSchema>;
+export type WorkshopBooking = typeof workshopBookings.$inferSelect;
 export type UpdateContactStatus = z.infer<typeof updateContactStatusSchema>;

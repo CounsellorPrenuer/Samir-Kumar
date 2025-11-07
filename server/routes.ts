@@ -10,7 +10,8 @@ import {
   insertPackageSchema,
   insertCustomizePlanSchema,
   insertPaymentSchema,
-  updateContactStatusSchema
+  updateContactStatusSchema,
+  insertWorkshopBookingSchema
 } from "@shared/schema";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
@@ -921,6 +922,73 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ success: true, message: "Photo deleted successfully" });
     } catch (error) {
       res.status(500).json({ success: false, message: "Failed to delete photo" });
+    }
+  });
+
+  // Workshop Booking routes
+  app.post("/api/workshop-bookings", async (req, res) => {
+    try {
+      const validatedData = insertWorkshopBookingSchema.parse(req.body);
+      const booking = await storage.createWorkshopBooking(validatedData);
+      
+      res.json({ 
+        success: true, 
+        message: "Workshop booking submitted successfully",
+        id: booking.id 
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ 
+          success: false, 
+          message: "Invalid form data", 
+          errors: error.errors 
+        });
+      } else {
+        res.status(500).json({ 
+          success: false, 
+          message: "Internal server error"
+        });
+      }
+    }
+  });
+
+  app.get("/api/workshop-bookings", requireAdmin, async (req, res) => {
+    try {
+      const bookings = await storage.getWorkshopBookings();
+      res.json(bookings);
+    } catch (error) {
+      res.status(500).json({ 
+        success: false, 
+        message: "Failed to fetch workshop bookings" 
+      });
+    }
+  });
+
+  app.patch("/api/workshop-bookings/:id/status", requireAdmin, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { status, adminNotes } = req.body;
+      
+      const updatedBooking = await storage.updateWorkshopBookingStatus(id, status, adminNotes);
+      res.json({ success: true, booking: updatedBooking });
+    } catch (error) {
+      res.status(500).json({ 
+        success: false, 
+        message: "Failed to update booking status" 
+      });
+    }
+  });
+
+  app.delete("/api/workshop-bookings/:id", requireAdmin, async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.deleteWorkshopBooking(id);
+      res.json({ success: true, message: "Workshop booking deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ 
+        success: false, 
+        message: "Failed to delete workshop booking" 
+      });
     }
   });
 

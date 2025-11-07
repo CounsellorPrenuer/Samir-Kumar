@@ -5,12 +5,13 @@ import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { Phone, Mail, Linkedin, Calendar, Check } from "lucide-react";
+import { Phone, Mail, Linkedin, Calendar, Check, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import WorkshopBookingModal from "./workshop-booking-modal";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -24,6 +25,7 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 export default function ContactSection() {
   const { toast } = useToast();
+  const [showWorkshopModal, setShowWorkshopModal] = useState(false);
   
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
@@ -262,20 +264,40 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
               </div>
             </div>
             
-            <div className="bg-gradient-to-r from-blue-600 to-red-600 p-6 rounded-xl text-white">
-              <h4 className="text-xl font-semibold mb-4">Why Schedule a Call?</h4>
-              <ul className="space-y-2">
-                {benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-center">
-                    <Check className="h-5 w-5 mr-3" />
-                    {benefit}
-                  </li>
-                ))}
-              </ul>
+            <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-8 rounded-xl text-white shadow-xl">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                  <GraduationCap className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="text-2xl font-bold">AI CAREER NAVIGATOR WORKSHOP</h4>
+                  <p className="text-sm text-white/90">For Class 9-12 Students & Parents</p>
+                </div>
+              </div>
+              
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 mb-6">
+                <p className="text-sm font-semibold mb-2">KIND ATTENTION: SCHOOL PRINCIPAL / HEAD OF SCHOOL MANAGEMENT</p>
+                <p className="text-white/90 leading-relaxed">
+                  Book an AI CAREER NAVIGATOR WORKSHOP for class 9-12 students and parents. The workshop can help transform how students plan for future and choose careers with clarity.
+                </p>
+              </div>
+
+              <Button
+                onClick={() => setShowWorkshopModal(true)}
+                className="w-full bg-white text-purple-600 hover:bg-gray-100 font-semibold py-3 text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                data-testid="button-book-workshop"
+              >
+                BOOK THE AI CAREER NAVIGATOR WORKSHOP
+              </Button>
             </div>
           </div>
         </div>
       </div>
+
+      <WorkshopBookingModal
+        isOpen={showWorkshopModal}
+        onClose={() => setShowWorkshopModal(false)}
+      />
     </section>
   );
 }

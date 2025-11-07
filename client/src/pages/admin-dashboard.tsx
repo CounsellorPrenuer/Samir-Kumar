@@ -14,7 +14,8 @@ import {
   LogOut,
   Settings,
   BarChart3,
-  Image
+  Image,
+  GraduationCap
 } from "lucide-react";
 import ContactsManagement from "@/components/admin/contacts-management";
 import TestimonialsManagement from "@/components/admin/testimonials-management";
@@ -24,6 +25,7 @@ import PaymentsManagement from "@/components/admin/payments-management";
 import PhotoGalleryManagement from "@/components/admin/photo-gallery-management";
 import CustomizePlansManagement from "@/components/admin/customize-plans-management";
 import DashboardOverview from "@/components/admin/dashboard-overview";
+import WorkshopBookingsManagement from "@/components/admin/workshop-bookings-management";
 import { useToast } from "@/hooks/use-toast";
 
 export default function AdminDashboard() {
@@ -115,7 +117,7 @@ export default function AdminDashboard() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-2">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-9 gap-2">
             <TabsTrigger value="overview" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
               <BarChart3 className="h-4 w-4" />
               <span className="hidden sm:inline">Overview</span>
@@ -147,6 +149,10 @@ export default function AdminDashboard() {
             <TabsTrigger value="customize-plans" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
               <Package className="h-4 w-4" />
               <span className="hidden sm:inline">Customize</span>
+            </TabsTrigger>
+            <TabsTrigger value="workshops" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+              <GraduationCap className="h-4 w-4" />
+              <span className="hidden sm:inline">Workshops</span>
             </TabsTrigger>
           </TabsList>
 
@@ -180,6 +186,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="customize-plans" className="space-y-6">
             <CustomizePlansManagement />
+          </TabsContent>
+
+          <TabsContent value="workshops" className="space-y-6">
+            <WorkshopBookingsManagement />
           </TabsContent>
         </Tabs>
       </main>
