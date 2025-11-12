@@ -87,7 +87,7 @@ export default function TestimonialsSection() {
               Success Stories
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-center">
           Hear from students and professionals who achieved success through the career counselling and guidance services of Careerskope
           </p>
         </div>
