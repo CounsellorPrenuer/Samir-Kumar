@@ -30,7 +30,7 @@ export default function WhyCSSection() {
                   Counselling Framework
                 </span>
               </h3>
-              <p className="text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              <p className="text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed text-center">
                 Our comprehensive framework combines evaluation, career planning, unbiased guidance, and informed decision-making to guide you toward the perfect career path.
               </p>
             </div>
