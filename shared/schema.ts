@@ -31,6 +31,7 @@ export const blogArticles = pgTable("blog_articles", {
   readTime: text("read_time").notNull(),
   content: text("content"), // full article content (optional for now)
   imageUrl: text("image_url"), // featured image for article
+  videoUrl: text("video_url"), // YouTube/Vimeo video URL (optional)
   published: timestamp("published").defaultNow().notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });

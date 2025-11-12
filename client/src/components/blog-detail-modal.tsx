@@ -47,6 +47,26 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
     });
   };
 
+  const getEmbedUrl = (url: string) => {
+    if (!url) return null;
+    
+    // YouTube URL patterns
+    const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+    const youtubeMatch = url.match(youtubeRegex);
+    if (youtubeMatch && youtubeMatch[1]) {
+      return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
+    }
+    
+    // Vimeo URL pattern
+    const vimeoRegex = /vimeo\.com\/(?:.*\/)?(\d+)/;
+    const vimeoMatch = url.match(vimeoRegex);
+    if (vimeoMatch && vimeoMatch[1]) {
+      return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+    }
+    
+    return null;
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
@@ -129,6 +149,22 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
                 <p className="text-xl text-muted-foreground font-medium mb-8 leading-relaxed">
                   {article.description}
                 </p>
+
+                {/* Video Embed */}
+                {article.videoUrl && getEmbedUrl(article.videoUrl) && (
+                  <div className="mb-8">
+                    <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                      <iframe
+                        className="absolute top-0 left-0 w-full h-full rounded-lg"
+                        src={getEmbedUrl(article.videoUrl) || ''}
+                        title={article.title}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
+                  </div>
+                )}
 
                 {/* Content */}
                 <div className="text-foreground leading-relaxed space-y-6">

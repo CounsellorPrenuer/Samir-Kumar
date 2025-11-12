@@ -30,6 +30,7 @@ interface BlogArticle {
   readTime: string;
   content?: string;
   imageUrl?: string;
+  videoUrl?: string;
   published: string;
   createdAt: string;
 }
@@ -292,6 +293,7 @@ function BlogForm({
     readTime: article?.readTime || "",
     content: article?.content || "",
     imageUrl: article?.imageUrl || "",
+    videoUrl: article?.videoUrl || "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -380,6 +382,20 @@ function BlogForm({
             />
           </div>
         )}
+      </div>
+
+      <div>
+        <Label htmlFor="video-url">Video URL (Optional)</Label>
+        <Input
+          id="video-url"
+          value={formData.videoUrl}
+          onChange={(e) => setFormData(prev => ({ ...prev, videoUrl: e.target.value }))}
+          placeholder="e.g., https://www.youtube.com/watch?v=VIDEO_ID or https://youtu.be/VIDEO_ID"
+          data-testid="input-video-url"
+        />
+        <p className="text-xs text-muted-foreground mt-1">
+          Enter a YouTube or Vimeo video URL. The video will be embedded in the article detail view.
+        </p>
       </div>
 
       <div>
