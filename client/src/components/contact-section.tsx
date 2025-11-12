@@ -251,16 +251,6 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                     <div className="text-muted-foreground">samir.kumar@gnosiscs.com</div>
                   </div>
                 </div>
-                
-                <div className="flex items-center">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                    <Linkedin className="h-5 w-5 text-blue-600" />
-                  </div>
-                  <div>
-                    <div className="font-medium">LinkedIn</div>
-                    <div className="text-muted-foreground">Connect with Samir Kumar</div>
-                  </div>
-                </div>
               </div>
             </div>
             

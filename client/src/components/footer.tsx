@@ -67,9 +67,6 @@ export default function Footer() {
               and personalized mentorship.
             </p>
             <div className="flex space-x-4">
-              <button className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors" data-testid="social-linkedin">
-                <Linkedin className="h-5 w-5" />
-              </button>
               <a 
                 href="https://www.youtube.com/@careerskope" 
                 target="_blank" 
