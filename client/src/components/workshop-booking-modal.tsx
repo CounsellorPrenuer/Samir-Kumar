@@ -26,14 +26,11 @@ export default function WorkshopBookingModal({ isOpen, onClose }: WorkshopBookin
 
   const bookingMutation = useMutation({
     mutationFn: async (data: typeof formData) => {
-      return await apiRequest("/api/workshop-bookings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...data,
-          numberOfStudents: data.numberOfStudents ? parseInt(data.numberOfStudents) : null,
-        }),
+      const response = await apiRequest("POST", "/api/workshop-bookings", {
+        ...data,
+        numberOfStudents: data.numberOfStudents ? parseInt(data.numberOfStudents) : null,
       });
+      return response.json();
     },
     onSuccess: () => {
       toast({
