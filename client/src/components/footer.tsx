@@ -1,4 +1,4 @@
-import { Heart, Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
+import { Heart, Linkedin, Twitter, Facebook, Instagram, Youtube } from "lucide-react";
 import careerSkopeLogoPath from "@assets/Screenshot 2025-09-27 114759_1758954653506.png";
 
 export default function Footer() {
@@ -70,13 +70,26 @@ export default function Footer() {
               <button className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors" data-testid="social-linkedin">
                 <Linkedin className="h-5 w-5" />
               </button>
-              <button className="w-10 h-10 bg-blue-400 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors" data-testid="social-twitter">
-                <Twitter className="h-5 w-5" />
-              </button>
-              <button className="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-blue-900 transition-colors" data-testid="social-facebook">
-               <a href="https://www.facebook.com/Careerskope" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-blue-900 transition-colors" data-testid="social-facebook">
-              <Facebook className="h-5 w-5" />
-              </a>              </button>
+              <a 
+                href="https://www.youtube.com/@careerskope" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="YouTube @careerskope" 
+                className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors" 
+                data-testid="social-youtube"
+              >
+                <Youtube className="h-5 w-5" />
+              </a>
+              <a 
+                href="https://www.facebook.com/Careerskop/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Facebook Careerskope" 
+                className="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-blue-900 transition-colors" 
+                data-testid="social-facebook"
+              >
+                <Facebook className="h-5 w-5" />
+              </a>
               <a 
                 href="https://www.instagram.com/careerskope" 
                 target="_blank" 
