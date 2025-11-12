@@ -1,63 +1,42 @@
 # Production Database Image Fix
 
 ## Problem
-Testimonials and blog articles in production were referencing image URLs that didn't exist in object storage, causing images to fail to load.
+Testimonials and blog articles in production were referencing image URLs that didn't exist in object storage, causing images to fail to load. Additionally, testimonials were using duplicate photos instead of unique, gender-appropriate images.
 
 ## Solution Implemented
-1. ✅ Uploaded actual images to object storage with the correct paths
-2. ✅ Images now exist at these URLs (accessible from both dev and production):
-   - `/public-objects/public/testimonials/profile-1.jpg`
-   - `/public-objects/public/testimonials/profile-2.jpg`
-   - `/public-objects/public/testimonials/profile-3.jpg`
+1. ✅ Uploaded gender-appropriate testimonial images (4 female, 4 male) to object storage
+2. ✅ Uploaded blog article featured images to object storage
+3. ✅ Updated seed data to assign unique photos based on gender
+4. ✅ Images now exist at these URLs (accessible from both dev and production):
+
+**Female Testimonial Photos:**
+   - `/public-objects/public/testimonials/female-1.jpg` (Priya Verma)
+   - `/public-objects/public/testimonials/female-2.jpg` (Sneha Kapoor)
+   - `/public-objects/public/testimonials/female-3.jpg` (Neha Agarwal)
+   - `/public-objects/public/testimonials/female-4.jpg` (Ananya Sharma)
+
+**Male Testimonial Photos:**
+   - `/public-objects/public/testimonials/male-1.jpg` (Amit Kumar)
+   - `/public-objects/public/testimonials/male-2.jpg` (Vikram Singh)
+   - `/public-objects/public/testimonials/male-3.jpg` (Rahul Patel)
+   - `/public-objects/public/testimonials/male-4.jpg` (Rajiv Mishra)
+
+**Blog Featured Images:**
    - `/public-objects/public/blogs/professionals-career.jpg`
    - `/public-objects/public/blogs/students-career.jpg`
    - `/public-objects/public/blogs/graduates-career.jpg`
 
 ## How to Fix Production Database
 
-### Option 1: Reset Seed Data (Recommended - Easiest)
+### Reset Seed Data (Simple & Recommended)
 1. Publish your app to production
 2. Login to the admin dashboard on production
 3. Go to the **Overview** tab
 4. Click **"Reset Seed Data"** button
-5. The database will be updated with the correct image URLs automatically
+5. All testimonials will now have unique, gender-appropriate photos
+6. All blog articles will have their featured images
 
-This is the simplest approach since the seed data already references the correct URLs and the images now exist in object storage.
-
-### Option 2: Manual SQL Update (If Reset Not Desired)
-If you prefer to update the existing production data without resetting, run these SQL queries on your **production database**:
-
-```sql
--- Update testimonials with correct image URLs
-UPDATE testimonials 
-SET image_url = '/public-objects/public/testimonials/profile-1.jpg'
-WHERE name IN ('Priya Verma', 'Vikram Singh', 'Ananya Sharma');
-
-UPDATE testimonials 
-SET image_url = '/public-objects/public/testimonials/profile-2.jpg'
-WHERE name IN ('Amit Kumar', 'Neha Agarwal', 'Rajiv Mishra');
-
-UPDATE testimonials 
-SET image_url = '/public-objects/public/testimonials/profile-3.jpg'
-WHERE name IN ('Sneha Kapoor', 'Rahul Patel');
-
--- Update blog articles with correct image URLs
-UPDATE blog_articles 
-SET image_url = '/public-objects/public/blogs/professionals-career.jpg'
-WHERE category = 'professionals' OR title LIKE '%Corporate Careers%';
-
-UPDATE blog_articles 
-SET image_url = '/public-objects/public/blogs/students-career.jpg'
-WHERE category = 'students' OR title LIKE '%Career Planning Tips%';
-
-UPDATE blog_articles 
-SET image_url = '/public-objects/public/blogs/graduates-career.jpg'
-WHERE category = 'graduates' OR title LIKE '%Campus to Corporate%';
-
--- Verify the updates
-SELECT name, image_url FROM testimonials ORDER BY created_at;
-SELECT title, image_url, category FROM blog_articles ORDER BY created_at;
-```
+This is the easiest approach - the seed data has been updated to assign unique photos to each person based on gender, and all images are already uploaded to object storage.
 
 ## Why This Won't Happen Again
 

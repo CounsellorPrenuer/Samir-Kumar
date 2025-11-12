@@ -11,7 +11,7 @@ export async function seedDatabase() {
           quote: "The psychometric test was incredibly insightful! It helped me understand my strengths and choose the right engineering stream. The counselors were patient and supportive throughout.",
           initial: "P",
           gradient: "bg-gradient-to-br from-pink-500 to-purple-600",
-          imageUrl: "/public-objects/public/testimonials/profile-1.jpg",
+          imageUrl: "/public-objects/public/testimonials/female-1.jpg",
           isActive: true
         },
         {
@@ -20,7 +20,7 @@ export async function seedDatabase() {
           quote: "Careerskope provided exceptional guidance during my MBA placement. The mock interviews and resume optimization helped me secure a position at a leading multinational company.",
           initial: "A",
           gradient: "bg-gradient-to-br from-orange-500 to-red-600",
-          imageUrl: "/public-objects/public/testimonials/profile-2.jpg",
+          imageUrl: "/public-objects/public/testimonials/male-1.jpg",
           isActive: true
         },
         {
@@ -29,7 +29,7 @@ export async function seedDatabase() {
           quote: "After 5 years in finance, I wanted to switch to digital marketing. The career counseling sessions at Careerskope gave me the confidence and roadmap to make this transition successfully.",
           initial: "S",
           gradient: "bg-gradient-to-br from-teal-500 to-cyan-600",
-          imageUrl: "/public-objects/public/testimonials/profile-3.jpg",
+          imageUrl: "/public-objects/public/testimonials/female-2.jpg",
           isActive: true
         },
         {
@@ -38,7 +38,7 @@ export async function seedDatabase() {
           quote: "As a confused 10th grader, I did not know which stream to choose. The counselors at Careerskope helped me discover my passion for science and guided me toward the right path.",
           initial: "V",
           gradient: "bg-gradient-to-br from-indigo-500 to-blue-600",
-          imageUrl: "/public-objects/public/testimonials/profile-1.jpg",
+          imageUrl: "/public-objects/public/testimonials/male-2.jpg",
           isActive: true
         },
         {
@@ -47,7 +47,7 @@ export async function seedDatabase() {
           quote: "The professional development workshops and interview preparation were game-changers. I landed my dream HR role within weeks of completing my graduation, thanks to Careerskope!",
           initial: "N",
           gradient: "bg-gradient-to-br from-rose-500 to-pink-600",
-          imageUrl: "/public-objects/public/testimonials/profile-2.jpg",
+          imageUrl: "/public-objects/public/testimonials/female-3.jpg",
           isActive: true
         },
         {
@@ -56,7 +56,7 @@ export async function seedDatabase() {
           quote: "The psychometric assessment and career coaching sessions gave me clarity about my strengths and helped me land my dream job in data analytics.",
           initial: "R",
           gradient: "bg-gradient-to-br from-red-500 to-pink-600",
-          imageUrl: "/public-objects/public/testimonials/profile-3.jpg",
+          imageUrl: "/public-objects/public/testimonials/male-3.jpg",
           isActive: true
         },
         {
@@ -65,7 +65,7 @@ export async function seedDatabase() {
           quote: "Careerskope helped me transition from engineering to product management seamlessly. The career mapping and mentorship were invaluable in my journey.",
           initial: "A",
           gradient: "bg-gradient-to-br from-green-500 to-blue-600",
-          imageUrl: "/public-objects/public/testimonials/profile-1.jpg",
+          imageUrl: "/public-objects/public/testimonials/female-4.jpg",
           isActive: true
         },
         {
@@ -74,7 +74,7 @@ export async function seedDatabase() {
           quote: "The psychometric assessment and career coaching sessions gave me clarity about my strengths and helped me land my dream job in data analytics.",
           initial: "R",
           gradient: "bg-gradient-to-br from-blue-500 to-purple-600",
-          imageUrl: "/public-objects/public/testimonials/profile-2.jpg",
+          imageUrl: "/public-objects/public/testimonials/male-4.jpg",
           isActive: true
         }
     ];
