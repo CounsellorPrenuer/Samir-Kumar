@@ -992,6 +992,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Serve public objects from storage
+  app.get("/public-objects/:filePath(*)", async (req, res) => {
+    const filePath = req.params.filePath;
+    const { ObjectStorageService } = await import("./objectStorage");
+    const objectStorageService = new ObjectStorageService();
+    try {
+      const file = await objectStorageService.searchPublicObject(filePath);
+      if (!file) {
+        return res.status(404).json({ error: "File not found" });
+      }
+      objectStorageService.downloadObject(file, res);
+    } catch (error) {
+      console.error("Error searching for public object:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
   // Admin endpoint to reset seed data
   app.post("/api/admin/reset-seed-data", requireAdmin, async (req, res) => {
     try {
