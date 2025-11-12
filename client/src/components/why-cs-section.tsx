@@ -12,7 +12,7 @@ export default function WhyCSSection() {
           <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
             Why Careerskope?
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto text-center">
             Comprehensive career guidance with proven frameworks and personalized approach
           </p>
         </div>
