@@ -32,11 +32,31 @@ export default function WorkshopBookingModal({ isOpen, onClose }: WorkshopBookin
       });
       return response.json();
     },
-    onSuccess: () => {
+    onSuccess: (_, data) => {
       toast({
         title: "Workshop Booking Submitted",
         description: "Thank you! We will contact you shortly to confirm your workshop booking.",
       });
+      
+      // Create mailto link with prefilled values
+      const receiverEmail = "samir.kumar@gnosiscs.com";
+      const subject = `AI Career Navigator Workshop Booking - ${data.schoolName}`;
+      
+      const body = `
+School Name: ${data.schoolName}
+Principal/Head of School: ${data.principalName}
+Email: ${data.email}
+Phone: ${data.phone}
+${data.numberOfStudents ? `Number of Students: ${data.numberOfStudents}` : ''}
+${data.preferredDate ? `Preferred Date: ${data.preferredDate}` : ''}
+${data.message ? `\nAdditional Information:\n${data.message}` : ''}
+      `.trim();
+      
+      const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(receiverEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+      // Open Gmail in new tab
+      window.open(mailtoLink, '_blank');
+      
       setFormData({
         schoolName: "",
         principalName: "",
