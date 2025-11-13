@@ -238,7 +238,13 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                   </div>
                   <div>
                     <div className="font-medium">Phone</div>
-                    <div className="text-muted-foreground">+91 9810 407 387</div>
+                    <a 
+                      href="tel:+919810407387" 
+                      className="text-muted-foreground hover:text-blue-600 hover:underline transition-colors"
+                      data-testid="link-phone"
+                    >
+                      +91 9810 407 387
+                    </a>
                   </div>
                 </div>
                 
@@ -248,7 +254,13 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                   </div>
                   <div>
                     <div className="font-medium">Email</div>
-                    <div className="text-muted-foreground">samir.kumar@gnosiscs.com</div>
+                    <a 
+                      href="mailto:samir.kumar@gnosiscs.com" 
+                      className="text-muted-foreground hover:text-green-600 hover:underline transition-colors"
+                      data-testid="link-email"
+                    >
+                      samir.kumar@gnosiscs.com
+                    </a>
                   </div>
                 </div>
               </div>
