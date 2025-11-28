@@ -16,6 +16,25 @@ import {
 import { z } from "zod";
 import bcrypt from "bcryptjs";
 import Razorpay from "razorpay";
+import multer from "multer";
+import { ObjectStorageService } from "./objectStorage";
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB limit
+  },
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type. Only JPEG, PNG, and WebP are allowed.'));
+    }
+  },
+});
+
+const objectStorageService = new ObjectStorageService();
 
 // Initialize Razorpay
 const razorpay = new Razorpay({
@@ -597,6 +616,59 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ success: true, message: "Blog article deleted successfully" });
     } catch (error) {
       res.status(500).json({ success: false, message: "Failed to delete blog article" });
+    }
+  });
+
+  // ===============================
+  // ADMIN IMAGE UPLOAD
+  // ===============================
+
+  // Admin upload image (for testimonials, blogs, etc.)
+  app.post("/api/admin/upload", requireAdmin, upload.single('image'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ success: false, message: "No file uploaded" });
+      }
+
+      const { type } = req.body; // 'testimonial' or 'blog'
+      if (!type || !['testimonial', 'blog'].includes(type)) {
+        return res.status(400).json({ success: false, message: "Invalid upload type. Must be 'testimonial' or 'blog'" });
+      }
+
+      const bucketId = process.env.DEFAULT_OBJECT_STORAGE_BUCKET_ID;
+      if (!bucketId) {
+        return res.status(500).json({ success: false, message: "Object storage not configured" });
+      }
+
+      // Generate unique filename
+      const timestamp = Date.now();
+      const extension = req.file.originalname.split('.').pop()?.toLowerCase() || 'jpg';
+      const sanitizedName = req.file.originalname
+        .replace(/\.[^/.]+$/, '')
+        .replace(/[^a-zA-Z0-9]/g, '-')
+        .toLowerCase()
+        .slice(0, 30);
+      const filename = `${sanitizedName}-${timestamp}.${extension}`;
+      
+      // Determine storage path based on type
+      const folder = type === 'testimonial' ? 'testimonials' : 'blogs';
+      const storagePath = `/${bucketId}/public/${folder}/${filename}`;
+
+      // Upload to object storage
+      const url = await objectStorageService.uploadBuffer(
+        req.file.buffer,
+        storagePath,
+        req.file.mimetype
+      );
+
+      res.json({ 
+        success: true, 
+        url,
+        message: "Image uploaded successfully" 
+      });
+    } catch (error) {
+      console.error("Upload error:", error);
+      res.status(500).json({ success: false, message: "Failed to upload image" });
     }
   });
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Plus, Edit, Trash2, Users, Star } from "lucide-react";
+import { Plus, Edit, Trash2, Users, Star, Upload, Image, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Testimonial {
@@ -30,6 +30,7 @@ interface Testimonial {
   quote: string;
   initial: string;
   gradient: string;
+  imageUrl?: string;
   isActive: boolean;
   featured?: string;
   createdAt: string;
@@ -272,12 +273,16 @@ function TestimonialForm({
   testimonial?: Testimonial; 
   onSubmit: (data: Partial<Testimonial>) => void; 
 }) {
+  const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState({
     name: testimonial?.name || "",
     role: testimonial?.role || "",
     quote: testimonial?.quote || "",
     initial: testimonial?.initial || "",
     gradient: testimonial?.gradient || gradientOptions[0].value,
+    imageUrl: testimonial?.imageUrl || "",
     isActive: testimonial?.isActive ?? true,
   });
 
@@ -292,6 +297,58 @@ function TestimonialForm({
       name,
       initial: name.charAt(0).toUpperCase()
     }));
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast({
+        title: "File too large",
+        description: "Please select an image under 5MB",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const formDataUpload = new FormData();
+      formDataUpload.append('image', file);
+      formDataUpload.append('type', 'testimonial');
+
+      const response = await fetch('/api/admin/upload', {
+        method: 'POST',
+        body: formDataUpload,
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setFormData(prev => ({ ...prev, imageUrl: data.url }));
+        toast({
+          title: "Image uploaded",
+          description: "Profile photo uploaded successfully",
+        });
+      } else {
+        throw new Error(data.message);
+      }
+    } catch (error) {
+      toast({
+        title: "Upload failed",
+        description: "Failed to upload image. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
+  const clearImage = () => {
+    setFormData(prev => ({ ...prev, imageUrl: "" }));
   };
 
   return (
@@ -331,6 +388,83 @@ function TestimonialForm({
         />
       </div>
 
+      <div>
+        <Label>Profile Photo</Label>
+        <div className="mt-2 space-y-3">
+          {formData.imageUrl ? (
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <img 
+                  src={formData.imageUrl} 
+                  alt="Profile preview" 
+                  className="w-16 h-16 rounded-full object-cover border-2 border-gray-200"
+                />
+                <button
+                  type="button"
+                  onClick={clearImage}
+                  className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full p-0.5 hover:bg-red-600"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </div>
+              <span className="text-sm text-muted-foreground truncate max-w-[200px]">
+                {formData.imageUrl}
+              </span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Image className="h-4 w-4" />
+              <span>No image uploaded</span>
+            </div>
+          )}
+          
+          <div className="flex items-center gap-3">
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              onChange={handleFileUpload}
+              className="hidden"
+              data-testid="input-file-upload"
+            />
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              data-testid="button-upload-image"
+            >
+              {uploading ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current mr-2"></div>
+                  Uploading...
+                </>
+              ) : (
+                <>
+                  <Upload className="h-4 w-4 mr-2" />
+                  Upload Photo
+                </>
+              )}
+            </Button>
+            <span className="text-xs text-muted-foreground">
+              JPG, PNG, WebP (max 5MB)
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-muted-foreground">Or enter URL:</span>
+            <Input
+              value={formData.imageUrl}
+              onChange={(e) => setFormData(prev => ({ ...prev, imageUrl: e.target.value }))}
+              placeholder="https://..."
+              className="flex-1 text-sm"
+              data-testid="input-image-url"
+            />
+          </div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-2 gap-4">
         <div>
           <Label htmlFor="initial">Initial</Label>
@@ -344,7 +478,7 @@ function TestimonialForm({
           />
         </div>
         <div>
-          <Label htmlFor="gradient">Avatar Gradient</Label>
+          <Label htmlFor="gradient">Avatar Gradient (fallback)</Label>
           <Select 
             value={formData.gradient} 
             onValueChange={(value) => setFormData(prev => ({ ...prev, gradient: value }))}
@@ -377,7 +511,7 @@ function TestimonialForm({
       </div>
 
       <div className="flex justify-end gap-2">
-        <Button type="submit" data-testid="button-submit">
+        <Button type="submit" disabled={uploading} data-testid="button-submit">
           {testimonial ? "Update" : "Create"} Testimonial
         </Button>
       </div>

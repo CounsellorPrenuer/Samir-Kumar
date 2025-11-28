@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,7 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Plus, Edit, Trash2, FileText, Calendar } from "lucide-react";
+import { Plus, Edit, Trash2, FileText, Calendar, Upload, Image, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface BlogArticle {
@@ -286,6 +286,9 @@ function BlogForm({
   article?: BlogArticle; 
   onSubmit: (data: Partial<BlogArticle>) => void; 
 }) {
+  const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState({
     title: article?.title || "",
     description: article?.description || "",
@@ -299,6 +302,58 @@ function BlogForm({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(formData);
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast({
+        title: "File too large",
+        description: "Please select an image under 5MB",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const formDataUpload = new FormData();
+      formDataUpload.append('image', file);
+      formDataUpload.append('type', 'blog');
+
+      const response = await fetch('/api/admin/upload', {
+        method: 'POST',
+        body: formDataUpload,
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setFormData(prev => ({ ...prev, imageUrl: data.url }));
+        toast({
+          title: "Image uploaded",
+          description: "Featured image uploaded successfully",
+        });
+      } else {
+        throw new Error(data.message);
+      }
+    } catch (error) {
+      toast({
+        title: "Upload failed",
+        description: "Failed to upload image. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
+  const clearImage = () => {
+    setFormData(prev => ({ ...prev, imageUrl: "" }));
   };
 
   return (
@@ -359,29 +414,78 @@ function BlogForm({
       </div>
 
       <div>
-        <Label htmlFor="image-url">Featured Image URL (Optional)</Label>
-        <Input
-          id="image-url"
-          value={formData.imageUrl}
-          onChange={(e) => setFormData(prev => ({ ...prev, imageUrl: e.target.value }))}
-          placeholder="e.g., https://example.com/image.jpg or /@fs/home/runner/workspace/attached_assets/..."
-          data-testid="input-image-url"
-        />
-        <p className="text-xs text-muted-foreground mt-1">
-          Enter any image URL from the internet or upload to attached_assets folder and use: /@fs/home/runner/workspace/attached_assets/...
-        </p>
-        {formData.imageUrl && (
-          <div className="mt-2">
-            <img 
-              src={formData.imageUrl} 
-              alt="Preview" 
-              className="w-full max-w-md h-48 object-cover rounded-lg border"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23ddd' width='400' height='300'/%3E%3Ctext fill='%23999' x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle'%3EImage not found%3C/text%3E%3C/svg%3E";
-              }}
+        <Label>Featured Image</Label>
+        <div className="mt-2 space-y-3">
+          {formData.imageUrl ? (
+            <div className="relative">
+              <img 
+                src={formData.imageUrl} 
+                alt="Featured preview" 
+                className="w-full max-w-md h-48 object-cover rounded-lg border"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23ddd' width='400' height='300'/%3E%3Ctext fill='%23999' x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle'%3EImage not found%3C/text%3E%3C/svg%3E";
+                }}
+              />
+              <button
+                type="button"
+                onClick={clearImage}
+                className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground border-2 border-dashed rounded-lg p-8 justify-center">
+              <Image className="h-8 w-8" />
+              <span>No featured image</span>
+            </div>
+          )}
+          
+          <div className="flex items-center gap-3">
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              onChange={handleFileUpload}
+              className="hidden"
+              data-testid="input-file-upload"
+            />
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              data-testid="button-upload-image"
+            >
+              {uploading ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current mr-2"></div>
+                  Uploading...
+                </>
+              ) : (
+                <>
+                  <Upload className="h-4 w-4 mr-2" />
+                  Upload Image
+                </>
+              )}
+            </Button>
+            <span className="text-xs text-muted-foreground">
+              JPG, PNG, WebP (max 5MB)
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-muted-foreground">Or enter URL:</span>
+            <Input
+              value={formData.imageUrl}
+              onChange={(e) => setFormData(prev => ({ ...prev, imageUrl: e.target.value }))}
+              placeholder="https://..."
+              className="flex-1 text-sm"
+              data-testid="input-image-url"
             />
           </div>
-        )}
+        </div>
       </div>
 
       <div>
@@ -411,7 +515,7 @@ function BlogForm({
       </div>
 
       <div className="flex justify-end gap-2">
-        <Button type="submit" data-testid="button-submit">
+        <Button type="submit" disabled={uploading} data-testid="button-submit">
           {article ? "Update" : "Create"} Article
         </Button>
       </div>

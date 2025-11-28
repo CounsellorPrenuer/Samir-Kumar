@@ -112,6 +112,21 @@ export class ObjectStorageService {
     
     return `/public-objects/${objectName}`;
   }
+
+  async uploadBuffer(buffer: Buffer, storagePath: string, contentType: string): Promise<string> {
+    const { bucketName, objectName } = parseObjectPath(storagePath);
+    const bucket = objectStorageClient.bucket(bucketName);
+    const file = bucket.file(objectName);
+    
+    await file.save(buffer, {
+      metadata: {
+        contentType,
+        cacheControl: 'public, max-age=31536000',
+      },
+    });
+    
+    return `/public-objects/${objectName}`;
+  }
 }
 
 function parseObjectPath(path: string): {
