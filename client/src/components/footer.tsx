@@ -138,7 +138,7 @@ export default function Footer() {
             </div> */}
             <div className="text-gray-400 flex items-center">
               Made with <Heart className="h-4 w-4 text-red-500 mx-1" /> by{" "}
-              <span className="text-blue-400 ml-1">Mentoria</span>
+              <span className="text-blue-400 ml-1">Careerskope</span>
             </div>
           </div>
           <div className="text-center space-y-2">
