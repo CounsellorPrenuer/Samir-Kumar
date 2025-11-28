@@ -38,10 +38,21 @@ Preferred communication style: Simple, everyday language.
 - **User Management**: Basic user schema with username/password authentication
 - **Security**: Express session configuration with secure cookie settings
 
+### Admin File Upload System
+- **Image Upload Endpoint**: `/api/admin/upload` with multer middleware for multipart form handling
+- **Storage**: Google Cloud Storage via object storage integration
+- **File Validation**: JPEG, PNG, WebP formats only, 5MB max file size
+- **Testimonials**: Upload profile photos for testimonials with preview and fallback URL input
+- **Blog Articles**: Upload featured images for blog posts with preview and fallback URL input
+- **Storage Paths**: 
+  - Testimonials: `/{bucket}/public/testimonials/{filename}`
+  - Blogs: `/{bucket}/public/blogs/{filename}`
+
 ### External Dependencies
 - **Database**: Neon serverless PostgreSQL for production data storage
-- **Email Service**: Prepared for integration with email service providers for contact form notifications
-- **Asset Management**: Local asset storage with Vite static file serving
+- **Object Storage**: Google Cloud Storage for image uploads and static assets
+- **Email Service**: Gmail compose window integration for workshop bookings and contact forms
+- **Asset Management**: Object storage with organized public directories
 - **Fonts**: Google Fonts integration (Inter, Architects Daughter, DM Sans, Fira Code, Geist Mono)
 - **Icons**: Lucide React for consistent iconography
 - **Analytics**: Ready for integration with analytics services
