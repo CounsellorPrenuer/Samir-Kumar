@@ -807,6 +807,102 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Admin seed packages
+  app.post("/api/admin/seed-packages", requireAdmin, async (req, res) => {
+    try {
+      const seedPackages = [
+        {
+          name: "Discover",
+          description: "Basic career guidance for students and beginners",
+          price: "2999",
+          category: "8-9-students",
+          features: [
+            "Career interest assessment",
+            "Psychometric evaluation",
+            "1 Careerskope's expert career counseling session",
+            "Career roadmap",
+            "Email support"
+          ],
+          isPopular: false,
+          isActive: true
+        },
+        {
+          name: "Discover+",
+          description: "Comprehensive career guidance with personalized coaching",
+          price: "5999",
+          category: "10-12-students",
+          features: [
+            "Career interest & aptitude assessment",
+            "Psychometric evaluation",
+            "3 Careerskope's expert career counseling sessions",
+            "Detailed career roadmap",
+            "LinkedIn profile optimization",
+            "Mock interview",
+            "WhatsApp & email support"
+          ],
+          isPopular: true,
+          isActive: true
+        },
+        {
+          name: "Professional Development",
+          description: "Career advancement for working professionals",
+          price: "7999",
+          category: "working-professionals",
+          features: [
+            "Career transition assessment",
+            "Leadership evaluation",
+            "2 Careerskope's expert career counseling sessions",
+            "Career advancement strategy",
+            "Resume optimization",
+            "Interview preparation",
+            "Priority support"
+          ],
+          isPopular: false,
+          isActive: true
+        },
+        {
+          name: "Graduate Success",
+          description: "Placement readiness for college graduates",
+          price: "4999",
+          category: "college-graduates",
+          features: [
+            "Career assessment",
+            "Psychometric evaluation",
+            "2 Careerskope's expert career counseling sessions",
+            "Placement readiness coaching",
+            "Resume & portfolio review",
+            "Company-specific interview prep",
+            "Email support"
+          ],
+          isPopular: false,
+          isActive: true
+        }
+      ];
+
+      let createdCount = 0;
+      const existingPackages = await storage.getPackages();
+
+      for (const pkg of seedPackages) {
+        // Check if package with same name already exists
+        const exists = existingPackages.some(p => p.name.toLowerCase() === pkg.name.toLowerCase());
+        if (!exists) {
+          await storage.createPackage(pkg);
+          createdCount++;
+        }
+      }
+
+      res.json({ 
+        success: true, 
+        message: `Seeding complete. Created ${createdCount} new packages.`,
+        created: createdCount,
+        total: existingPackages.length + createdCount
+      });
+    } catch (error) {
+      console.error("Seed packages error:", error);
+      res.status(500).json({ success: false, message: "Failed to seed packages" });
+    }
+  });
+
   // ===============================
   // ADMIN PAYMENTS MANAGEMENT
   // ===============================

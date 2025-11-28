@@ -20,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Plus, Edit, Trash2, Package, DollarSign, Star, X } from "lucide-react";
+import { Plus, Edit, Trash2, Package, DollarSign, Star, X, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface PackageType {
@@ -57,6 +57,7 @@ export default function PackagesManagement() {
   const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [editingPackage, setEditingPackage] = useState<PackageType | null>(null);
+  const [seeding, setSeeding] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -171,6 +172,37 @@ export default function PackagesManagement() {
     }
   };
 
+  const seedPackages = async () => {
+    if (!confirm("This will seed default packages (Discover, Discover+, etc.). Existing packages with the same names will be skipped. Continue?")) return;
+
+    setSeeding(true);
+    try {
+      const response = await fetch("/api/admin/seed-packages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        toast({
+          title: "Success",
+          description: data.message || "Packages seeded successfully",
+        });
+        fetchPackages();
+      } else {
+        throw new Error(data.message);
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to seed packages",
+        variant: "destructive"
+      });
+    } finally {
+      setSeeding(false);
+    }
+  };
+
   const formatPrice = (price: string) => {
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
@@ -199,20 +231,40 @@ export default function PackagesManagement() {
           <h2 className="text-2xl font-bold">Packages Management</h2>
           <p className="text-muted-foreground">Manage service packages and pricing</p>
         </div>
-        <Dialog open={showCreateModal} onOpenChange={setShowCreateModal}>
-          <DialogTrigger asChild>
-            <Button data-testid="button-create-package">
-              <Plus className="h-4 w-4 mr-2" />
-              Add Package
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>Create New Package</DialogTitle>
-            </DialogHeader>
-            <PackageForm onSubmit={createPackage} />
-          </DialogContent>
-        </Dialog>
+        <div className="flex gap-2">
+          <Button 
+            variant="outline" 
+            onClick={seedPackages}
+            disabled={seeding}
+            data-testid="button-seed-packages"
+          >
+            {seeding ? (
+              <>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current mr-2"></div>
+                Seeding...
+              </>
+            ) : (
+              <>
+                <Zap className="h-4 w-4 mr-2" />
+                Seed Packages
+              </>
+            )}
+          </Button>
+          <Dialog open={showCreateModal} onOpenChange={setShowCreateModal}>
+            <DialogTrigger asChild>
+              <Button data-testid="button-create-package">
+                <Plus className="h-4 w-4 mr-2" />
+                Add Package
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Create New Package</DialogTitle>
+              </DialogHeader>
+              <PackageForm onSubmit={createPackage} />
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
 
       <div className="grid gap-6">
