@@ -7,6 +7,7 @@ export default function Footer() {
     { label: "Solutions", href: "#packages" },
     { label: "Contact", href: "#contact" },
     { label: "Success Stories", href: "#testimonials" },
+    { label: "Privacy Policy", href: "/privacy-policy", isRoute: true },
   ];
 
   const services = [
@@ -106,13 +107,23 @@ export default function Footer() {
             <ul className="space-y-2">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <button 
-                    onClick={() => scrollToSection(link.href)}
-                    className="text-gray-300 hover:text-white transition-colors"
-                    data-testid={`footer-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
-                  >
-                    {link.label}
-                  </button>
+                  {(link as any).isRoute ? (
+                    <a 
+                      href={link.href}
+                      className="text-gray-300 hover:text-white transition-colors"
+                      data-testid={`footer-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <button 
+                      onClick={() => scrollToSection(link.href)}
+                      className="text-gray-300 hover:text-white transition-colors"
+                      data-testid={`footer-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
+                    >
+                      {link.label}
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>

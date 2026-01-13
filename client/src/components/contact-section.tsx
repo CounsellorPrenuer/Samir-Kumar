@@ -5,7 +5,8 @@ import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { Phone, Mail, Linkedin, Calendar, Check, GraduationCap } from "lucide-react";
+import { Phone, Mail, Calendar, GraduationCap } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,7 +19,10 @@ const contactSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
   phone: z.string().min(10, "Please enter a valid phone number"),
   category: z.string().min(1, "Please select a category"),
-  message: z.string().optional()
+  message: z.string().optional(),
+  privacyConsent: z.boolean().refine(val => val === true, {
+    message: "You must agree to the privacy policy to continue"
+  })
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -34,7 +38,8 @@ export default function ContactSection() {
       email: "",
       phone: "",
       category: "",
-      message: ""
+      message: "",
+      privacyConsent: false
     }
   });
 
@@ -213,6 +218,36 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                     </FormItem>
                   )}
                 />
+
+                <FormField
+                  control={form.control}
+                  name="privacyConsent"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                          data-testid="checkbox-privacy-consent"
+                        />
+                      </FormControl>
+                      <div className="space-y-1 leading-none">
+                        <FormLabel className="text-sm font-normal cursor-pointer">
+                          I agree to receive information on various programs, events, offers and I understand that my data will only be used as per the{" "}
+                          <a 
+                            href="/privacy-policy" 
+                            target="_blank" 
+                            className="text-blue-600 hover:underline"
+                          >
+                            privacy policy
+                          </a>{" "}
+                          of the website.
+                        </FormLabel>
+                        <FormMessage />
+                      </div>
+                    </FormItem>
+                  )}
+                />
                 
                 <Button 
                   type="submit" 
@@ -239,11 +274,11 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                   <div>
                     <div className="font-medium">Phone</div>
                     <a 
-                      href="tel:+919810407387" 
+                      href="tel:+919810424972" 
                       className="text-muted-foreground hover:text-blue-600 hover:underline transition-colors"
                       data-testid="link-phone"
                     >
-                      +91 9810 407 387
+                      +91 9810 424 972
                     </a>
                   </div>
                 </div>
