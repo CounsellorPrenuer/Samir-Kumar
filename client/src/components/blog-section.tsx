@@ -1,7 +1,19 @@
+import { STATIC_BLOG_ARTICLES } from "@/lib/static-data";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import type { BlogArticle } from "@shared/schema";
 import BlogDetailModal from "./blog-detail-modal";
+import { client, urlFor } from "@/lib/sanity";
+import { useQuery } from "@tanstack/react-query";
+
+interface SanityPost {
+  title: string;
+  description: string;
+  category: string;
+  readTime: string;
+  mainImage: any;
+  publishedAt: string;
+  slug: { current: string };
+}
 
 export default function BlogSection() {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -16,16 +28,39 @@ export default function BlogSection() {
     { key: "professionals", label: "Professionals" }
   ];
 
-  // Fetch blog articles from database
-  const { data: articles = [], isLoading } = useQuery<BlogArticle[]>({
-    queryKey: ['/api/blog-articles', activeFilter],
-    queryFn: () => {
-      const params = activeFilter !== "all" ? `?category=${activeFilter}` : "";
-      return fetch(`/api/blog-articles${params}`).then(res => res.json());
+  // Fetch from Sanity
+  const { data: sanityPosts, isLoading } = useQuery({
+    queryKey: ['sanity-posts'],
+    queryFn: async () => {
+      try {
+        const data = await client.fetch<SanityPost[]>(`*[_type == "post"] | order(publishedAt desc)`);
+        console.log("Sanity Blog Data:", data);
+        return data;
+      } catch (error) {
+        console.warn("Sanity fetch failed, using fallback:", error);
+        return [];
+      }
     }
   });
 
-  // Add styling based on category
+  const sourceArticles = (!isLoading && sanityPosts && sanityPosts.length > 0)
+    ? sanityPosts.map((p, idx) => ({
+      id: String(idx + 1),
+      title: p.title,
+      description: p.description,
+      category: p.category,
+      readTime: p.readTime || "5 min read",
+      imageUrl: p.mainImage ? urlFor(p.mainImage) : null,
+      content: p.description,
+      isActive: true,
+      videoUrl: null,
+      published: new Date(p.publishedAt),
+      createdAt: new Date(p.publishedAt)
+    }))
+    : STATIC_BLOG_ARTICLES;
+
+  const filteredArticles = sourceArticles.filter(article => activeFilter === "all" || article.category === activeFilter);
+
   const getArticleStyles = (category: string) => {
     switch (category) {
       case "students":
@@ -38,8 +73,6 @@ export default function BlogSection() {
         return { color: "text-gray-600", hoverColor: "hover:text-gray-700" };
     }
   };
-
-  const filteredArticles = Array.isArray(articles) ? articles : [];
 
   // Show only first 3 articles unless "showAll" is true
   const displayedArticles = showAll ? filteredArticles : filteredArticles.slice(0, 3);
@@ -68,7 +101,7 @@ export default function BlogSection() {
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Stay updated with Industry trends, Career development insights, and inputs on personal growth
+            Stay updated with Industry trends, Career development insights, and inputs on personal growth
           </p>
         </div>
 
@@ -96,15 +129,15 @@ export default function BlogSection() {
             {displayedArticles.map((article) => {
               const styles = getArticleStyles(article.category);
               return (
-                <article 
+                <article
                   key={article.id}
                   className="bg-card rounded-xl hover-lift text-center border-2 border-transparent hover:border-purple-300 hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300 overflow-hidden"
                   data-testid={`blog-card-${article.category}`}
                 >
                   {article.imageUrl ? (
                     <div className="w-full h-48 overflow-hidden">
-                      <img 
-                        src={article.imageUrl} 
+                      <img
+                        src={article.imageUrl}
                         alt={article.title}
                         className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
                         onError={(e) => {
@@ -130,9 +163,9 @@ export default function BlogSection() {
                     <p className="text-muted-foreground text-sm mb-4 line-clamp-3">{article.description}</p>
                     <div className="flex items-center justify-between">
                       <span className="text-xs text-muted-foreground">{article.readTime}</span>
-                      <button 
+                      <button
                         onClick={() => handleReadMore(article)}
-                        className={`font-semibold text-sm ${styles.color} ${styles.hoverColor} transition-colors duration-200`} 
+                        className={`font-semibold text-sm ${styles.color} ${styles.hoverColor} transition-colors duration-200`}
                         data-testid={`button-read-more-${article.id}`}
                       >
                         Read More
@@ -147,9 +180,9 @@ export default function BlogSection() {
 
         {!showAll && filteredArticles.length > 3 && (
           <div className="text-center mt-12">
-            <button 
+            <button
               onClick={handleViewAllArticles}
-              className="bg-gradient-to-r from-blue-600 to-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-red-700 transition-all duration-300 transform hover:scale-105" 
+              className="bg-gradient-to-r from-blue-600 to-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-red-700 transition-all duration-300 transform hover:scale-105"
               data-testid="button-view-all-articles"
             >
               View All Articles ({filteredArticles.length - 3} more)
@@ -159,9 +192,9 @@ export default function BlogSection() {
 
         {showAll && (
           <div className="text-center mt-12">
-            <button 
+            <button
               onClick={() => setShowAll(false)}
-              className="bg-gradient-to-r from-gray-600 to-gray-700 text-white px-8 py-3 rounded-lg font-semibold hover:from-gray-700 hover:to-gray-800 transition-all duration-300" 
+              className="bg-gradient-to-r from-gray-600 to-gray-700 text-white px-8 py-3 rounded-lg font-semibold hover:from-gray-700 hover:to-gray-800 transition-all duration-300"
               data-testid="button-show-less-articles"
             >
               Show Less

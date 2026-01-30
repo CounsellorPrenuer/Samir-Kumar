@@ -2,10 +2,8 @@ import { useState } from "react";
 import { Check, Sparkles } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { useQuery } from "@tanstack/react-query";
-import { useToast } from "@/hooks/use-toast";
-import PaymentModal from "./payment-modal";
 import packageIntroImage from "@assets/stock_images/career_counselor_mee_55ef8d9e.jpg";
+import RazorpayButton from "./razorpay-button";
 
 interface Package {
   id: string;
@@ -16,6 +14,7 @@ interface Package {
   category: string;
   isPopular: boolean;
   isActive: boolean;
+  paymentButtonId: string;
 }
 
 interface CustomizePlan {
@@ -29,34 +28,42 @@ interface CustomizePlan {
   displayOrder: number;
 }
 
+import { client } from "@/lib/sanity";
+import { getPaymentButtonId } from "@/lib/static-payment-ids";
+import { useQuery } from "@tanstack/react-query";
+
+interface SanityPackage {
+  title: string;
+  price: string;
+  description: string;
+  features: string[];
+  category: string;
+  isPopular?: boolean;
+}
+
+import { STATIC_PACKAGES, STATIC_CUSTOMIZE_PLANS } from "@/lib/static-data";
+
 export default function PackagesSectionTabs() {
   const [activeTab, setActiveTab] = useState("normal-plans");
   const [activeCategory, setActiveCategory] = useState("8-9-students");
-  const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
-  const [selectedPlan, setSelectedPlan] = useState<CustomizePlan | null>(null);
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const { toast } = useToast();
 
-  // Fetch normal packages
-  const { data: packages = [], isLoading: packagesLoading } = useQuery<Package[]>({
-    queryKey: ["/api/packages"],
+  // Fetch from Sanity at Runtime
+  const { data: sanityPackages, isLoading } = useQuery({
+    queryKey: ['sanity-packages'],
+    queryFn: async () => {
+      try {
+        const query = `*[_type == "pricing"] | order(displayOrder asc)`;
+        const data = await client.fetch<SanityPackage[]>(query);
+        console.log("Sanity Packages Data:", data);
+        return data;
+      } catch (error) {
+        console.warn("Sanity fetch failed, using fallback:", error);
+        return [];
+      }
+    }
   });
 
-  // Fetch customize plans
-  const { data: customizePlans = [], isLoading: plansLoading } = useQuery<CustomizePlan[]>({
-    queryKey: ["/api/customize-plans"],
-  });
-
-  const formatPrice = (price: string, priceType?: string) => {
-    const formatted = new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-    }).format(parseFloat(price));
-    
-    if (priceType === "monthly") return `${formatted}/month`;
-    if (priceType === "per-interaction") return `${formatted} per interaction`;
-    return formatted;
-  };
+  const customizePlans = STATIC_CUSTOMIZE_PLANS;
 
   const categories = [
     { id: "8-9-students", label: "8-9 STUDENTS" },
@@ -65,24 +72,39 @@ export default function PackagesSectionTabs() {
     { id: "working-professionals", label: "WORKING PROFESSIONALS" },
   ];
 
+  // Use Sanity data if available and not loading, otherwise fallback to static
+  const packages = (!isLoading && sanityPackages && sanityPackages.length > 0)
+    ? sanityPackages.map(pkg => ({
+      id: pkg.title,
+      name: pkg.title,
+      description: pkg.description,
+      price: pkg.price?.replace(/[^0-9.]/g, '') || "0",
+      features: pkg.features || [],
+      category: pkg.category,
+      isPopular: pkg.isPopular || false,
+      isActive: true,
+      paymentButtonId: getPaymentButtonId(pkg.title) || ""
+    }))
+    : STATIC_PACKAGES;
+
+  const formatPrice = (price: string, priceType?: string) => {
+    if (price === "0") return "View Details";
+
+    const formatted = new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      maximumFractionDigits: 0
+    }).format(parseFloat(price));
+
+    if (priceType === "monthly") return `${formatted}/month`;
+    if (priceType === "per-interaction") return `${formatted} per interaction`;
+    return formatted;
+  };
+
   const filteredPackages = packages
-    .filter(pkg => pkg.category === activeCategory)
-    .sort((a, b) => {
-      // Sort by price: lower prices (standard) first, higher prices (premium) last
-      return parseFloat(a.price) - parseFloat(b.price);
-    });
+    .filter(pkg => pkg.category === activeCategory);
+  // .sort(...) // Sanity 'order(displayOrder asc)' handles sort
 
-  const handlePackageSelect = (pkg: Package) => {
-    setSelectedPackage(pkg);
-    setSelectedPlan(null);
-    setShowPaymentModal(true);
-  };
-
-  const handlePlanSelect = (plan: CustomizePlan) => {
-    setSelectedPlan(plan);
-    setSelectedPackage(null);
-    setShowPaymentModal(true);
-  };
 
   return (
     <section id="packages" className="scroll-mt-20 py-16 bg-gradient-to-br from-blue-50/50 to-purple-50/50">
@@ -105,19 +127,19 @@ export default function PackagesSectionTabs() {
                 Comprehensive Career Guidance in <span className="text-blue-600">Faridabad and Delhi NCR</span>
               </h3>
               <p className="text-lg text-muted-foreground mb-4">
-                Our expert career counsellors in Faridabad and Delhi NCR provide personalized guidance tailored to your unique strengths, 
-                interests, and aspirations. Whether you're a student exploring career options or a professional seeking 
+                Our expert career counsellors in Faridabad and Delhi NCR provide personalized guidance tailored to your unique strengths,
+                interests, and aspirations. Whether you're a student exploring career options or a professional seeking
                 advancement, we have the perfect solution for you.
               </p>
               <p className="text-base text-muted-foreground">
-                Each package includes psychometric assessments, one-on-one counselling sessions, and comprehensive career 
+                Each package includes psychometric assessments, one-on-one counselling sessions, and comprehensive career
                 reports designed to help you make informed decisions about your future.
               </p>
             </div>
             <div className="order-1 md:order-2 rounded-xl overflow-hidden shadow-lg">
-              <img 
-                src={packageIntroImage} 
-                alt="Career Guidance Services in Faridabad and Delhi NCR" 
+              <img
+                src={packageIntroImage}
+                alt="Career Guidance Services in Faridabad and Delhi NCR"
                 className="w-full h-full object-cover"
                 data-testid="img-package-intro"
               />
@@ -128,16 +150,16 @@ export default function PackagesSectionTabs() {
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-2 mb-8 h-auto p-1">
-            <TabsTrigger 
-              value="normal-plans" 
+            <TabsTrigger
+              value="normal-plans"
               className="text-sm sm:text-base font-semibold py-3 px-2 sm:px-4 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white"
               data-testid="tab-normal-plans"
             >
               <span className="hidden sm:inline">Careerskope's Plans</span>
               <span className="sm:hidden">Our Plans</span>
             </TabsTrigger>
-            <TabsTrigger 
-              value="customize-plan" 
+            <TabsTrigger
+              value="customize-plan"
               className="text-sm sm:text-base font-semibold py-3 px-2 sm:px-4 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white"
               data-testid="tab-customize-plan"
             >
@@ -154,11 +176,10 @@ export default function PackagesSectionTabs() {
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`px-3 sm:px-6 py-2 sm:py-3 rounded-full font-semibold text-xs sm:text-sm transition-all ${
-                    activeCategory === cat.id
-                      ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105"
-                      : "bg-white text-gray-700 border-2 border-gray-200 hover:border-blue-600"
-                  }`}
+                  className={`px-3 sm:px-6 py-2 sm:py-3 rounded-full font-semibold text-xs sm:text-sm transition-all ${activeCategory === cat.id
+                    ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-105"
+                    : "bg-white text-gray-700 border-2 border-gray-200 hover:border-blue-600"
+                    }`}
                   data-testid={`category-${cat.id}`}
                 >
                   {cat.label}
@@ -167,29 +188,18 @@ export default function PackagesSectionTabs() {
             </div>
 
             {/* Packages Grid */}
-            {packagesLoading ? (
-              <div className="text-center py-12">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="mt-4 text-muted-foreground">Loading packages...</p>
-              </div>
-            ) : filteredPackages.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground">No packages available for this category yet.</p>
-              </div>
-            ) : (
-              <div className="flex flex-wrap justify-center gap-6 max-w-7xl mx-auto">
-                {filteredPackages.map((pkg) => {
-                  const isPremium = pkg.name.toLowerCase().includes('plus+');
-                  return (
+            <div className="flex flex-wrap justify-center gap-6 max-w-7xl mx-auto">
+              {filteredPackages.map((pkg) => {
+                const isPremium = pkg.name.toLowerCase().includes('plus');
+                return (
                   <div
                     key={pkg.id}
-                    className={`relative rounded-2xl p-6 border-2 transition-all hover:shadow-xl hover:scale-105 w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] ${
-                      isPremium 
-                        ? "bg-gradient-to-br from-purple-50 via-white to-blue-50 border-purple-400 shadow-lg shadow-purple-100" 
-                        : pkg.isPopular 
-                          ? "bg-white border-purple-500 shadow-purple-200" 
-                          : "bg-white border-gray-200"
-                    }`}
+                    className={`relative rounded-2xl p-6 border-2 transition-all hover:shadow-xl hover:scale-105 w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] ${isPremium
+                      ? "bg-gradient-to-br from-purple-50 via-white to-blue-50 border-purple-400 shadow-lg shadow-purple-100"
+                      : pkg.isPopular
+                        ? "bg-white border-purple-500 shadow-purple-200"
+                        : "bg-white border-gray-200"
+                      }`}
                     data-testid={`package-card-${pkg.id}`}
                   >
                     {isPremium && (
@@ -227,18 +237,13 @@ export default function PackagesSectionTabs() {
                       ))}
                     </ul>
 
-                    <Button
-                      onClick={() => handlePackageSelect(pkg)}
-                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                      data-testid={`button-select-package-${pkg.id}`}
-                    >
-                      Select Plan
-                    </Button>
+                    <div className="mt-4">
+                      <RazorpayButton paymentButtonId={pkg.paymentButtonId} />
+                    </div>
                   </div>
-                  );
-                })}
-              </div>
-            )}
+                );
+              })}
+            </div>
           </TabsContent>
 
           {/* Customize Plans Tab */}
@@ -248,71 +253,46 @@ export default function PackagesSectionTabs() {
                 Want to customise your plan? If you want to subscribe to specific services that resolve your career challenges, you can choose one or more of the following:
               </p>
 
-              {plansLoading ? (
-                <div className="text-center py-12">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                  <p className="mt-4 text-muted-foreground">Loading customize plans...</p>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {customizePlans.map((plan) => (
-                    <div
-                      key={plan.id}
-                      className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-all hover:border-blue-400"
-                      data-testid={`customize-plan-${plan.id}`}
-                    >
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                        <div className="flex-1">
-                          <h3 className="text-lg font-bold text-gray-900 mb-2">{plan.name}</h3>
-                          <p className="text-gray-600 text-sm">{plan.description}</p>
-                        </div>
+              <div className="space-y-4">
+                {customizePlans.map((plan) => (
+                  <div
+                    key={plan.id}
+                    className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-all hover:border-blue-400"
+                    data-testid={`customize-plan-${plan.id}`}
+                  >
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold text-gray-900 mb-2">{plan.name}</h3>
+                        <p className="text-gray-600 text-sm">{plan.description}</p>
+                      </div>
 
-                        <div className="flex flex-col items-end gap-3 md:min-w-[200px]">
-                          <div className="text-2xl font-bold text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">
-                            {formatPrice(plan.price, plan.priceType)}
-                          </div>
-                          {plan.duration && (
-                            <div className="text-xs text-gray-500">{plan.duration}</div>
-                          )}
-                          <Button
-                            onClick={() => handlePlanSelect(plan)}
-                            variant="outline"
-                            className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
-                            data-testid={`button-buy-plan-${plan.id}`}
-                          >
-                            Buy Now
-                          </Button>
+                      <div className="flex flex-col items-end gap-3 md:min-w-[200px]">
+                        <div className="text-2xl font-bold text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">
+                          {formatPrice(plan.price, plan.priceType)}
                         </div>
+                        {plan.duration && (
+                          <div className="text-xs text-gray-500">{plan.duration}</div>
+                        )}
+                        <Button
+                          variant="outline"
+                          className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                          data-testid={`button-buy-plan-${plan.id}`}
+                          onClick={() => {
+                            // Placeholder for customize plan action if any
+                            alert("Please contact us for customized plans or select a package.");
+                          }}
+                        >
+                          Details
+                        </Button>
                       </div>
                     </div>
-                  ))}
-                </div>
-              )}
+                  </div>
+                ))}
+              </div>
             </div>
           </TabsContent>
         </Tabs>
       </div>
-
-      {/* Payment Modal */}
-      {showPaymentModal && (selectedPackage || selectedPlan) && (
-        <PaymentModal
-          isOpen={showPaymentModal}
-          onClose={() => {
-            setShowPaymentModal(false);
-            setSelectedPackage(null);
-            setSelectedPlan(null);
-          }}
-          package={selectedPackage || {
-            id: selectedPlan!.id,
-            name: selectedPlan!.name,
-            price: selectedPlan!.price,
-            description: selectedPlan!.description,
-            features: [],
-            category: "customize",
-            isPopular: false,
-          }}
-        />
-      )}
     </section>
   );
 }

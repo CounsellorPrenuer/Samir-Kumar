@@ -1,4 +1,5 @@
 import { Heart, Linkedin, Twitter, Facebook, Instagram, Youtube } from "lucide-react";
+import { Link } from "wouter";
 import careerSkopeLogoPath from "@assets/Screenshot 2025-09-27 114759_1758954653506.png";
 
 export default function Footer() {
@@ -12,7 +13,7 @@ export default function Footer() {
 
   const services = [
     "Career Guidance",
-    "Psychometric Assessment", 
+    "Psychometric Assessment",
     "Workshops & Seminars",
     "Admission Guidance",
     "Corporate Mentorship"
@@ -64,43 +65,43 @@ export default function Footer() {
               <span className="text-xl font-bold">Careerskope</span>
             </div>
             <p className="text-gray-300 mb-4">
-              Empowering careers and creating futures through expert guidance, strategic planning, 
+              Empowering careers and creating futures through expert guidance, strategic planning,
               and personalized mentorship.
             </p>
             <div className="flex space-x-4">
-              <a 
-                href="https://www.youtube.com/@careerskope" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                aria-label="YouTube @careerskope" 
-                className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors" 
+              <a
+                href="https://www.youtube.com/@careerskope"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube @careerskope"
+                className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors"
                 data-testid="social-youtube"
               >
                 <Youtube className="h-5 w-5" />
               </a>
-              <a 
-                href="https://www.facebook.com/Careerskop/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                aria-label="Facebook Careerskope" 
-                className="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-blue-900 transition-colors" 
+              <a
+                href="https://www.facebook.com/Careerskop/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook Careerskope"
+                className="w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center hover:bg-blue-900 transition-colors"
                 data-testid="social-facebook"
               >
                 <Facebook className="h-5 w-5" />
               </a>
-              <a 
-                href="https://www.instagram.com/careerskope" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                aria-label="Instagram @careerskope" 
-                className="w-10 h-10 bg-pink-600 rounded-full flex items-center justify-center hover:bg-pink-700 transition-colors" 
+              <a
+                href="https://www.instagram.com/careerskope"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram @careerskope"
+                className="w-10 h-10 bg-pink-600 rounded-full flex items-center justify-center hover:bg-pink-700 transition-colors"
                 data-testid="social-instagram"
               >
                 <Instagram className="h-5 w-5" />
               </a>
             </div>
           </div>
-          
+
           {/* Quick Links */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
@@ -108,15 +109,15 @@ export default function Footer() {
               {quickLinks.map((link, index) => (
                 <li key={index}>
                   {(link as any).isRoute ? (
-                    <a 
+                    <Link
                       href={link.href}
-                      className="text-gray-300 hover:text-white transition-colors"
+                      className="text-gray-300 hover:text-white transition-colors cursor-pointer"
                       data-testid={`footer-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
                     >
                       {link.label}
-                    </a>
+                    </Link>
                   ) : (
-                    <button 
+                    <button
                       onClick={() => scrollToSection(link.href)}
                       className="text-gray-300 hover:text-white transition-colors"
                       data-testid={`footer-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
@@ -128,7 +129,7 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-          
+
           {/* Services */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Services</h4>
@@ -141,7 +142,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        
+
         <div className="border-t border-gray-700 pt-8">
           <div className="flex items-center justify-between mb-3">
             {/* <div className="text-sm text-gray-400">

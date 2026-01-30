@@ -1,19 +1,52 @@
+import { STATIC_TESTIMONIALS } from "@/lib/static-data";
 import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, Star, Play, Pause, Quote, Heart, Award } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import type { Testimonial } from "@shared/schema";
 import { useAutoScroll } from "@/hooks/use-auto-scroll";
 import { useInView } from "@/hooks/use-in-view";
-import testimonialsImage from "@assets/stock_images/diverse_professional_a20be336.jpg";
+import { client, urlFor } from "@/lib/sanity";
+
+interface SanityTestimonial {
+  name: string;
+  role: string;
+  quote: string;
+  image: any;
+  initial: string;
+  gradient: string;
+  isActive: boolean;
+}
 
 export default function TestimonialsSection() {
   const { ref: sectionRef, isInView } = useInView({ threshold: 0.3 });
 
-  // Fetch testimonials from database
-  const { data: testimonials = [], isLoading } = useQuery<Testimonial[]>({
-    queryKey: ['/api/testimonials'],
-    queryFn: () => fetch('/api/testimonials').then(res => res.json())
+  // Fetch from Sanity
+  // Fetch from Sanity
+  const { data: sanityTestimonials, isLoading } = useQuery({
+    queryKey: ['sanity-testimonials'],
+    queryFn: async () => {
+      try {
+        const data = await client.fetch<SanityTestimonial[]>(`*[_type == "testimonial" && isActive == true]`);
+        console.log("Sanity Testimonials Data:", data);
+        return data;
+      } catch (error) {
+        console.warn("Sanity fetch failed, using fallback:", error);
+        return [];
+      }
+    }
   });
+
+  const testimonials = (!isLoading && sanityTestimonials && sanityTestimonials.length > 0)
+    ? sanityTestimonials.map((t, idx) => ({
+      id: idx + 1,
+      name: t.name,
+      role: t.role,
+      quote: t.quote,
+      initial: t.initial || (t.name ? t.name[0] : "U"),
+      gradient: t.gradient || "bg-gradient-to-r from-blue-500 to-purple-600",
+      imageUrl: t.image ? urlFor(t.image) : null,
+      isActive: true
+    }))
+    : STATIC_TESTIMONIALS;
 
   // Enhanced auto-scroll with controls
   const {
@@ -88,10 +121,10 @@ export default function TestimonialsSection() {
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-center">
-          Hear from students and professionals who achieved success through the career counselling and guidance services of Careerskope
+            Hear from students and professionals who achieved success through the career counselling and guidance services of Careerskope
           </p>
         </div>
-        
+
         {isLoading ? (
           <div className="relative max-w-4xl mx-auto">
             <div className="overflow-hidden rounded-xl">
@@ -128,11 +161,10 @@ export default function TestimonialsSection() {
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      index === currentIndex
-                        ? 'bg-gradient-to-r from-blue-500 to-red-500 scale-110'
-                        : 'bg-gray-300 hover:bg-gray-400'
-                    }`}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex
+                      ? 'bg-gradient-to-r from-blue-500 to-red-500 scale-110'
+                      : 'bg-gray-300 hover:bg-gray-400'
+                      }`}
                     data-testid={`indicator-${index}`}
                     aria-label={`Go to testimonial ${index + 1}`}
                   >
@@ -141,18 +173,18 @@ export default function TestimonialsSection() {
               </div>
             </div>
 
-            <div 
+            <div
               className="overflow-hidden rounded-xl"
               onMouseEnter={pause}
               onMouseLeave={resume}
             >
-              <div 
+              <div
                 className="flex transition-transform duration-700 ease-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
                 {testimonials.map((testimonial, index) => (
-                  <div 
-                    key={testimonial.id} 
+                  <div
+                    key={testimonial.id}
                     className="w-full flex-shrink-0 p-4"
                     data-testid={`testimonial-${index}`}
                   >
@@ -161,13 +193,13 @@ export default function TestimonialsSection() {
                       <div className="absolute top-2 right-2 opacity-10">
                         <Quote className="h-12 w-12 text-blue-500" />
                       </div>
-                      
+
                       <div className="relative z-10">
                         <div className="flex items-center mb-4">
                           {testimonial.imageUrl ? (
                             <div className="w-12 h-12 rounded-full overflow-hidden mr-3 ring-2 ring-blue-500/30">
-                              <img 
-                                src={testimonial.imageUrl} 
+                              <img
+                                src={testimonial.imageUrl}
                                 alt={testimonial.name}
                                 className="w-full h-full object-cover"
                               />
@@ -182,13 +214,13 @@ export default function TestimonialsSection() {
                             <div className="text-muted-foreground text-sm">{testimonial.role}</div>
                           </div>
                         </div>
-                        
+
                         <div className="mb-4">
                           <p className="text-muted-foreground leading-relaxed text-sm">
                             "{testimonial.quote}"
                           </p>
                         </div>
-                        
+
                         <div className="flex items-center justify-between">
                           <div className="flex text-yellow-400">
                             {[...Array(5)].map((_, i) => (
@@ -205,8 +237,8 @@ export default function TestimonialsSection() {
                 ))}
               </div>
             </div>
-            
-            <button 
+
+            <button
               onClick={prevTestimonial}
               className="absolute -left-4 top-1/2 transform -translate-y-1/2 bg-card w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-80 hover:opacity-100 rounded-full shadow-lg"
               data-testid="button-prev-testimonial"
@@ -214,7 +246,7 @@ export default function TestimonialsSection() {
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
-            <button 
+            <button
               onClick={nextTestimonial}
               className="absolute -right-4 top-1/2 transform -translate-y-1/2 bg-card w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-80 hover:opacity-100 rounded-full shadow-lg"
               data-testid="button-next-testimonial"
