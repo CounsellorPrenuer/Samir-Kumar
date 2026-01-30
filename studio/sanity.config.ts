@@ -7,7 +7,7 @@ export default defineConfig({
     name: 'default',
     title: 'Samir Kumar Studio',
 
-    projectId: '8b1oyfam',
+    projectId: '0qfs08ee',
     dataset: 'production',
 
     plugins: [deskTool(), visionTool()],
