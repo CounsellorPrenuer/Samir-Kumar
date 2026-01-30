@@ -31,7 +31,7 @@ export default defineConfig({
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
   },
-  base: "/Samir-Kumar/",
+  base: "/",
   server: {
     fs: {
       strict: true,
