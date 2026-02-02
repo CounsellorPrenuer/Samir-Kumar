@@ -278,7 +278,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
           </div>
 
           {/* Contact Information & Workshop */}
-          <div className="w-full lg:flex-1 flex flex-col gap-8 h-full">
+          <div className="w-full lg:flex-1 grid grid-rows-[auto_1fr] gap-8 h-full">
             <div className="bg-card p-8 rounded-xl shadow-lg">
               <h4 className="text-xl font-semibold mb-4">Contact Information</h4>
               <div className="space-y-4">
@@ -316,7 +316,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-8 rounded-xl text-white shadow-xl flex-grow flex flex-col justify-between">
+            <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-8 rounded-xl text-white shadow-xl w-full h-full flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center shrink-0">
