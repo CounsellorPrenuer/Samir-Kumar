@@ -24,24 +24,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build:client
-
-      - name: Copy CNAME and create 404
-        run: |
-          cp CNAME dist/CNAME
-          cp dist/index.html dist/404.html
-
       - name: Setup Pages
+        uses: actions/configure-pages@v5
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Deploy the 'dist' folder that we committed
+          path: './dist'
         uses: actions/configure-pages@v5
       
       - name: Upload artifact
