@@ -36,6 +36,11 @@ jobs:
       - name: Build
         run: npm run build:client
 
+      - name: Copy CNAME and create 404
+        run: |
+          cp CNAME dist/CNAME
+          cp dist/index.html dist/404.html
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
       
