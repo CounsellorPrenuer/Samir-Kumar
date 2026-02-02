@@ -118,7 +118,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
         <div className="text-center mb-16">
           <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              Get In Touch (v12)
+              Get In Touch
             </span>
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
@@ -126,7 +126,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-12 items-stretch">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Contact Form */}
           <div className="w-full lg:flex-1 bg-card p-8 rounded-xl shadow-lg flex flex-col">
             <h3 className="text-xl sm:text-2xl font-semibold mb-6">Book Your Call</h3>
@@ -278,7 +278,8 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
           </div>
 
           {/* Contact Information & Workshop */}
-          <div className="w-full lg:flex-1 grid grid-rows-[auto_1fr] gap-8 h-full">
+          {/* Contact Information & Workshop */}
+          <div className="flex flex-col gap-8 h-full">
             <div className="bg-card p-8 rounded-xl shadow-lg">
               <h4 className="text-xl font-semibold mb-4">Contact Information</h4>
               <div className="space-y-4">
@@ -316,7 +317,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-8 rounded-xl text-white shadow-xl w-full h-full flex flex-col justify-between">
+            <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-8 rounded-xl text-white shadow-xl flex-1 flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center shrink-0">

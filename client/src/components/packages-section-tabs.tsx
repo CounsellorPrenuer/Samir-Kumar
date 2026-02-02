@@ -13,6 +13,8 @@ interface Package {
   features: string[];
   category: string;
   isPopular: boolean;
+  isPremium?: boolean;
+  displayOrder?: number;
   isActive: boolean;
   paymentButtonId: string;
 }
@@ -34,25 +36,37 @@ import { useQuery } from "@tanstack/react-query";
 
 interface SanityPackage {
   title: string;
-  price: string;
+  displayPrice: string; // Corrected field name
   description: string;
   features: string[];
   category: string;
   isPopular?: boolean;
+  isPremium?: boolean;
+  displayOrder?: number;
 }
 
 import { STATIC_PACKAGES, STATIC_CUSTOMIZE_PLANS } from "@/lib/static-data";
 
 export default function PackagesSectionTabs() {
   const [activeTab, setActiveTab] = useState("normal-plans");
-  const [activeCategory, setActiveCategory] = useState("8-9-students");
+  const [activeCategory, setActiveCategory] = useState("8-9-students"); // Default active category
+
+  // Map Sanity titles to server-side plan IDs if necessary
+  // This is a placeholder, replace with actual mapping if needed
+  const SERVER_PLAN_MAP: { [key: string]: string } = {
+    "Foundation Plan": "foundation-plan",
+    "Explorer Plan": "explorer-plan",
+    "Achiever Plan": "achiever-plan",
+    "Professional Plan": "professional-plan",
+  };
 
   // Fetch from Sanity at Runtime
   const { data: sanityPackages, isLoading } = useQuery({
     queryKey: ['sanity-packages'],
     queryFn: async () => {
       try {
-        const query = `*[_type == "pricing"] | order(displayOrder asc)`;
+        // Filter out drafts and ensure title exists
+        const query = `*[_type == "pricing" && !(_id in path("drafts.**")) && defined(title)] | order(displayOrder asc)`;
         const data = await client.fetch<SanityPackage[]>(query);
         console.log("Sanity Packages Data:", data);
         return data;
@@ -75,18 +89,20 @@ export default function PackagesSectionTabs() {
   // Use Sanity data if available and not loading, otherwise fallback to static
   const packages = (!isLoading && sanityPackages && sanityPackages.length > 0)
     ? sanityPackages.map(pkg => ({
-      id: pkg.title,
-      name: pkg.title,
-      description: pkg.description,
-      price: pkg.price?.replace(/[^0-9.]/g, '') || "0",
+      id: SERVER_PLAN_MAP[pkg.title] || pkg.title?.toLowerCase().replace(/\s+/g, '-') || "unknown-plan",
+      name: pkg.title || "Untitled Plan",
+      description: pkg.description || "",
+      price: pkg.displayPrice?.replace(/[^0-9.]/g, '') || "0",
       features: pkg.features || [],
-      category: pkg.category,
+      category: pkg.category || "8-9-students",
       isPopular: pkg.isPopular || false,
+      isPremium: pkg.isPremium || false,
       isActive: true,
       paymentButtonId: getPaymentButtonId(pkg.title) || ""
     }))
     : STATIC_PACKAGES;
 
+  // Formatting Helper
   const formatPrice = (price: string, priceType?: string) => {
     if (price === "0") return "View Details";
 
@@ -101,10 +117,7 @@ export default function PackagesSectionTabs() {
     return formatted;
   };
 
-  const filteredPackages = packages
-    .filter(pkg => pkg.category === activeCategory);
-  // .sort(...) // Sanity 'order(displayOrder asc)' handles sort
-
+  const filteredPackages = packages.filter(pkg => pkg.category === activeCategory);
 
   // State for tracking which package is being purchased
   const [processingId, setProcessingId] = useState<string | null>(null);
@@ -202,11 +215,11 @@ export default function PackagesSectionTabs() {
             {/* Packages Grid */}
             <div className="flex flex-wrap justify-center gap-6 max-w-7xl mx-auto">
               {filteredPackages.map((pkg) => {
-                const isPremium = pkg.name.toLowerCase().includes('plus');
+                const isPremium = pkg.isPremium;
                 return (
                   <div
                     key={pkg.id}
-                    className={`relative rounded-2xl p-6 border-2 transition-all hover:shadow-xl hover:scale-105 w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] ${isPremium
+                    className={`relative rounded-2xl p-6 border-2 transition-all hover:shadow-xl hover:scale-105 w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] flex flex-col ${isPremium
                       ? "bg-gradient-to-br from-purple-50 via-white to-blue-50 border-purple-400 shadow-lg shadow-purple-100"
                       : pkg.isPopular
                         ? "bg-white border-purple-500 shadow-purple-200"
@@ -249,7 +262,7 @@ export default function PackagesSectionTabs() {
                       ))}
                     </ul>
 
-                    <div className="mt-4">
+                    <div className="mt-auto">
                       <Button
                         className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-6"
                         onClick={() => onBuyClick(pkg.id)}

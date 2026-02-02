@@ -47,6 +47,20 @@ export default {
                     { title: 'Working Professionals', value: 'working-professionals' }
                 ]
             }
+        },
+        {
+            name: 'isPremium',
+            title: 'Is Premium?',
+            type: 'boolean',
+            description: 'Check this to show the Premium badge.',
+            initialValue: false
+        },
+        {
+            name: 'displayOrder',
+            title: 'Display Order',
+            type: 'number',
+            description: 'Order in which the package appears (1, 2, 3...)',
+            initialValue: 0
         }
     ]
 }

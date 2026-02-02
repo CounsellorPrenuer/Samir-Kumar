@@ -160,10 +160,7 @@ app.post('/create-order', async (c) => {
         ).bind(
             orderData.id,
             planId,
-            finalAmount, // Storing in INR for readability, or use orderData.amount (paise) if preferred. SQL schema says INTEGER. Let's use Base Unit (INR) for consistency with static data, OR paise. 
-            // Safest is usually smallest unit. Let's stick to INR as per 'amount' usually implying display value, but standard is cents/paise. 
-            // Let's store what we charged: amountInPaise.
-            amountInPaise,
+            amountInPaise, // Storing amount in paise
             "INR",
             "created",
             couponCode || null,
@@ -180,9 +177,9 @@ app.post('/create-order', async (c) => {
             key_id: c.env.RAZORPAY_KEY_ID // Frontend needs this to open checkout
         })
 
-    } catch (e) {
+    } catch (e: any) {
         console.error("Create Order Error:", e)
-        return c.json({ success: false, message: "Internal Server Error" }, 500)
+        return c.json({ success: false, message: `Internal Server Error: ${e.message || e}` }, 500)
     }
 })
 
