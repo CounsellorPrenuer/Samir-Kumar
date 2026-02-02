@@ -126,12 +126,12 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+        <div className="flex flex-col lg:flex-row gap-12 items-stretch">
           {/* Contact Form */}
-          <div className="bg-card p-8 rounded-xl shadow-lg h-full">
+          <div className="w-full lg:flex-1 bg-card p-8 rounded-xl shadow-lg flex flex-col">
             <h3 className="text-xl sm:text-2xl font-semibold mb-6">Book Your Call</h3>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 h-full flex flex-col">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex-grow flex flex-col">
                 <div className="space-y-6 flex-grow">
                   <FormField
                     control={form.control}
@@ -278,7 +278,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
           </div>
 
           {/* Contact Information & Workshop */}
-          <div className="flex flex-col gap-8 h-full">
+          <div className="w-full lg:flex-1 flex flex-col gap-8">
             <div className="bg-card p-8 rounded-xl shadow-lg">
               <h4 className="text-xl font-semibold mb-4">Contact Information</h4>
               <div className="space-y-4">
@@ -316,7 +316,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-8 rounded-xl text-white shadow-xl flex-1 flex flex-col justify-between">
+            <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-8 rounded-xl text-white shadow-xl flex-grow flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center shrink-0">
