@@ -128,7 +128,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="bg-card p-4 sm:p-8 rounded-xl">
+          <div className="bg-card p-8 rounded-xl shadow-lg">
             <h3 className="text-xl sm:text-2xl font-semibold mb-6">Book Your Call</h3>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -277,7 +277,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
 
           {/* Contact Information */}
           <div className="space-y-8">
-            <div className="bg-card p-6 rounded-xl">
+            <div className="bg-card p-8 rounded-xl shadow-lg">
               <h4 className="text-xl font-semibold mb-4">Contact Information</h4>
               <div className="space-y-4">
                 <div className="flex items-center">
