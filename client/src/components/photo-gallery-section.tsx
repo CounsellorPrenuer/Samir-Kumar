@@ -59,9 +59,17 @@ export default function PhotoGallerySection() {
         </div>
 
         {!photos || photos.length === 0 ? (
-          <div className="text-center py-12">
-            <ImageIcon className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-600 text-lg">No photos available yet</p>
+          <div className="text-center py-12 bg-white rounded-xl shadow-sm border border-red-100 max-w-2xl mx-auto">
+            <ImageIcon className="h-16 w-16 text-red-400 mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-red-600 mb-2">Gallery Not Loading</h3>
+            <p className="text-gray-600">
+              No photos found in Sanity CMS.
+            </p>
+            <p className="text-sm text-gray-500 mt-2 px-4">
+              <strong>Troubleshooting:</strong><br />
+              1. Check if photos are <strong>Published</strong> (green button) in Sanity Studio.<br />
+              2. Check <strong>CORS Origins</strong> in Sanity API settings (essential).
+            </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
