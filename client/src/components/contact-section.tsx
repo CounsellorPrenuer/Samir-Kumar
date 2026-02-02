@@ -278,7 +278,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
           </div>
 
           {/* Contact Information & Workshop */}
-          <div className="w-full lg:flex-1 flex flex-col gap-8">
+          <div className="w-full lg:flex-1 flex flex-col gap-8 h-full">
             <div className="bg-card p-8 rounded-xl shadow-lg">
               <h4 className="text-xl font-semibold mb-4">Contact Information</h4>
               <div className="space-y-4">

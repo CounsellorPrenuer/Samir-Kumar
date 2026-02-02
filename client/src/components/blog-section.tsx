@@ -45,25 +45,20 @@ export default function BlogSection() {
     }
   });
 
-  // Merge Sanity data with Static data
-  const sourceArticles = [
-    // Sanity Data First
-    ...((!isLoading && sanityPosts) ? sanityPosts.map((p, idx) => ({
-      id: `sanity-${idx}`,
-      title: p.title,
-      description: p.excerpt || p.description || "",
-      category: p.category || "students",
-      readTime: p.readTime || "5 min read",
-      imageUrl: p.thumbnail ? urlFor(p.thumbnail) : (p.mainImage ? urlFor(p.mainImage) : null),
-      content: p.excerpt || p.description || "",
-      isActive: true,
-      videoUrl: null,
-      published: p.publishedAt ? new Date(p.publishedAt) : new Date(),
-      createdAt: p.publishedAt ? new Date(p.publishedAt) : new Date()
-    })) : []),
-    // Then Static Data (fallback or supplementary)
-    ...STATIC_BLOG_ARTICLES
-  ];
+  // Use Sanity data ONLY. No static fallback.
+  const sourceArticles = (!isLoading && sanityPosts) ? sanityPosts.map((p, idx) => ({
+    id: `sanity-${idx}`,
+    title: p.title,
+    description: p.excerpt || p.description || "",
+    category: p.category || "students",
+    readTime: p.readTime || "5 min read",
+    imageUrl: p.thumbnail ? urlFor(p.thumbnail) : (p.mainImage ? urlFor(p.mainImage) : null),
+    content: p.excerpt || p.description || "",
+    isActive: true,
+    videoUrl: null,
+    published: p.publishedAt ? new Date(p.publishedAt) : new Date(),
+    createdAt: p.publishedAt ? new Date(p.publishedAt) : new Date()
+  })) : [];
 
   const filteredArticles = sourceArticles.filter(article => activeFilter === "all" || article.category === activeFilter);
 
@@ -129,6 +124,18 @@ export default function BlogSection() {
                 </div>
               </div>
             ))}
+          </div>
+        ) : displayedArticles.length === 0 ? (
+          <div className="text-center py-12 bg-white rounded-xl shadow-sm border border-red-100 max-w-2xl mx-auto">
+            <h3 className="text-xl font-bold text-red-600 mb-2">Resources Not Loading</h3>
+            <p className="text-gray-600">
+              No content found in Sanity CMS.
+            </p>
+            <p className="text-sm text-gray-500 mt-2 px-4">
+              <strong>Troubleshooting:</strong><br />
+              1. Check if 'Resource' items are <strong>Published</strong> in Sanity Studio.<br />
+              2. Check <strong>CORS Origins</strong> in Sanity API settings.
+            </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
