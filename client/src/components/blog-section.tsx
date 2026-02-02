@@ -45,21 +45,25 @@ export default function BlogSection() {
     }
   });
 
-  const sourceArticles = (!isLoading && sanityPosts && sanityPosts.length > 0)
-    ? sanityPosts.map((p, idx) => ({
-      id: String(idx + 1),
+  // Merge Sanity data with Static data
+  const sourceArticles = [
+    // Sanity Data First
+    ...((!isLoading && sanityPosts) ? sanityPosts.map((p, idx) => ({
+      id: `sanity-${idx}`,
       title: p.title,
-      description: p.excerpt || p.description || "", // Map excerpt
-      category: p.category || "students", // Default fallback
+      description: p.excerpt || p.description || "",
+      category: p.category || "students",
       readTime: p.readTime || "5 min read",
       imageUrl: p.thumbnail ? urlFor(p.thumbnail) : (p.mainImage ? urlFor(p.mainImage) : null),
-      content: p.excerpt || p.description || "", // Use excerpt as content for preview
+      content: p.excerpt || p.description || "",
       isActive: true,
       videoUrl: null,
       published: p.publishedAt ? new Date(p.publishedAt) : new Date(),
       createdAt: p.publishedAt ? new Date(p.publishedAt) : new Date()
-    }))
-    : STATIC_BLOG_ARTICLES;
+    })) : []),
+    // Then Static Data (fallback or supplementary)
+    ...STATIC_BLOG_ARTICLES
+  ];
 
   const filteredArticles = sourceArticles.filter(article => activeFilter === "all" || article.category === activeFilter);
 

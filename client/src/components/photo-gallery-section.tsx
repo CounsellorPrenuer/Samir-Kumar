@@ -15,12 +15,15 @@ export default function PhotoGallerySection() {
     queryFn: async () => {
       try {
         const data = await client.fetch<SanityGalleryImage[]>(`*[_type == "galleryImage"]`);
-        return data.map(item => ({
+        console.log("Raw Sanity Gallery Data:", data);
+        const mapped = data.map(item => ({
           id: item._id,
           imageUrl: item.image ? urlFor(item.image) : "",
           caption: item.title,
           alt: item.altText
         }));
+        console.log("Mapped Gallery Data:", mapped);
+        return mapped;
       } catch (error) {
         console.warn("Sanity fetch failed:", error);
         return [];
