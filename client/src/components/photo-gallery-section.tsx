@@ -1,10 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
 import { Image as ImageIcon } from "lucide-react";
-import type { PhotoGallery } from "@shared/schema";
+import { client, urlFor } from "@/lib/sanity";
+
+interface SanityGalleryImage {
+  _id: string;
+  title: string;
+  image: any;
+  altText: string;
+}
 
 export default function PhotoGallerySection() {
-  const { data: photos, isLoading } = useQuery<PhotoGallery[]>({
-    queryKey: ["/api/photo-gallery"],
+  const { data: photos, isLoading } = useQuery({
+    queryKey: ["sanity-gallery"],
+    queryFn: async () => {
+      try {
+        const data = await client.fetch<SanityGalleryImage[]>(`*[_type == "galleryImage"]`);
+        return data.map(item => ({
+          id: item._id,
+          imageUrl: item.image ? urlFor(item.image) : "",
+          caption: item.title,
+          alt: item.altText
+        }));
+      } catch (error) {
+        console.warn("Sanity fetch failed:", error);
+        return [];
+      }
+    }
   });
 
   if (isLoading) {
@@ -42,14 +63,14 @@ export default function PhotoGallerySection() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {photos.map((photo, index) => (
-              <div 
-                key={photo.id} 
+              <div
+                key={photo.id}
                 className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
                 data-testid={`gallery-photo-${index}`}
               >
-                <img 
-                  src={photo.imageUrl} 
-                  alt={photo.caption || `Gallery photo ${index + 1}`}
+                <img
+                  src={photo.imageUrl}
+                  alt={photo.alt || photo.caption || `Gallery photo ${index + 1}`}
                   className="w-full h-auto block"
                   loading="lazy"
                 />

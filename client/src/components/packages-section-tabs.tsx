@@ -3,7 +3,7 @@ import { Check, Sparkles } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import packageIntroImage from "@assets/stock_images/career_counselor_mee_55ef8d9e.jpg";
-import RazorpayButton from "./razorpay-button";
+import { handlePayment } from "@/lib/payment";
 
 interface Package {
   id: string;
@@ -105,6 +105,18 @@ export default function PackagesSectionTabs() {
     .filter(pkg => pkg.category === activeCategory);
   // .sort(...) // Sanity 'order(displayOrder asc)' handles sort
 
+
+  // State for tracking which package is being purchased
+  const [processingId, setProcessingId] = useState<string | null>(null);
+
+  const onBuyClick = async (pkgId: string) => {
+    setProcessingId(pkgId);
+    try {
+      await handlePayment(pkgId);
+    } finally {
+      setProcessingId(null);
+    }
+  };
 
   return (
     <section id="packages" className="scroll-mt-20 py-16 bg-gradient-to-br from-blue-50/50 to-purple-50/50">
@@ -238,7 +250,13 @@ export default function PackagesSectionTabs() {
                     </ul>
 
                     <div className="mt-4">
-                      <RazorpayButton paymentButtonId={pkg.paymentButtonId} />
+                      <Button
+                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-6"
+                        onClick={() => onBuyClick(pkg.id)}
+                        disabled={processingId === pkg.id || !!processingId}
+                      >
+                        {processingId === pkg.id ? "Processing..." : "Buy Now"}
+                      </Button>
                     </div>
                   </div>
                 );
@@ -277,12 +295,10 @@ export default function PackagesSectionTabs() {
                           variant="outline"
                           className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
                           data-testid={`button-buy-plan-${plan.id}`}
-                          onClick={() => {
-                            // Placeholder for customize plan action if any
-                            alert("Please contact us for customized plans or select a package.");
-                          }}
+                          onClick={() => onBuyClick(plan.id)}
+                          disabled={processingId === plan.id || !!processingId}
                         >
-                          Details
+                          {processingId === plan.id ? "Processing..." : "Buy Now"}
                         </Button>
                       </div>
                     </div>

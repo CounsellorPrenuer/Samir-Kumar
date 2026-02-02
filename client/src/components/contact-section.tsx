@@ -30,7 +30,7 @@ type ContactFormData = z.infer<typeof contactSchema>;
 export default function ContactSection() {
   const { toast } = useToast();
   const [showWorkshopModal, setShowWorkshopModal] = useState(false);
-  
+
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -45,14 +45,27 @@ export default function ContactSection() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: ContactFormData) => {
-      return await apiRequest("POST", "/api/contact", data);
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || "https://samir-kumar-backend.garyphadale.workers.dev";
+      const response = await fetch(`${baseUrl}/submit-lead`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit");
+      }
+
+      return await response.json();
     },
     onSuccess: (_, data) => {
       toast({
         title: "Success!",
         description: "Thank you for your interest! We will contact you soon.",
       });
-      
+
       // Create mailto link with prefilled values
       const receiverEmail = "samir.kumar@gnosiscs.com";
       const subject = `New Contact Form Submission from ${data.name}`;
@@ -63,7 +76,7 @@ export default function ContactSection() {
         parent: "Parent",
         corporate: "Corporate"
       };
-      
+
       const body = `
 Name: ${data.name}
 Email: ${data.email}
@@ -71,12 +84,12 @@ Phone: ${data.phone}
 Category: ${categoryLabels[data.category] || data.category}
 ${data.message ? `\nMessage:\n${data.message}` : ''}
       `.trim();
-      
+
       const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(receiverEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      
+
       // Open Gmail in new tab
       window.open(mailtoLink, '_blank');
-      
+
       form.reset();
     },
     onError: (error) => {
@@ -94,7 +107,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
 
   const benefits = [
     "Personalized career assessment",
-    "Industry insights and trends", 
+    "Industry insights and trends",
     "Tailored guidance strategy",
     "No obligations"
   ];
@@ -112,7 +125,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
             Ready to transform your career? Let's start with a conversation.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <div className="bg-card p-4 sm:p-8 rounded-xl">
@@ -126,8 +139,8 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                     <FormItem>
                       <FormLabel>Full Name</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="Enter your full name" 
+                        <Input
+                          placeholder="Enter your full name"
                           {...field}
                           data-testid="input-name"
                         />
@@ -136,7 +149,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="email"
@@ -144,9 +157,9 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                     <FormItem>
                       <FormLabel>Email Address</FormLabel>
                       <FormControl>
-                        <Input 
+                        <Input
                           type="email"
-                          placeholder="Enter your email" 
+                          placeholder="Enter your email"
                           {...field}
                           data-testid="input-email"
                         />
@@ -155,7 +168,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="phone"
@@ -163,9 +176,9 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                     <FormItem>
                       <FormLabel>Phone Number</FormLabel>
                       <FormControl>
-                        <Input 
+                        <Input
                           type="tel"
-                          placeholder="Enter your phone number" 
+                          placeholder="Enter your phone number"
                           {...field}
                           data-testid="input-phone"
                         />
@@ -174,7 +187,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="category"
@@ -199,7 +212,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="message"
@@ -207,9 +220,9 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                     <FormItem>
                       <FormLabel>Message (Optional)</FormLabel>
                       <FormControl>
-                        <Textarea 
+                        <Textarea
                           rows={4}
-                          placeholder="Tell us about your career goals..." 
+                          placeholder="Tell us about your career goals..."
                           {...field}
                           data-testid="textarea-message"
                         />
@@ -234,9 +247,9 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                       <div className="space-y-1 leading-none">
                         <FormLabel className="text-sm font-normal cursor-pointer">
                           I agree to receive information on various programs, events, offers and I understand that my data will only be used as per the{" "}
-                          <a 
-                            href="/privacy-policy" 
-                            target="_blank" 
+                          <a
+                            href="/privacy-policy"
+                            target="_blank"
                             className="text-blue-600 hover:underline"
                           >
                             privacy policy
@@ -248,9 +261,9 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                     </FormItem>
                   )}
                 />
-                
-                <Button 
-                  type="submit" 
+
+                <Button
+                  type="submit"
                   className="w-full bg-gradient-to-r from-blue-600 to-red-600 hover:from-blue-700 hover:to-red-700"
                   disabled={contactMutation.isPending}
                   data-testid="button-submit-contact"
@@ -261,7 +274,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
               </form>
             </Form>
           </div>
-          
+
           {/* Contact Information */}
           <div className="space-y-8">
             <div className="bg-card p-6 rounded-xl">
@@ -273,8 +286,8 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                   </div>
                   <div>
                     <div className="font-medium">Phone</div>
-                    <a 
-                      href="tel:+919810424972" 
+                    <a
+                      href="tel:+919810424972"
                       className="text-muted-foreground hover:text-blue-600 hover:underline transition-colors"
                       data-testid="link-phone"
                     >
@@ -282,15 +295,15 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                     </a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center">
                   <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4">
                     <Mail className="h-5 w-5 text-green-600" />
                   </div>
                   <div>
                     <div className="font-medium">Email</div>
-                    <a 
-                      href="mailto:samir.kumar@gnosiscs.com" 
+                    <a
+                      href="mailto:samir.kumar@gnosiscs.com"
                       className="text-muted-foreground hover:text-green-600 hover:underline transition-colors"
                       data-testid="link-email"
                     >
@@ -300,7 +313,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                 </div>
               </div>
             </div>
-            
+
             <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-8 rounded-xl text-white shadow-xl">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
@@ -311,7 +324,7 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                   <p className="text-sm text-white/90">For Class 9-12 Students & Parents</p>
                 </div>
               </div>
-              
+
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 mb-6">
                 <p className="text-sm font-semibold mb-2">KIND ATTENTION: SCHOOL PRINCIPAL / HEAD OF SCHOOL MANAGEMENT</p>
                 <p className="text-white/90 leading-relaxed">

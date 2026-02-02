@@ -7,10 +7,12 @@ import { useQuery } from "@tanstack/react-query";
 
 interface SanityPost {
   title: string;
-  description: string;
+  excerpt: string; // New schema uses excerpt
+  description?: string; // Legacy
   category: string;
   readTime: string;
-  mainImage: any;
+  thumbnail: any; // New schema uses thumbnail
+  mainImage?: any; // Legacy
   publishedAt: string;
   slug: { current: string };
 }
@@ -33,8 +35,8 @@ export default function BlogSection() {
     queryKey: ['sanity-posts'],
     queryFn: async () => {
       try {
-        const data = await client.fetch<SanityPost[]>(`*[_type == "post"] | order(publishedAt desc)`);
-        console.log("Sanity Blog Data:", data);
+        const data = await client.fetch<SanityPost[]>(`*[_type == "resource"] | order(publishedAt desc)`);
+        console.log("Sanity Resource Data:", data);
         return data;
       } catch (error) {
         console.warn("Sanity fetch failed, using fallback:", error);
@@ -47,15 +49,15 @@ export default function BlogSection() {
     ? sanityPosts.map((p, idx) => ({
       id: String(idx + 1),
       title: p.title,
-      description: p.description,
-      category: p.category,
+      description: p.excerpt || p.description || "", // Map excerpt
+      category: p.category || "students", // Default fallback
       readTime: p.readTime || "5 min read",
-      imageUrl: p.mainImage ? urlFor(p.mainImage) : null,
-      content: p.description,
+      imageUrl: p.thumbnail ? urlFor(p.thumbnail) : (p.mainImage ? urlFor(p.mainImage) : null),
+      content: p.excerpt || p.description || "", // Use excerpt as content for preview
       isActive: true,
       videoUrl: null,
-      published: new Date(p.publishedAt),
-      createdAt: new Date(p.publishedAt)
+      published: p.publishedAt ? new Date(p.publishedAt) : new Date(),
+      createdAt: p.publishedAt ? new Date(p.publishedAt) : new Date()
     }))
     : STATIC_BLOG_ARTICLES;
 

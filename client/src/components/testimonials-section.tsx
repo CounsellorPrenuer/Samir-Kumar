@@ -9,11 +9,13 @@ import { client, urlFor } from "@/lib/sanity";
 interface SanityTestimonial {
   name: string;
   role: string;
-  quote: string;
-  image: any;
-  initial: string;
-  gradient: string;
-  isActive: boolean;
+  quote?: string; // Legacy
+  testimonial?: string; // New schema
+  image?: any; // Legacy
+  photo?: any; // New schema
+  initial?: string;
+  gradient?: string;
+  isActive?: boolean;
 }
 
 export default function TestimonialsSection() {
@@ -21,12 +23,14 @@ export default function TestimonialsSection() {
 
   // Fetch from Sanity
   // Fetch from Sanity
+  // Fetch from Sanity
+  // Fetch from Sanity
   const { data: sanityTestimonials, isLoading } = useQuery({
     queryKey: ['sanity-testimonials'],
     queryFn: async () => {
       try {
-        const data = await client.fetch<SanityTestimonial[]>(`*[_type == "testimonial" && isActive == true]`);
-        console.log("Sanity Testimonials Data:", data);
+        const data = await client.fetch<SanityTestimonial[]>(`*[_type == "successStory"]`);
+        console.log("Sanity Success Stories:", data);
         return data;
       } catch (error) {
         console.warn("Sanity fetch failed, using fallback:", error);
@@ -40,10 +44,10 @@ export default function TestimonialsSection() {
       id: idx + 1,
       name: t.name,
       role: t.role,
-      quote: t.quote,
-      initial: t.initial || (t.name ? t.name[0] : "U"),
-      gradient: t.gradient || "bg-gradient-to-r from-blue-500 to-purple-600",
-      imageUrl: t.image ? urlFor(t.image) : null,
+      quote: t.testimonial || t.quote, // Map 'testimonial' from schema to 'quote' in UI
+      initial: t.name ? t.name[0] : "U",
+      gradient: "bg-gradient-to-r from-blue-500 to-purple-600", // Default gradient
+      imageUrl: t.photo ? urlFor(t.photo) : (t.image ? urlFor(t.image) : null), // Handle both 'photo' (new) and 'image' (old/fallback)
       isActive: true
     }))
     : STATIC_TESTIMONIALS;
