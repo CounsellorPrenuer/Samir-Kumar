@@ -27,8 +27,9 @@ export default function FounderSection() {
     queryKey: ['sanity-leadership'],
     queryFn: async () => {
       try {
-        const data = await client.fetch<SanityLeadership[]>(`*[_type == "leadershipProfile"]`);
-        console.log("Sanity Leadership Data:", data);
+        const data = await client.fetch<SanityLeadership[]>(`*[_type == "leadershipProfile"] | order(name asc)`);
+        console.log("Sanity Leadership Data Raw:", data);
+        if (data.length === 0) console.warn("Sanity Leadership data is empty.");
         return data;
       } catch (error) {
         console.warn("Sanity fetch failed, using fallback:", error);
