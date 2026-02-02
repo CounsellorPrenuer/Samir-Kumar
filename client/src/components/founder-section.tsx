@@ -63,9 +63,17 @@ export default function FounderSection() {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              Leadership @ Careerskope
+              Leadership @ Careerskope (Live Check)
             </span>
           </h2>
+          {/* Debug Error Message */}
+          {!isLoading && (!sanityProfiles || sanityProfiles.length === 0) && (
+            <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4 text-left max-w-2xl mx-auto">
+              <p className="font-bold">Debug Status:</p>
+              <p>Sanity connection failed or returned no data. Using static fallback.</p>
+              <p className="text-xs mt-1">Please check Browser Console (F12) for CORS or Network errors.</p>
+            </div>
+          )}
         </div>
 
         <div className="space-y-12">
