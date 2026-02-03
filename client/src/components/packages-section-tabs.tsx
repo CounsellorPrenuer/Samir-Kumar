@@ -30,7 +30,7 @@ interface CustomizePlan {
   displayOrder: number;
 }
 
-import { client } from "@/lib/sanity";
+import { client, urlFor } from "@/lib/sanity";
 import { getPaymentButtonId } from "@/lib/static-payment-ids";
 import { useQuery } from "@tanstack/react-query";
 
@@ -45,39 +45,69 @@ interface SanityPackage {
   displayOrder?: number;
 }
 
+interface SanityCustomizePlan {
+  _id: string;
+  title: string;
+  description: string;
+  displayPrice: string; // "₹ 1,500"
+  amount?: number; // 1500
+  image?: any;
+  displayOrder?: number;
+  paymentButtonId?: string;
+}
+
+interface SiteSettings {
+  paymentQrCode?: any;
+  paymentUpiId?: string;
+}
+
 import { STATIC_PACKAGES, STATIC_CUSTOMIZE_PLANS } from "@/lib/static-data";
 
 export default function PackagesSectionTabs() {
   const [activeTab, setActiveTab] = useState("normal-plans");
   const [activeCategory, setActiveCategory] = useState("8-9-students"); // Default active category
 
-  // Map Sanity titles to server-side plan IDs if necessary
-  // This is a placeholder, replace with actual mapping if needed
-  const SERVER_PLAN_MAP: { [key: string]: string } = {
-    "Foundation Plan": "foundation-plan",
-    "Explorer Plan": "explorer-plan",
-    "Achiever Plan": "achiever-plan",
-    "Professional Plan": "professional-plan",
+  // Explicit mapping to ensure Backend Worker IDs match exactly
+  const SERVER_PLAN_MAP: Record<string, string> = {
+    "Discover": "discover",
+    "Discovery Plus": "discovery-plus",
+    "Achieve": "achieve",
+    "Achieve Plus": "achieve-plus",
+    "Ascend": "ascend",
+    "Ascend Plus": "ascend-plus",
+    "Resume Review": "resume-review",
+    "Mock Interview": "mock-interview"
   };
 
   // Fetch from Sanity at Runtime
-  const { data: sanityPackages, isLoading } = useQuery({
-    queryKey: ['sanity-packages'],
+  const { data: sanityData, isLoading } = useQuery({
+    queryKey: ['sanity-data'],
     queryFn: async () => {
       try {
-        // Filter out drafts and ensure title exists
-        const query = `*[_type == "pricing" && !(_id in path("drafts.**")) && defined(title)] | order(displayOrder asc)`;
-        const data = await client.fetch<SanityPackage[]>(query);
-        console.log("Sanity Packages Data:", data);
-        return data;
+        // Fetch Packages, Customize Plans AND Site Settings
+        const packageQuery = `*[_type == "pricing" && !(_id in path("drafts.**")) && defined(title)] | order(displayOrder asc)`;
+        const customizeQuery = `*[_type == "customizePlan" && !(_id in path("drafts.**"))] | order(displayOrder asc)`;
+        const settingsQuery = `*[_type == "siteSettings"][0]`;
+
+        const [packages, customizePlans, settings] = await Promise.all([
+          client.fetch<SanityPackage[]>(packageQuery),
+          client.fetch<SanityCustomizePlan[]>(customizeQuery),
+          client.fetch<SiteSettings>(settingsQuery)
+        ]);
+
+        console.log("Sanity Data:", { packages, customizePlans, settings });
+        return { packages, customizePlans, settings };
       } catch (error) {
         console.warn("Sanity fetch failed, using fallback:", error);
-        return [];
+        return { packages: [], customizePlans: [], settings: null };
       }
     }
   });
 
-  const customizePlans = STATIC_CUSTOMIZE_PLANS;
+  // Use Sanity data if available, else static
+  const sanityPackages = sanityData?.packages || [];
+  const fetchedCustomizePlans = sanityData?.customizePlans || [];
+  const settings = sanityData?.settings;
 
   const categories = [
     { id: "8-9-students", label: "8-9 STUDENTS" },
@@ -87,7 +117,7 @@ export default function PackagesSectionTabs() {
   ];
 
   // Use Sanity data if available and not loading, otherwise fallback to static
-  const packages = (!isLoading && sanityPackages && sanityPackages.length > 0)
+  const packages = (!isLoading && sanityPackages.length > 0)
     ? sanityPackages.map(pkg => ({
       id: SERVER_PLAN_MAP[pkg.title] || pkg.title?.toLowerCase().replace(/\s+/g, '-') || "unknown-plan",
       name: pkg.title || "Untitled Plan",
@@ -102,19 +132,37 @@ export default function PackagesSectionTabs() {
     }))
     : STATIC_PACKAGES;
 
-  // Formatting Helper
-  const formatPrice = (price: string, priceType?: string) => {
-    if (price === "0") return "View Details";
+  // Use Sanity customize plans if available, else fallback to static
+  const customizePlansToRender = (fetchedCustomizePlans.length > 0)
+    ? fetchedCustomizePlans.map(plan => ({
+      id: plan._id,
+      name: plan.title,
+      description: plan.description,
+      price: plan.amount ? plan.amount.toString() : (plan.displayPrice?.replace(/[^0-9.]/g, '') || "0"),
+      displayPrice: plan.displayPrice || "0",
+      image: plan.image ? urlFor(plan.image) : null,
+      paymentButtonId: plan.paymentButtonId || ""
+    }))
+    : STATIC_CUSTOMIZE_PLANS.map(p => ({
+      ...p,
+      displayPrice: p.price + (p.priceType === 'monthly' ? '/month' : p.priceType === 'per-interaction' ? ' per interaction' : ''),
+      image: null // Static data has no images
+    }));
 
-    const formatted = new Intl.NumberFormat("en-IN", {
+  // Formatting Helper
+  const formatPrice = (price: string) => {
+    if (price === "0" || !price) return "View Details";
+    // check if it already has currency symbol
+    if (price.includes("₹")) return price;
+
+    const num = parseFloat(price.replace(/[^0-9.]/g, ''));
+    if (isNaN(num)) return price;
+
+    return new Intl.NumberFormat("en-IN", {
       style: "currency",
       currency: "INR",
       maximumFractionDigits: 0
-    }).format(parseFloat(price));
-
-    if (priceType === "monthly") return `${formatted}/month`;
-    if (priceType === "per-interaction") return `${formatted} per interaction`;
-    return formatted;
+    }).format(num);
   };
 
   const filteredPackages = packages.filter(pkg => pkg.category === activeCategory);
@@ -134,6 +182,7 @@ export default function PackagesSectionTabs() {
   return (
     <section id="packages" className="scroll-mt-20 py-16 bg-gradient-to-br from-blue-50/50 to-purple-50/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
@@ -281,32 +330,38 @@ export default function PackagesSectionTabs() {
           <TabsContent value="customize-plan" className="mt-8">
             <div className="max-w-4xl mx-auto">
               <p className="text-center text-muted-foreground mb-8">
-                Want to customise your plan? If you want to subscribe to specific services that resolve your career challenges, you can choose one or more of the following:
+                Want to customise your Mentorship plan? If you want to subscribe to specific services that resolve your career challenges, you can choose one or more of the following:
               </p>
 
               <div className="space-y-4">
-                {customizePlans.map((plan) => (
+                {customizePlansToRender.map((plan) => (
                   <div
                     key={plan.id}
                     className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-all hover:border-blue-400"
                     data-testid={`customize-plan-${plan.id}`}
                   >
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div className="flex flex-col md:flex-row md:items-center gap-6">
+
+                      {/* Image Section */}
+                      {plan.image && (
+                        <div className="w-full md:w-48 h-32 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
+                          <img src={plan.image} alt={plan.name} className="w-full h-full object-cover" />
+                        </div>
+                      )}
+
                       <div className="flex-1">
                         <h3 className="text-lg font-bold text-gray-900 mb-2">{plan.name}</h3>
                         <p className="text-gray-600 text-sm">{plan.description}</p>
                       </div>
 
                       <div className="flex flex-col items-end gap-3 md:min-w-[200px]">
-                        <div className="text-2xl font-bold text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">
-                          {formatPrice(plan.price, plan.priceType)}
+                        <div className="text-xl font-bold text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-right">
+                          {plan.displayPrice}
                         </div>
-                        {plan.duration && (
-                          <div className="text-xs text-gray-500">{plan.duration}</div>
-                        )}
+
                         <Button
                           variant="outline"
-                          className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                          className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white w-full md:w-auto"
                           data-testid={`button-buy-plan-${plan.id}`}
                           onClick={() => onBuyClick(plan.id)}
                           disabled={processingId === plan.id || !!processingId}

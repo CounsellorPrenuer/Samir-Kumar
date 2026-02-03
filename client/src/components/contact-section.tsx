@@ -290,11 +290,11 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                   <div>
                     <div className="font-medium">Phone</div>
                     <a
-                      href="tel:+919810424972"
+                      href="tel:+918310291750"
                       className="text-muted-foreground hover:text-blue-600 hover:underline transition-colors"
                       data-testid="link-phone"
                     >
-                      +91 9810 424 972
+                      +91 8310291750
                     </a>
                   </div>
                 </div>
