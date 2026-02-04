@@ -8,6 +8,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Clock, Calendar, User, X } from "lucide-react";
 import type { BlogArticle } from "@shared/schema";
+import { PortableText } from '@portabletext/react';
 
 interface BlogDetailModalProps {
   isOpen: boolean;
@@ -67,6 +68,9 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
     return null;
   };
 
+  // Check if content is Portable Text (array) or HTML string
+  const isPortableText = Array.isArray(article.content);
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl h-[90vh] flex flex-col p-0 overflow-hidden">
@@ -114,7 +118,7 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
             )}
 
             {/* Scrollable Content */}
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
               <div className="p-6 pb-20">
                 <DialogHeader className="mb-6">
                   {/* Category Badge */}
@@ -170,8 +174,16 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
 
                   {/* Content */}
                   <div className="text-foreground leading-relaxed space-y-6">
-                    {article.content && article.content.trim() ? (
-                      <div dangerouslySetInnerHTML={{ __html: article.content }} />
+                    {article.content ? (
+                      isPortableText ? (
+                        <div className="prose prose-lg max-w-none">
+                          <PortableText value={article.content} />
+                        </div>
+                      ) : typeof article.content === 'string' && article.content.trim().startsWith('<') ? (
+                        <div dangerouslySetInnerHTML={{ __html: article.content }} />
+                      ) : (
+                        <p>{article.content}</p>
+                      )
                     ) : (
                       <div className="space-y-6">
                         <p>

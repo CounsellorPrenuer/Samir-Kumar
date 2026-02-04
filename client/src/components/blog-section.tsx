@@ -15,6 +15,7 @@ interface SanityPost {
   mainImage?: any; // Legacy
   publishedAt: string;
   slug: { current: string };
+  body?: any; // Rich text content
 }
 
 export default function BlogSection() {
@@ -35,7 +36,18 @@ export default function BlogSection() {
     queryKey: ['sanity-posts'],
     queryFn: async () => {
       try {
-        const data = await client.fetch<SanityPost[]>(`*[_type == "resource"] | order(publishedAt desc)`);
+        const data = await client.fetch<SanityPost[]>(`*[_type == "resource"] {
+          title,
+          excerpt,
+          description,
+          category,
+          readTime,
+          thumbnail,
+          mainImage,
+          publishedAt,
+          slug,
+          body
+        } | order(publishedAt desc)`);
         console.log("Sanity Resource Data:", data);
         return data;
       } catch (error) {
@@ -53,7 +65,7 @@ export default function BlogSection() {
     category: p.category || "students",
     readTime: p.readTime || "5 min read",
     imageUrl: p.thumbnail ? urlFor(p.thumbnail) : (p.mainImage ? urlFor(p.mainImage) : null),
-    content: p.excerpt || p.description || "",
+    content: p.body || null, // Pass raw Portable Text
     isActive: true,
     videoUrl: null,
     published: p.publishedAt ? new Date(p.publishedAt) : new Date(),
