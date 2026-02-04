@@ -69,7 +69,7 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
+      <DialogContent className="max-w-4xl h-[90vh] flex flex-col p-0 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-20">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
@@ -78,7 +78,7 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
           <>
             {/* Header Image */}
             {article.imageUrl ? (
-              <div className="h-64 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
+              <div className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden flex-shrink-0">
                 <img
                   src={article.imageUrl}
                   alt={article.title}
@@ -89,23 +89,23 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
                     target.nextElementSibling?.classList.remove('hidden');
                   }}
                 />
-                <div className="hidden h-64 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                  <div className="text-gray-400 text-8xl">📚</div>
+                <div className="hidden h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                  <div className="text-gray-400 text-6xl">📚</div>
                 </div>
                 <button
                   onClick={onClose}
-                  className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white transition-colors"
+                  className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white transition-colors z-10"
                   data-testid="button-close-blog-modal"
                 >
                   <X className="h-5 w-5" />
                 </button>
               </div>
             ) : (
-              <div className="h-64 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
-                <div className="text-gray-400 text-8xl">📚</div>
+              <div className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden flex-shrink-0">
+                <div className="text-gray-400 text-6xl">📚</div>
                 <button
                   onClick={onClose}
-                  className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white transition-colors"
+                  className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white transition-colors z-10"
                   data-testid="button-close-blog-modal"
                 >
                   <X className="h-5 w-5" />
@@ -113,96 +113,99 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
               </div>
             )}
 
-            <div className="p-8 pb-16">
-              <DialogHeader className="mb-6">
-                {/* Category Badge */}
-                <div className="flex items-center gap-3 mb-4">
-                  <Badge className={`px-3 py-1 border ${getCategoryColor(article.category)}`}>
-                    {article.category.charAt(0).toUpperCase() + article.category.slice(1)}
-                  </Badge>
-                </div>
-
-                {/* Title */}
-                <DialogTitle className="text-3xl font-bold text-foreground leading-tight mb-4">
-                  {article.title}
-                </DialogTitle>
-
-                {/* Meta Information */}
-                <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground border-b border-border pb-4">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4" />
-                    {formatDate(article.createdAt.toString())}
+            {/* Scrollable Content */}
+            <div className="flex-1 overflow-y-auto">
+              <div className="p-6 pb-20">
+                <DialogHeader className="mb-6">
+                  {/* Category Badge */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <Badge className={`px-3 py-1 border ${getCategoryColor(article.category)}`}>
+                      {article.category.charAt(0).toUpperCase() + article.category.slice(1)}
+                    </Badge>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4" />
-                    {article.readTime}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <User className="h-4 w-4" />
-                    Careerskope Team
-                  </div>
-                </div>
-              </DialogHeader>
 
-              {/* Description */}
-              <div className="prose prose-lg max-w-none pb-12">
-                <p className="text-xl text-muted-foreground font-medium mb-8 leading-relaxed">
-                  {article.description}
-                </p>
+                  {/* Title */}
+                  <DialogTitle className="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-4">
+                    {article.title}
+                  </DialogTitle>
 
-                {/* Video Embed */}
-                {article.videoUrl && getEmbedUrl(article.videoUrl) && (
-                  <div className="mb-8">
-                    <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-                      <iframe
-                        className="absolute top-0 left-0 w-full h-full rounded-lg"
-                        src={getEmbedUrl(article.videoUrl) || ''}
-                        title={article.title}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      />
+                  {/* Meta Information */}
+                  <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground border-b border-border pb-4">
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4" />
+                      {formatDate(article.createdAt.toString())}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-4 w-4" />
+                      {article.readTime}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <User className="h-4 w-4" />
+                      Careerskope Team
                     </div>
                   </div>
-                )}
+                </DialogHeader>
 
-                {/* Content */}
-                <div className="text-foreground leading-relaxed space-y-6 pb-8">
-                  {article.content && article.content.trim() ? (
-                    <div dangerouslySetInnerHTML={{ __html: article.content }} />
-                  ) : (
-                    <div className="space-y-6">
-                      <p>
-                        This comprehensive guide will help you navigate your career journey and make informed decisions about your professional future.
-                      </p>
+                {/* Description */}
+                <div className="prose prose-lg max-w-none">
+                  <p className="text-lg md:text-xl text-muted-foreground font-medium mb-8 leading-relaxed">
+                    {article.description}
+                  </p>
 
-                      <h3 className="text-2xl font-semibold mb-4">Key Insights</h3>
-
-                      <ul className="space-y-3 list-disc list-inside">
-                        <li>Understanding industry trends and market demands</li>
-                        <li>Developing essential skills for career advancement</li>
-                        <li>Building a strong professional network</li>
-                        <li>Creating effective career development strategies</li>
-                        <li>Balancing personal goals with professional growth</li>
-                      </ul>
-
-                      <h3 className="text-2xl font-semibold mb-4">Action Steps</h3>
-
-                      <p>
-                        Take the time to reflect on your career goals and create a concrete plan for achieving them. Remember that career development is an ongoing process that requires continuous learning and adaptation.
-                      </p>
-
-                      <blockquote className="border-l-4 border-blue-500 pl-6 italic text-lg bg-blue-50 p-4 rounded-r-lg">
-                        "Success in your career comes from understanding your strengths, staying adaptable to change, and continuously investing in your professional development."
-                      </blockquote>
-
-                      <h3 className="text-2xl font-semibold mb-4">Next Steps</h3>
-
-                      <p>
-                        Ready to take the next step in your career journey? Our expert team at Careerskope is here to provide personalized guidance and support. Contact us today to learn about our comprehensive career coaching packages.
-                      </p>
+                  {/* Video Embed */}
+                  {article.videoUrl && getEmbedUrl(article.videoUrl) && (
+                    <div className="mb-8">
+                      <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                        <iframe
+                          className="absolute top-0 left-0 w-full h-full rounded-lg"
+                          src={getEmbedUrl(article.videoUrl) || ''}
+                          title={article.title}
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
                     </div>
                   )}
+
+                  {/* Content */}
+                  <div className="text-foreground leading-relaxed space-y-6">
+                    {article.content && article.content.trim() ? (
+                      <div dangerouslySetInnerHTML={{ __html: article.content }} />
+                    ) : (
+                      <div className="space-y-6">
+                        <p>
+                          This comprehensive guide will help you navigate your career journey and make informed decisions about your professional future.
+                        </p>
+
+                        <h3 className="text-2xl font-semibold mb-4">Key Insights</h3>
+
+                        <ul className="space-y-3 list-disc list-inside">
+                          <li>Understanding industry trends and market demands</li>
+                          <li>Developing essential skills for career advancement</li>
+                          <li>Building a strong professional network</li>
+                          <li>Creating effective career development strategies</li>
+                          <li>Balancing personal goals with professional growth</li>
+                        </ul>
+
+                        <h3 className="text-2xl font-semibold mb-4">Action Steps</h3>
+
+                        <p>
+                          Take the time to reflect on your career goals and create a concrete plan for achieving them. Remember that career development is an ongoing process that requires continuous learning and adaptation.
+                        </p>
+
+                        <blockquote className="border-l-4 border-blue-500 pl-6 italic text-lg bg-blue-50 p-4 rounded-r-lg">
+                          "Success in your career comes from understanding your strengths, staying adaptable to change, and continuously investing in your professional development."
+                        </blockquote>
+
+                        <h3 className="text-2xl font-semibold mb-4">Next Steps</h3>
+
+                        <p>
+                          Ready to take the next step in your career journey? Our expert team at Careerskope is here to provide personalized guidance and support. Contact us today to learn about our comprehensive career coaching packages.
+                        </p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
