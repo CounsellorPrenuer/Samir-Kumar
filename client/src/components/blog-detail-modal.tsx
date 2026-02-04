@@ -113,7 +113,7 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
               </div>
             )}
 
-            <div className="p-8">
+            <div className="p-8 pb-16">
               <DialogHeader className="mb-6">
                 {/* Category Badge */}
                 <div className="flex items-center gap-3 mb-4">
@@ -145,7 +145,7 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
               </DialogHeader>
 
               {/* Description */}
-              <div className="prose prose-lg max-w-none">
+              <div className="prose prose-lg max-w-none pb-12">
                 <p className="text-xl text-muted-foreground font-medium mb-8 leading-relaxed">
                   {article.description}
                 </p>
@@ -167,7 +167,7 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
                 )}
 
                 {/* Content */}
-                <div className="text-foreground leading-relaxed space-y-6">
+                <div className="text-foreground leading-relaxed space-y-6 pb-8">
                   {article.content && article.content.trim() ? (
                     <div dangerouslySetInnerHTML={{ __html: article.content }} />
                   ) : (
