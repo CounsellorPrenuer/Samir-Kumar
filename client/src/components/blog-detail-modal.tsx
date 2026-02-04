@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { 
+import {
   Dialog,
   DialogContent,
   DialogHeader,
@@ -49,21 +49,21 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
 
   const getEmbedUrl = (url: string) => {
     if (!url) return null;
-    
+
     // YouTube URL patterns
     const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
     const youtubeMatch = url.match(youtubeRegex);
     if (youtubeMatch && youtubeMatch[1]) {
       return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
     }
-    
+
     // Vimeo URL pattern
     const vimeoRegex = /vimeo\.com\/(?:.*\/)?(\d+)/;
     const vimeoMatch = url.match(vimeoRegex);
     if (vimeoMatch && vimeoMatch[1]) {
       return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
     }
-    
+
     return null;
   };
 
@@ -79,8 +79,8 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
             {/* Header Image */}
             {article.imageUrl ? (
               <div className="h-64 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
-                <img 
-                  src={article.imageUrl} 
+                <img
+                  src={article.imageUrl}
                   alt={article.title}
                   className="w-full h-full object-cover"
                   onError={(e) => {
@@ -175,9 +175,9 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
                       <p>
                         This comprehensive guide will help you navigate your career journey and make informed decisions about your professional future.
                       </p>
-                      
+
                       <h3 className="text-2xl font-semibold mb-4">Key Insights</h3>
-                      
+
                       <ul className="space-y-3 list-disc list-inside">
                         <li>Understanding industry trends and market demands</li>
                         <li>Developing essential skills for career advancement</li>
@@ -187,41 +187,22 @@ export default function BlogDetailModal({ isOpen, onClose, article }: BlogDetail
                       </ul>
 
                       <h3 className="text-2xl font-semibold mb-4">Action Steps</h3>
-                      
+
                       <p>
                         Take the time to reflect on your career goals and create a concrete plan for achieving them. Remember that career development is an ongoing process that requires continuous learning and adaptation.
                       </p>
-                      
+
                       <blockquote className="border-l-4 border-blue-500 pl-6 italic text-lg bg-blue-50 p-4 rounded-r-lg">
                         "Success in your career comes from understanding your strengths, staying adaptable to change, and continuously investing in your professional development."
                       </blockquote>
 
                       <h3 className="text-2xl font-semibold mb-4">Next Steps</h3>
-                      
+
                       <p>
                         Ready to take the next step in your career journey? Our expert team at Careerskope is here to provide personalized guidance and support. Contact us today to learn about our comprehensive career coaching packages.
                       </p>
                     </div>
                   )}
-                </div>
-
-                {/* Call to Action */}
-                <div className="mt-12 p-6 bg-gradient-to-r from-blue-50 to-green-50 rounded-xl border border-blue-200">
-                  <h3 className="text-xl font-semibold mb-3 text-blue-900">Ready to Advance Your Career?</h3>
-                  <p className="text-blue-800 mb-4">
-                    Get personalized career guidance from our experts. Explore our solutions and take the first step towards your dream career.
-                  </p>
-                  <button
-                    onClick={() => {
-                      onClose();
-                      // Scroll to services section
-                      document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-green-700 transition-all duration-300"
-                    data-testid="button-explore-packages"
-                  >
-                    Explore Our Solutions
-                  </button>
                 </div>
               </div>
             </div>
