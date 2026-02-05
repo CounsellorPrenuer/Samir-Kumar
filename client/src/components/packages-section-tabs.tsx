@@ -63,9 +63,13 @@ interface SiteSettings {
 
 import { STATIC_PACKAGES, STATIC_CUSTOMIZE_PLANS } from "@/lib/static-data";
 
+import PaymentRegistrationModal, { RegistrationFormData } from "./payment-registration-modal";
+
 export default function PackagesSectionTabs() {
   const [activeTab, setActiveTab] = useState("normal-plans");
   const [activeCategory, setActiveCategory] = useState("8-9-students"); // Default active category
+  const [registrationModalOpen, setRegistrationModalOpen] = useState(false);
+  const [selectedPlanForRegistration, setSelectedPlanForRegistration] = useState<{ id: string, name: string, price: string } | null>(null);
 
   // Explicit mapping to ensure Backend Worker IDs match exactly
   const SERVER_PLAN_MAP: Record<string, string> = {
@@ -117,7 +121,7 @@ export default function PackagesSectionTabs() {
   ];
 
   // Use Sanity data if available and not loading, otherwise fallback to static
-  const packages = (!isLoading && sanityPackages.length > 0)
+  const packages: Package[] = (!isLoading && sanityPackages.length > 0)
     ? sanityPackages.map(pkg => ({
       id: SERVER_PLAN_MAP[pkg.title] || pkg.title?.toLowerCase().replace(/\s+/g, '-') || "unknown-plan",
       name: pkg.title || "Untitled Plan",
@@ -130,7 +134,7 @@ export default function PackagesSectionTabs() {
       isActive: true,
       paymentButtonId: getPaymentButtonId(pkg.title) || ""
     }))
-    : STATIC_PACKAGES;
+    : STATIC_PACKAGES as unknown as Package[];
 
   // Use Sanity customize plans if available, else fallback to static
   const customizePlansToRender = (fetchedCustomizePlans.length > 0)
@@ -143,11 +147,7 @@ export default function PackagesSectionTabs() {
       image: plan.image ? urlFor(plan.image) : null,
       paymentButtonId: plan.paymentButtonId || ""
     }))
-    : STATIC_CUSTOMIZE_PLANS.map(p => ({
-      ...p,
-      displayPrice: p.price + (p.priceType === 'monthly' ? '/month' : p.priceType === 'per-interaction' ? ' per interaction' : ''),
-      image: null // Static data has no images
-    }));
+    : [];
 
   // Formatting Helper
   const formatPrice = (price: string) => {
@@ -170,12 +170,35 @@ export default function PackagesSectionTabs() {
   // State for tracking which package is being purchased
   const [processingId, setProcessingId] = useState<string | null>(null);
 
-  const onBuyClick = async (pkgId: string) => {
+  const onBuyClick = async (pkgId: string, isCustomizePlan: boolean = false, planDetails?: { name: string, price: string }) => {
+    if (isCustomizePlan && planDetails) {
+      setSelectedPlanForRegistration({
+        id: pkgId,
+        name: planDetails.name,
+        price: planDetails.price
+      });
+      setRegistrationModalOpen(true);
+      return;
+    }
+
+    // Normal plan direct buy flow
     setProcessingId(pkgId);
     try {
       await handlePayment(pkgId);
     } finally {
       setProcessingId(null);
+    }
+  };
+
+  const handleRegistrationSuccess = async (planId: string, leadData: RegistrationFormData) => {
+    setRegistrationModalOpen(false);
+    setProcessingId(planId);
+    try {
+      // Proceed to payment
+      await handlePayment(planId);
+    } finally {
+      setProcessingId(null);
+      setSelectedPlanForRegistration(null);
     }
   };
 
@@ -363,7 +386,7 @@ export default function PackagesSectionTabs() {
                           variant="outline"
                           className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white w-full md:w-auto"
                           data-testid={`button-buy-plan-${plan.id}`}
-                          onClick={() => onBuyClick(plan.id)}
+                          onClick={() => onBuyClick(plan.id, true, { name: plan.name, price: plan.displayPrice })}
                           disabled={processingId === plan.id || !!processingId}
                         >
                           {processingId === plan.id ? "Processing..." : "Buy Now"}
@@ -376,6 +399,15 @@ export default function PackagesSectionTabs() {
             </div>
           </TabsContent>
         </Tabs>
+
+        <PaymentRegistrationModal
+          isOpen={registrationModalOpen}
+          onClose={() => setRegistrationModalOpen(false)}
+          planId={selectedPlanForRegistration?.id || null}
+          planName={selectedPlanForRegistration?.name || ""}
+          amount={selectedPlanForRegistration?.price || ""}
+          onSuccess={handleRegistrationSuccess}
+        />
       </div>
     </section>
   );

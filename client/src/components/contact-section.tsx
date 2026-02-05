@@ -67,7 +67,7 @@ export default function ContactSection() {
       });
 
       // Create mailto link with prefilled values
-      const receiverEmail = "samir.kumar@gnosiscs.com";
+      const receiverEmail = "claryntia@gmail.com";
       const subject = `New Contact Form Submission from ${data.name}`;
       const categoryLabels: Record<string, string> = {
         student: "School Student",
@@ -85,10 +85,10 @@ Category: ${categoryLabels[data.category] || data.category}
 ${data.message ? `\nMessage:\n${data.message}` : ''}
       `.trim();
 
-      const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(receiverEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const mailtoLink = `mailto:${receiverEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-      // Open Gmail in new tab
-      window.open(mailtoLink, '_blank');
+      // Open default mail client
+      window.location.href = mailtoLink;
 
       form.reset();
     },
@@ -306,11 +306,11 @@ ${data.message ? `\nMessage:\n${data.message}` : ''}
                   <div>
                     <div className="font-medium">Email</div>
                     <a
-                      href="mailto:samir.kumar@gnosiscs.com"
+                      href="mailto:claryntia@gmail.com"
                       className="text-muted-foreground hover:text-green-600 hover:underline transition-colors"
                       data-testid="link-email"
                     >
-                      samir.kumar@gnosiscs.com
+                      claryntia@gmail.com
                     </a>
                   </div>
                 </div>

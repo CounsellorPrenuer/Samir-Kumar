@@ -50,7 +50,7 @@ export default function TestimonialsSection() {
       imageUrl: t.photo ? urlFor(t.photo) : (t.image ? urlFor(t.image) : null), // Handle both 'photo' (new) and 'image' (old/fallback)
       isActive: true
     }))
-    : STATIC_TESTIMONIALS;
+    : [];
 
   // Enhanced auto-scroll with controls
   const {

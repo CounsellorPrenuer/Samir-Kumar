@@ -252,24 +252,74 @@ export const STATIC_PACKAGES = [
 
 export const STATIC_CUSTOMIZE_PLANS = [
     {
-        id: "resume-review",
-        name: "Resume Review",
-        description: "Expert review of your resume with actionable feedback.",
-        price: "1999",
+        id: "career-report",
+        name: "Career Report",
+        description: "Get a detailed report of your psychometric assessment for a scientific analysis of your interests. Find out where your interests lie and which future paths you can potentially consider.",
+        price: "1500",
         priceType: "one-time",
-        duration: "1 Session",
+        duration: "Report",
         isActive: true,
         displayOrder: 1
     },
     {
-        id: "mock-interview",
-        name: "Mock Interview",
-        description: "Practice interview with detailed feedback to improve your performance.",
-        price: "2499",
-        priceType: "per-session",
-        duration: "60 mins",
+        id: "career-report-counselling",
+        name: "Career Report + Career Counselling",
+        description: "Connect with India's top career coaches to analyse your psychometric report and shortlist the top three career paths you're most likely to enjoy and excel at.",
+        price: "3000",
+        priceType: "one-time",
+        duration: "Session",
         isActive: true,
         displayOrder: 2
+    },
+    {
+        id: "knowledge-gateway",
+        name: "Knowledge Gateway + Career Helpline Access",
+        description: "Unlock holistic information on your career paths and get direct access to Mentoria's experts, who will resolve your career-related queries through our dedicated Career Helpline. Validate your career decisions from now until you land a job you love.",
+        price: "100",
+        priceType: "monthly",
+        duration: "Monthly",
+        isActive: true,
+        displayOrder: 3
+    },
+    {
+        id: "one-to-one-expert",
+        name: "One-to-One Session with a Career Expert",
+        description: "Resolve your career queries and glimpse into your future world through a one-on-one session with an expert from your chosen field.",
+        price: "3500",
+        priceType: "per-interaction",
+        duration: "1 Hour",
+        isActive: true,
+        displayOrder: 4
+    },
+    {
+        id: "college-admission-planning",
+        name: "College Admission Planning",
+        description: "Get unbiased recommendations and details on your future college options in India and abroad, organised in one resourceful planner.",
+        price: "3000",
+        priceType: "one-time",
+        duration: "Planner",
+        isActive: true,
+        displayOrder: 5
+    },
+    {
+        id: "exam-stress-management",
+        name: "Exam Stress Management",
+        description: "Get expert guidance on tackling exam stress, planning your study schedule, revision tips and more from India's top educators. Increase your chances of acing exams with a calm and clear mind.",
+        price: "1000",
+        priceType: "one-time",
+        duration: "1 Hour",
+        isActive: true,
+        displayOrder: 6
+    },
+    {
+        id: "cap-100",
+        name: "College Admissions Planner - 100 (CAP-100)",
+        description: "Get an expert-curated list of colleges based on verified cut-offs. CAP-100 ranks the top 100 colleges into four tiers to help you plan smarter: Indian Ivy League, Target, Smart Backup, and Safe Bet colleges. You can then shortlist colleges based on where you stand!",
+        price: "199",
+        priceType: "one-time",
+        duration: "List",
+        isActive: true,
+        displayOrder: 7
     }
 ];
 
