@@ -171,22 +171,14 @@ export default function PackagesSectionTabs() {
   const [processingId, setProcessingId] = useState<string | null>(null);
 
   const onBuyClick = async (pkgId: string, isCustomizePlan: boolean = false, planDetails?: { name: string, price: string }) => {
-    if (isCustomizePlan && planDetails) {
+    // Always open registration modal for lead capture
+    if (planDetails) {
       setSelectedPlanForRegistration({
         id: pkgId,
         name: planDetails.name,
         price: planDetails.price
       });
       setRegistrationModalOpen(true);
-      return;
-    }
-
-    // Normal plan direct buy flow
-    setProcessingId(pkgId);
-    try {
-      await handlePayment(pkgId);
-    } finally {
-      setProcessingId(null);
     }
   };
 
