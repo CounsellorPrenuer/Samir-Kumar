@@ -97,7 +97,7 @@ export default function PaymentRegistrationModal({
             <DialogContent className="sm:max-w-[600px] bg-white p-0 overflow-hidden gap-0">
                 <DialogHeader className="bg-[#000080] text-white p-6 text-center">
                     <DialogTitle className="text-2xl font-normal uppercase tracking-widest">
-                        GET STARTED!
+                        REGISTER
                     </DialogTitle>
                 </DialogHeader>
 
