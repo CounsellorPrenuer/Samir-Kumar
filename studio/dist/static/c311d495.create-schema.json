@@ -39,7 +39,7 @@
         "type": "slug"
       },
       {
-        "initialValue": "2026-02-05T14:23:01.060Z",
+        "initialValue": "2026-02-05T14:47:55.306Z",
         "name": "publishedAt",
         "type": "datetime",
         "title": "Published at"

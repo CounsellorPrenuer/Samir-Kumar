@@ -384,7 +384,7 @@ export default function PackagesSectionTabs() {
                           variant="outline"
                           className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white w-full md:w-auto"
                           data-testid={`button-buy-plan-${plan.id}`}
-                          onClick={() => onBuyClick(plan.id, true, { name: plan.name, price: plan.displayPrice })}
+                          onClick={() => onBuyClick(plan.id, true, { name: plan.name, price: plan.price })}
                           disabled={processingId === plan.id || !!processingId}
                         >
                           {processingId === plan.id ? "Processing..." : "Buy Now"}
