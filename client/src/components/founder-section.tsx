@@ -13,14 +13,7 @@ interface SanityLeadership {
 }
 
 export default function FounderSection() {
-  const [expandedProfiles, setExpandedProfiles] = useState<Record<string, boolean>>({});
 
-  const toggleExpand = (id: string) => {
-    setExpandedProfiles(prev => ({
-      ...prev,
-      [id]: !prev[id]
-    }));
-  };
 
   // Fetch from Sanity
   const { data: sanityProfiles, isLoading } = useQuery({
@@ -82,7 +75,7 @@ export default function FounderSection() {
             </div>
           ) : (
             profiles.map((profile) => {
-              const isExpanded = expandedProfiles[profile.id];
+
               // Truncate logic: First 300 chars or first paragraph split
               const bioText = profile.bio || "";
               const truncatedBio = bioText.length > 300 ? bioText.slice(0, 300) + "..." : bioText;
@@ -117,17 +110,9 @@ export default function FounderSection() {
                       </div>
 
                       <div className="text-muted-foreground leading-relaxed text-sm text-justify whitespace-pre-line">
-                        {isExpanded ? bioText : truncatedBio}
-                        {bioText.length > 300 && (
-                          <button
-                            onClick={() => toggleExpand(profile.id)}
-                            className="text-blue-600 hover:text-blue-700 font-semibold mt-4 inline-block ml-2"
-                          >
-                            {isExpanded ? "Show less" : "read more"}
-                          </button>
-                        )}
+                        {bioText}
 
-                        {profile.isStatic && isExpanded && (
+                        {profile.isStatic && (
                           <p className="mt-4">Email: samir.kumar@gnosiscs.com</p>
                         )}
                       </div>
