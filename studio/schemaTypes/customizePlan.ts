@@ -16,6 +16,12 @@ export default {
             rows: 3
         },
         {
+            name: 'displayOrder',
+            title: 'Display Order',
+            type: 'number',
+            initialValue: 0
+        },
+        {
             name: 'displayPrice',
             title: 'Display Price',
             type: 'string',
