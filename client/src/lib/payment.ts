@@ -22,7 +22,7 @@ const loadRazorpayScript = (): Promise<boolean> => {
     });
 };
 
-export const handlePayment = async (planId: string, couponCode?: string) => {
+export const handlePayment = async (planId: string, couponCode?: string, customAmount?: number) => {
     const isLoaded = await loadRazorpayScript();
     if (!isLoaded) {
         toast({
@@ -40,7 +40,7 @@ export const handlePayment = async (planId: string, couponCode?: string) => {
         const response = await fetch(`${baseUrl}/create-order`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ planId, couponCode }),
+            body: JSON.stringify({ planId, couponCode, customAmount }),
         });
 
         const data = await response.json();

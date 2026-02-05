@@ -94,7 +94,8 @@ app.post('/submit-lead', async (c) => {
 // --- Payment: Create Order ---
 const createOrderSchema = z.object({
     planId: z.string(),
-    couponCode: z.string().optional()
+    couponCode: z.string().optional(),
+    customAmount: z.number().optional()
 })
 
 app.post('/create-order', async (c) => {
@@ -111,12 +112,22 @@ app.post('/create-order', async (c) => {
             return c.json({ success: false, message: "Invalid input" }, 400)
         }
 
-        const { planId, couponCode } = result.data
+        const { planId, couponCode, customAmount } = result.data
 
         // 2. Validate Plan & Calculate Price
-        const basePrice = PRICING_CONFIG[planId]
+        // If customAmount is provided, use it (Dynamic Pricing for Customize Plans)
+        // Otherwise, look up in PRICING_CONFIG (Static Pricing for standard packages)
+        let basePrice = customAmount;
+
         if (basePrice === undefined) {
-            return c.json({ success: false, message: "Invalid Plan ID" }, 400)
+            basePrice = PRICING_CONFIG[planId]
+        }
+
+        if (basePrice === undefined) {
+            console.warn(`Plan ID ${planId} not found in config and no custom amount provided.`)
+            // Fallback for safety or error? 
+            // Letting it fail if neither exists.
+            if (!basePrice) return c.json({ success: false, message: "Invalid Plan ID or Missing Price" }, 400)
         }
 
         // TODO: Coupon Logic would go here (validate coupon, apply discount)

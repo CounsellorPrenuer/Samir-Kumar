@@ -35,17 +35,6 @@ export default {
                 hotspot: true
             }
         },
-        {
-            name: 'displayOrder',
-            title: 'Display Order',
-            type: 'number',
-            initialValue: 0
-        },
-        {
-            name: 'paymentButtonId',
-            title: 'Razorpay Button ID',
-            type: 'string',
-            description: 'The pl_... ID from Razorpay'
         }
     ]
 }
