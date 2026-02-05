@@ -335,7 +335,7 @@ export default function PackagesSectionTabs() {
                     <div className="mt-auto">
                       <Button
                         className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-6"
-                        onClick={() => onBuyClick(pkg.id)}
+                        onClick={() => onBuyClick(pkg.id, false, { name: pkg.name, price: pkg.price })}
                         disabled={processingId === pkg.id || !!processingId}
                       >
                         {processingId === pkg.id ? "Processing..." : "Buy Now"}
