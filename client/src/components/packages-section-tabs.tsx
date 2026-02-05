@@ -194,8 +194,14 @@ export default function PackagesSectionTabs() {
     setRegistrationModalOpen(false);
     setProcessingId(planId);
     try {
-      // Proceed to payment
-      await handlePayment(planId);
+      // Parse amount from string (e.g. "₹ 1500" -> 1500)
+      let amount = 0;
+      if (selectedPlanForRegistration?.price) {
+        amount = parseFloat(selectedPlanForRegistration.price.replace(/[^0-9.]/g, ''));
+      }
+
+      // Proceed to payment with custom amount
+      await handlePayment(planId, undefined, amount);
     } finally {
       setProcessingId(null);
       setSelectedPlanForRegistration(null);
