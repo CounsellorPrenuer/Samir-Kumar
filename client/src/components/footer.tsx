@@ -155,7 +155,7 @@ export default function Footer() {
           </div>
           <div className="text-center space-y-2">
             <p className="text-sm text-gray-400">
-              &copy; {new Date().getFullYear()} Careerskope. All rights reserved. (v3.0-STABLE)
+              &copy; {new Date().getFullYear()} Careerskope. All rights reserved. (v3.1-FRESH)
             </p>
             {/* <p className="text-sm text-gray-500">
               <button className="hover:text-white transition-colors">Privacy Policy</button>
