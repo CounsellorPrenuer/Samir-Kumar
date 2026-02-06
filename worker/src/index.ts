@@ -125,15 +125,17 @@ app.post('/create-order', async (c) => {
 
         if (basePrice === undefined) {
             console.warn(`Plan ID ${planId} not found in config and no custom amount provided.`)
-            // Fallback for safety or error? 
-            // Letting it fail if neither exists.
-            if (!basePrice) {
-                // Detailed error for debugging
-                return c.json({
-                    success: false,
-                    message: `Invalid Plan ID or Missing Price (Plan: ${planId}, CustomAmount: ${customAmount}, BasePrice: ${basePrice})`
-                }, 400)
-            }
+            return c.json({
+                success: false,
+                message: `Invalid Plan ID (Plan: ${planId} not found in config, and no CustomAmount provided)`
+            }, 400)
+        }
+
+        if (basePrice <= 0) {
+            return c.json({
+                success: false,
+                message: `Invalid Price: Amount must be greater than 0 (Received: ${basePrice})`
+            }, 400)
         }
 
         // TODO: Coupon Logic would go here (validate coupon, apply discount)
