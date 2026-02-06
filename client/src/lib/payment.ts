@@ -37,10 +37,13 @@ export const handlePayment = async (planId: string, couponCode?: string, customA
         const baseUrl = import.meta.env.VITE_API_BASE_URL || "https://samir-kumar-backend.garyphadale.workers.dev";
 
         // 1. Create Order via Backend
+        // Debug Log
+        console.log("Creating Order:", { planId, customAmount });
+
         const response = await fetch(`${baseUrl}/create-order`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ planId, couponCode, customAmount }),
+            body: JSON.stringify({ planId, couponCode, customAmount: customAmount ?? 0 }),
         });
 
         const data = await response.json();

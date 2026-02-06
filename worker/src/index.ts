@@ -49,7 +49,7 @@ const generateRazorpayAuth = (keyId: string, keySecret: string) => {
 app.get('/health', async (c) => {
     try {
         const { results } = await c.env.DB.prepare('SELECT 1').all()
-        return c.json({ status: 'ok', db: 'connected', pricing_loaded: true })
+        return c.json({ status: 'ok', db: 'connected', pricing_loaded: true, version: '2026-02-06-v2' })
     } catch (e) {
         return c.json({ status: 'ok', db: 'disconnected', error: String(e) })
     }
@@ -127,7 +127,13 @@ app.post('/create-order', async (c) => {
             console.warn(`Plan ID ${planId} not found in config and no custom amount provided.`)
             // Fallback for safety or error? 
             // Letting it fail if neither exists.
-            if (!basePrice) return c.json({ success: false, message: "Invalid Plan ID or Missing Price" }, 400)
+            if (!basePrice) {
+                // Detailed error for debugging
+                return c.json({
+                    success: false,
+                    message: `Invalid Plan ID or Missing Price (Plan: ${planId}, CustomAmount: ${customAmount}, BasePrice: ${basePrice})`
+                }, 400)
+            }
         }
 
         // TODO: Coupon Logic would go here (validate coupon, apply discount)

@@ -189,11 +189,23 @@ export default function PackagesSectionTabs() {
       // Parse amount from string (e.g. "₹ 1500" -> 1500)
       let amount = 0;
       if (selectedPlanForRegistration?.price) {
-        amount = parseFloat(selectedPlanForRegistration.price.replace(/[^0-9.]/g, ''));
+        // Safe parsing: remove all non-numeric chars except dot
+        const cleanedPrice = selectedPlanForRegistration.price.replace(/[^0-9.]/g, '');
+        amount = parseFloat(cleanedPrice);
+      }
+
+      console.log("Proceeding to payment with:", { planId, amount });
+
+      if (!amount || isNaN(amount) || amount <= 0) {
+        alert("Error: Invalid price for this plan. Please contact support.");
+        return;
       }
 
       // Proceed to payment with custom amount
       await handlePayment(planId, undefined, amount);
+    } catch (err) {
+      console.error("Registration/Payment Error:", err);
+      alert("Something went wrong. Please try again.");
     } finally {
       setProcessingId(null);
       setSelectedPlanForRegistration(null);
