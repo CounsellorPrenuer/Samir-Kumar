@@ -38,12 +38,14 @@ export const handlePayment = async (planId: string, couponCode?: string, customA
 
         // 1. Create Order via Backend
         // Debug Log
-        console.log("Creating Order:", { planId, customAmount });
+        // DEBUG: Visible Alert to confirm code is fresh
+        const payload = { planId, customAmount: customAmount ?? 0 };
+        // alert(`DEBUG: Paying for Plan ${planId} with Amount ${payload.customAmount}`);
 
         const response = await fetch(`${baseUrl}/create-order`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ planId, couponCode, customAmount: customAmount ?? 0 }),
+            body: JSON.stringify({ ...payload, couponCode }),
         });
 
         const data = await response.json();
