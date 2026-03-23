@@ -58,7 +58,7 @@ export default function PaymentRegistrationModal({
             // But based on the request "click on buy now will show me information page... and then razorypay payment",
             // we probably want to capture the lead FIRST, then payment.
 
-            const baseUrl = import.meta.env.VITE_API_BASE_URL || "https://samir-kumar-backend.garyphadale.workers.dev";
+            const baseUrl = import.meta.env.VITE_API_BASE_URL || "https://samir-kumar-backend.gauravgoodreads.workers.dev";
             const leadPayload = {
                 name: `${data.firstName} ${data.lastName}`,
                 email: data.email,

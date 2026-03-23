@@ -34,7 +34,7 @@ export const handlePayment = async (planId: string, couponCode?: string, customA
     }
 
     try {
-        const baseUrl = import.meta.env.VITE_API_BASE_URL || "https://samir-kumar-backend.garyphadale.workers.dev";
+        const baseUrl = import.meta.env.VITE_API_BASE_URL || "https://samir-kumar-backend.gauravgoodreads.workers.dev";
 
         // 1. Create Order via Backend
         // Debug Log

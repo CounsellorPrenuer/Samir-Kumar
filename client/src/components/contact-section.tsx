@@ -45,7 +45,7 @@ export default function ContactSection() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: ContactFormData) => {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || "https://samir-kumar-backend.garyphadale.workers.dev";
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || "https://samir-kumar-backend.gauravgoodreads.workers.dev";
       const response = await fetch(`${baseUrl}/submit-lead`, {
         method: "POST",
         headers: {

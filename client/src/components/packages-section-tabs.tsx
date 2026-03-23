@@ -75,10 +75,14 @@ export default function PackagesSectionTabs() {
   const SERVER_PLAN_MAP: Record<string, string> = {
     "Discover": "discover",
     "Discovery Plus": "discovery-plus",
+    "Discover plus+": "discovery-plus",
     "Achieve": "achieve",
     "Achieve Plus": "achieve-plus",
+    "Achieve Plus+": "achieve-plus",
     "Ascend": "ascend",
+    "Ascend Online": "ascend",
     "Ascend Plus": "ascend-plus",
+    "Ascend Plus+": "ascend-plus",
     "Resume Review": "resume-review",
     "Mock Interview": "mock-interview"
   };

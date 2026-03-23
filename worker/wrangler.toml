@@ -1,9 +1,10 @@
 name = "samir-kumar-backend"
 main = "src/index.ts"
 compatibility_date = "2023-12-01"
+account_id = "dedcb339ae411669d19772f5d3243f35"
 
 
 [[d1_databases]]
 binding = "DB"
 database_name = "careerskope-prod"
-database_id = "f0031454-606a-40d9-a2a6-59f42ee742a4"
+database_id = "2d8b5fa2-941d-4837-911d-089e53994a91"

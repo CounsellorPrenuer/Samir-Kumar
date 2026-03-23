@@ -30,10 +30,10 @@ const PRICING_CONFIG: Record<string, number> = {
     "achieve-plus": 10599,
 
     // Graduates / Professionals (Placeholders until confirmed)
-    "ascend": 1000,
-    "ascend-plus": 2500,
-    "pro-ascend": 1000,
-    "pro-ascend-plus": 2500,
+    "ascend": 6499,
+    "ascend-plus": 10599,
+    "pro-ascend": 6499,
+    "pro-ascend-plus": 10599,
 
     // Customize Plans
     "resume-review": 1999,
