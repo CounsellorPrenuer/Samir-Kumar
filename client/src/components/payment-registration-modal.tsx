@@ -95,8 +95,8 @@ export default function PaymentRegistrationModal({
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogContent className="sm:max-w-[600px] bg-white p-0 overflow-hidden gap-0">
-                <DialogHeader className="bg-[#000080] text-white p-6 text-center">
-                    <DialogTitle className="text-2xl font-normal uppercase tracking-widest">
+                <DialogHeader className="bg-[#000080] p-6 text-center border-b border-white/10">
+                    <DialogTitle className="text-2xl font-normal uppercase tracking-widest text-white">
                         REGISTER
                     </DialogTitle>
                 </DialogHeader>
@@ -205,7 +205,7 @@ export default function PaymentRegistrationModal({
                             <div className="flex justify-center pt-4">
                                 <Button
                                     type="submit"
-                                    className="bg-[#4154F1] hover:bg-[#3242c1] text-white px-12 py-6 text-lg font-bold rounded-full w-full sm:w-auto uppercase tracking-wide"
+                                    className="bg-[#4154F1] hover:bg-[#3242c1] text-white px-12 py-6 text-lg font-bold rounded-full w-full sm:w-auto uppercase tracking-wide border-2 border-white/20"
                                     disabled={leadMutation.isPending}
                                 >
                                     {leadMutation.isPending ? (
